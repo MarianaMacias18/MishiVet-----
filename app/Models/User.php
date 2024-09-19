@@ -17,11 +17,17 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    /*
+    protected $fillable = [ //Fileable limita campos que pueden ser asignados masivamente <- (Evita el acceso a otro te campos desde formularios) 
+        'nombre',      
+        'apellidoP',   
+        'apellidoM',  
+        'correo',      
+        'telefono',     
+        'direccion',   
     ];
+    */
+    protected $guarded = ['id', 'password', 'remember_token']; // Campos que no se pueden asignar masivamente (contrario a fileable) <-
 
     /**
      * The attributes that should be hidden for serialization.
@@ -38,7 +44,7 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
+    protected $casts = [ //Casts asegura que los atributos se conviertan en datos especificos <-
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
