@@ -25,6 +25,8 @@ return [
     'can'                  => 'El campo :attribute contiene un valor no autorizado.',
     'confirmed'            => 'La confirmación de :attribute no coincide.',
     'current_password'     => 'La contraseña es incorrecta.',
+    'alpha_spaces'         => 'El :attribute solo puede contener letras y espacios.',
+    'phone'                => 'El :attribute solo puede contener numeros, guiones y espacios.',
     'date'                 => 'El campo :attribute debe ser una fecha válida.',
     'date_equals'          => 'El campo :attribute debe ser una fecha igual a :date.',
     'date_format'          => 'El campo :attribute debe coincidir con el formato :format.',

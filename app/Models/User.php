@@ -48,4 +48,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getRouteKeyName() //Specifies the search field by url
+    {
+        return 'name'; //Search by team name in url 
+    }
 }

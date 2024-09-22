@@ -32,12 +32,13 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
-    
-        // Intentar autenticar al usuario
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        
+         // Intentar autenticar al usuario y pasar el valor de 'remember' en caso de tenerlo
+        $remember = $request->has('remember'); // Verifica si la casilla de "Recordar sesión" fue marcada
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
             // Autenticación exitosa
             return view('dashboard');
-            
         }
     
         // Redirigir de vuelta con un mensaje de error
@@ -51,8 +52,37 @@ class UserController extends Controller
         $request->session()->invalidate();      #Invalidate session
         $request->session()->regenerateToken(); #Regenerate security token
         Session::flush();                       #Release the session flow
-        return redirect()->route('users.login'); 
+        return redirect()->route('users.show'); 
     }
 // ------------------------------------------------------------------------
+    public function edit(User $user){
+            
+        return view('Users.edit',[
+            'user'=> $user,
+        ]);
+    }
+    public function update(Request $request, User $user)
+    {
+            $request->validate([
+                'name' => 'required|alpha_spaces|max:60', 
+                'apellidoP' => 'required|alpha_spaces|max:50',
+                'apellidoM' => 'required|alpha_spaces|max:50',
+                'email' => 'required|string|email|max:255|unique:users,email,' . $user->id, 
+                'password' => 'nullable|string|min:8|confirmed',
+                'telefono' => 'required|phone',
+                'direccion' => 'required|string',
+            ]);
+        
+            // Asignación masiva de los campos que no son la contraseña
+            $user->fill($request->except('password')); 
+            // Encriptar la contraseña 
+            if ($request->filled('password')) {
+                $user->password = bcrypt($request->password);
+            }
+            $user->save(); 
+            return redirect()->route('users.edit', $user->name)
+                             ->with('success', '¡Actualizaste tus datos correctamente!');
+        }
+        
 }
 

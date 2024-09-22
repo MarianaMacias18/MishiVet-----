@@ -17,17 +17,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/', function () {
-        return view('dashboard');
+        return view('mishivet');
     })->name('mishivet');
     Route::GET('/registro',[UserController::class,'create'])->name('users.create'); // Registro Usuario <-
     Route::POST('/registro',[UserController::class,'store'])->name('users.store');
     Route::GET('/login',[UserController::class,'show'])->name('users.show'); // Login Usuario <-
     Route::POST('/login',[UserController::class,'login'])->name('users.login'); 
-    Route::POST('/logout',[UserController::class,'logout'])->name('users.logout'); // Logout Usuario <-
 });
 
 
 Route::middleware(['auth'])->group(function () {
-    # Rutas protegidas
-
+    Route::POST('/logout',[UserController::class,'logout'])->name('users.logout'); // Logout Usuario <-
+    Route::resource('/dashboard/user', UserController::class)->only(['edit', 'update']) // Editar Perfil
+    ->names([
+        'edit' => 'users.edit',
+        'update' => 'users.update',
+]);
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });
