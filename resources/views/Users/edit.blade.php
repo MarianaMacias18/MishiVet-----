@@ -32,9 +32,10 @@
         @endif
 
         <h2>Editar Perfil</h2>
+        <!-- Metodo PUT para hacer un UPDATE de Usuarios -->
         <form action="{{ route('users.update', $user) }}" method="POST">
             @csrf
-            @method('PUT') <!-- Asegúrate de que estás usando el método PUT -->
+            @method('PUT') 
             
             <div class="mb-3">
                 <label for="name" class="form-label">Nombre</label>
@@ -95,16 +96,38 @@
         <p><a href="{{ route('dashboard') }}">Volver</a></p>
     </div>
 
+    <!-- Método Delete/Destroy Usuarios -->
+    <form id="delete-profile-form" action="{{ route('users.destroy', $user) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="button" class="btn btn-danger" id="delete-profile-btn">
+            Eliminar Perfil
+        </button>
+    </form>
+
+
     <!-- jQuery y Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         $(document).ready(function() {
+            // Mostrar modal de éxito si hay un mensaje de sesión
             @if (session('success'))
                 $('#successModal').modal('show');
             @endif
+    
+            // Confirmación antes de eliminar el perfil
+            $('#delete-profile-btn').on('click', function(event) {
+                event.preventDefault(); // Prevenir el comportamiento por defecto del botón
+    
+                // Mostrar cuadro de confirmación
+                if (confirm('¿Estás seguro de que deseas eliminar tu perfil? Esta acción no se puede deshacer.')) {
+                    // Si el usuario confirma, enviar el formulario
+                    $('#delete-profile-form').submit();
+                }
+            });
         });
-    </script>
+    </script>    
 </body>
 </html>

@@ -28,11 +28,13 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::POST('/logout',[UserController::class,'logout'])->name('users.logout'); // Logout Usuario <-
-    Route::resource('/dashboard/user', UserController::class)->only(['edit', 'update']) // Editar Perfil
+    Route::resource('/dashboard/user', UserController::class)->only(['edit', 'update','destroy',]) // Editar Perfil
+    ->parameters(['user' => 'usuario'])
     ->names([
         'edit' => 'users.edit',
         'update' => 'users.update',
-]);
+        'destroy'=> 'users.destroy',
+    ]);
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');

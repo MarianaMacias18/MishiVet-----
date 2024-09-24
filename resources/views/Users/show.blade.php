@@ -12,6 +12,14 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
                 <h2 class="text-center my-4">Iniciar Sesión</h2>
+
+                <!-- Mostrar mensaje de éxito al eliminar perfil -->
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                
                 <form action="{{ route('users.login') }}" method="POST">
                     @csrf
                     <div class="form-group mb-3">

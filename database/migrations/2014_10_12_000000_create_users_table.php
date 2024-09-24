@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('direccion'); #65,535 Caracteres
             $table->rememberToken();
             $table->timestamps(); 
+            $table->softDeletes();  // Añade el campo deleted_at
             #$table->timestamp('email_verified_at')->nullable();
         });
     }

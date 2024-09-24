@@ -55,14 +55,15 @@ class UserController extends Controller
         return redirect()->route('users.show'); 
     }
 // ------------------------------------------------------------------------
-    public function edit(User $user){
-            
-        return view('Users.edit',[
-            'user'=> $user,
-        ]);
-    }
-    public function update(Request $request, User $user)
-    {
+// EDIT, UPDATE and DELETE User
+        public function edit(User $user){
+                
+            return view('Users.edit',[
+                'user'=> $user,
+            ]);
+        }
+        public function update(Request $request, User $user)
+        {
             $request->validate([
                 'name' => 'required|alpha_spaces|max:60', 
                 'apellidoP' => 'required|alpha_spaces|max:50',
@@ -83,6 +84,20 @@ class UserController extends Controller
             return redirect()->route('users.edit', $user->name)
                              ->with('success', '¡Actualizaste tus datos correctamente!');
         }
-        
+        public function destroy(Request $request, User $user) 
+        {
+            $user->delete();
+            //$deletedUsers = User::onlyTrashed()->get(); // Recupera los usuarios eliminados
+            //$user = User::withTrashed()->find($id); // Restaura un usuario eliminado en "Softdeletes"
+            //$user->restore();
+            //$user->forceDelete(); // Forza un eliminado permanente
+            Auth::logout();
+            // Invalidar sesión
+            Session::flush();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            // Redirigir al login con un mensaje 
+            return redirect()->route('users.show')->with('success', 'Tú perfil en MishiVet ha sido eliminado correctamente.');
+        }   
 }
 
