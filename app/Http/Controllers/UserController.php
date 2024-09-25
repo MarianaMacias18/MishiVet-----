@@ -18,12 +18,12 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
      // Redirigir al Login
-    return redirect()->route('users.show');
+    return redirect()->route('users.loginshow');
     }
 // ------------------------------------------------------------------------
 // Metodos de Login de Usuarios 
-    public function show(){
-        return view('Users.show');
+    public function loginshow(){
+        return view('Users.loginshow');
     }
     public function login(Request $request)
     {
@@ -52,10 +52,16 @@ class UserController extends Controller
         $request->session()->invalidate();      #Invalidate session
         $request->session()->regenerateToken(); #Regenerate security token
         Session::flush();                       #Release the session flow
-        return redirect()->route('users.show'); 
+        return redirect()->route('users.loginshow'); 
     }
 // ------------------------------------------------------------------------
-// EDIT, UPDATE and DELETE User
+// SHOW, EDIT, UPDATE and DELETE User
+        public function show(User $user){
+                        
+            return view('Users.show',[
+                'user'=> $user,
+            ]);
+        }
         public function edit(User $user){
                 
             return view('Users.edit',[
@@ -97,7 +103,7 @@ class UserController extends Controller
             $request->session()->invalidate();
             $request->session()->regenerateToken();
             // Redirigir al login con un mensaje 
-            return redirect()->route('users.show')->with('success', 'Tú perfil en MishiVet ha sido eliminado correctamente.');
+            return redirect()->route('users.loginshow')->with('success', 'Tú perfil en MishiVet ha sido eliminado correctamente.');
         }   
 }
 

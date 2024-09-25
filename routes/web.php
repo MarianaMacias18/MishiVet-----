@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,21 +23,21 @@ Route::middleware(['guest'])->group(function () {
     })->name('mishivet');
     Route::GET('/registro',[UserController::class,'create'])->name('users.create'); // Registro Usuario <-
     Route::POST('/registro',[UserController::class,'store'])->name('users.store');
-    Route::GET('/login',[UserController::class,'show'])->name('users.show'); // Login Usuario <-
+    Route::GET('/login',[UserController::class,'loginshow'])->name('users.loginshow'); // Login Usuario <-
     Route::POST('/login',[UserController::class,'login'])->name('users.login'); 
 });
 
 
 Route::middleware(['auth'])->group(function () {
     Route::POST('/logout',[UserController::class,'logout'])->name('users.logout'); // Logout Usuario <-
-    Route::resource('/dashboard/user', UserController::class)->only(['edit', 'update','destroy',]) // Editar Perfil
-    ->parameters(['user' => 'usuario'])
+    Route::resource('/dashboard/user', UserController::class)->only(['show','edit', 'update','destroy',]) // Editar Perfil
     ->names([
+        'show' => 'users.show',
         'edit' => 'users.edit',
         'update' => 'users.update',
         'destroy'=> 'users.destroy',
     ]);
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::GET('/dashboard',[DashboardController::class,'index'])->name('dashboard.index');
+    Route::GET('/dashboard/nosotros',[DashboardController::class,'nosotros'])->name('dashboard.nosotros');
+
 });

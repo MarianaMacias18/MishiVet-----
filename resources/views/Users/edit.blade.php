@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Editar Perfil</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
+@extends('layout')
 
+@section('title', 'Editar Perfil')
+
+@section('content')
+    <div class="container mt-5">
         <!-- Modal de éxito -->
         @if (session('success'))
             <div class="modal fade show" id="successModal" tabindex="-1" role="dialog" style="display: block; background-color: rgba(0, 0, 0, 0.5);">
@@ -93,7 +88,7 @@
         @endif
     </div>
     <div class="mt-3 text-center">
-        <p><a href="{{ route('dashboard') }}">Volver</a></p>
+        <p><a href="{{ route('users.show', $user) }}">Volver</a></p>
     </div>
 
     <!-- Método Delete/Destroy Usuarios -->
@@ -104,7 +99,6 @@
             Eliminar Perfil
         </button>
     </form>
-
 
     <!-- jQuery y Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -129,5 +123,4 @@
             });
         });
     </script>    
-</body>
-</html>
+@endsection

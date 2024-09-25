@@ -78,7 +78,7 @@
         <button type="submit" class="btn btn-primary">Registrar</button>
     </form>
     <div class="mt-3">
-        <p>¿Tienes una cuenta? <a href="{{ route('users.show') }}">¡Inicia Sesión!</a></p>
+        <p>¿Tienes una cuenta? <a href="{{ route('users.loginshow') }}">¡Inicia Sesión!</a></p>
     </div>
 </div>
 </body>
