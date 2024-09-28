@@ -54,5 +54,23 @@ class User extends Authenticatable
     {
         return 'name'; //Search by team name in url 
     }
+    #---------------------------------------------------------------------------------
+
+    // Relación de 1:N: un Usuario tiene muchos Refugios
+    public function shelters()
+    {
+        return $this->hasMany(Shelter::class, 'id_usuario_dueño');
+    }
+  
+    public function adoptions()
+    {
+        return $this->hasMany(AdoptionUserKitten::class, 'id_usuario_adoptivo');
+    }
+    #---------------------------------------------------------------------------------
+     // Relación polimórfica
+     public function notifications()
+     {
+         return $this->morphMany(Notification::class, 'notificable');
+     }
 
 }

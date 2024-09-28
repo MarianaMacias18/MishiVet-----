@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Shelter;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,7 +22,12 @@ class DatabaseSeeder extends Seeder
         
         $this->call([ //Seeders
             UserSeeder::class,
-            
+            ShelterSeeder::class,
+            KittenSeeder::class,
+            EventSeeder::class,
+            NotificationSeeder::class,
+            ShelterEventSeeder::class,
+            //AdoptionUserKittenSeeder::class,   
         ]);
         
     }
