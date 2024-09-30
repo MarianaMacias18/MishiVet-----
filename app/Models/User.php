@@ -2,33 +2,32 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens;
+    use HasFactory;
+    use HasProfilePhoto;
+    use HasTeams;
+    use Notifiable;
+    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    /*
-    protected $fillable = [ //Fileable limita campos que pueden ser asignados masivamente <- (Evita el acceso a otro te campos desde formularios) 
-        'nombre',      
-        'apellidoP',   
-        'apellidoM',  
-        'correo',      
-        'telefono',     
-        'direccion',   
+    protected $fillable = [
+        'name', 'email', 'password',
     ];
-    */
-    protected $guarded = ['id', 'password', 'remember_token']; // Campos que no se pueden asignar masivamente (contrario a fileable) <-
 
     /**
      * The attributes that should be hidden for serialization.
@@ -38,6 +37,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
     ];
 
     /**
@@ -45,32 +46,16 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [ //Casts asegura que los atributos se conviertan en datos especificos <-
+    protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
 
-    public function getRouteKeyName() //Specifies the search field by url
-    {
-        return 'name'; //Search by team name in url 
-    }
-    #---------------------------------------------------------------------------------
-
-    // Relación de 1:N: un Usuario tiene muchos Refugios
-    public function shelters()
-    {
-        return $this->hasMany(Shelter::class, 'id_usuario_dueño');
-    }
-  
-    public function adoptions()
-    {
-        return $this->hasMany(AdoptionUserKitten::class, 'id_usuario_adoptivo');
-    }
-    #---------------------------------------------------------------------------------
-     // Relación polimórfica
-     public function notifications()
-     {
-         return $this->morphMany(Notification::class, 'notificable');
-     }
-
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'profile_photo_url',
+    ];
 }
