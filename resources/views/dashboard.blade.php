@@ -1,27 +1,34 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <title>@yield('title', 'Dashboard')</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    @extends('layout') 
+@extends('layout')  <!-- Extiende del layout base que contiene la estructura HTML -->
 
-    @section('content') <!-- Sección del contenido principal -->
-        @if(Auth::check())
-            <h2>Bienvenido a MishiVet, {{ Auth::user()->name }}</h2>
+@section('title', 'Dashboard')  <!-- Título de la página -->
+
+@section('content') <!-- Sección del contenido principal -->
+    @if(Auth::check())
+        <div class="container mt-5">
+            <h2 class="text-center">Bienvenido a MishiVet, {{ Auth::user()->name }}</h2>
+
             <div class="mt-3 text-center">
-                <p><a href="{{ route('users.show', Auth::user()->name) }}">Perfil</a></p> <!-- Asegúrate de usar Auth::user()->id -->
+                <p><a href="{{ route('users.show', Auth::user()->name) }}" class="btn btn-primary">Ver Perfil</a></p>
             </div>
-            
+
             <!-- Formulario de Logout -->
-            <form action="{{ route('users.logout') }}" method="POST" style="display: inline;">
+            <form action="{{ route('users.logout') }}" method="POST" class="text-center">
                 @csrf
                 <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
             </form>
-        @else
-            <h2>Bienvenido, Invitado</h2>
-        @endif
-    @endsection <!-- Fin de la sección -->
-</body>
-</html>
+            @if (session('first_login'))
+                <!-- Mensaje de éxito -->
+                <x-alert type="success" message="¡Has iniciado sesión con éxito!" />
+
+                @php
+                    // Eliminar el indicador de la sesión después de mostrar el mensaje
+                    session()->forget('first_login');
+                @endphp
+            @endif
+        </div>
+    @else
+        <div class="container mt-5">
+            <h2 class="text-center">Bienvenido, Invitado</h2>
+        </div>
+    @endif
+@endsection <!-- Fin de la sección -->

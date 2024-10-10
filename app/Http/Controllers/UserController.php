@@ -38,7 +38,8 @@ class UserController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
             // Autenticación exitosa
-            return view('dashboard');
+            session(['first_login' => true]);
+            return redirect()->route('dashboard.index');
         }
     
         // Redirigir de vuelta con un mensaje de error

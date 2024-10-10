@@ -11,9 +11,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">¡Mishi-éxito!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#successModal').modal('hide');">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="$('#successModal').modal('hide');"></button>
                         </div>
                         <div class="modal-body">
                             <p>{{ session('success') }}</p>
@@ -26,40 +24,52 @@
             </div>
         @endif
 
-        <h2>Perfil de Usuario</h2>
+        <h2 class="text-center mb-4 text-primary">Perfil de Usuario</h2>
 
-        <div class="mb-3">
-            <label for="name" class="form-label"><strong>Nombre:</strong></label>
-            <p>{{ $user->name }}</p>
-        </div>
+        <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Información Personal</h5>
+                        <div class="mb-2">
+                            <strong>Nombre:</strong>
+                            <p class="form-control-plaintext">{{ $user->name }}</p>
+                        </div>
+                        <div class="mb-2">
+                            <strong>Apellido Paterno:</strong>
+                            <p class="form-control-plaintext">{{ $user->apellidoP }}</p>
+                        </div>
+                        <div class="mb-2">
+                            <strong>Apellido Materno:</strong>
+                            <p class="form-control-plaintext">{{ $user->apellidoM }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="mb-3">
-            <label for="apellidoP" class="form-label"><strong>Apellido Paterno:</strong></label>
-            <p>{{ $user->apellidoP }}</p>
-        </div>
-
-        <div class="mb-3">
-            <label for="apellidoM" class="form-label"><strong>Apellido Materno:</strong></label>
-            <p>{{ $user->apellidoM }}</p>
-        </div>
-
-        <div class="mb-3">
-            <label for="email" class="form-label"><strong>Correo Electrónico:</strong></label>
-            <p>{{ $user->email }}</p>
-        </div>
-
-        <div class="mb-3">
-            <label for="telefono" class="form-label"><strong>Teléfono:</strong></label>
-            <p>{{ $user->telefono }}</p>
-        </div>
-
-        <div class="mb-3">
-            <label for="direccion" class="form-label"><strong>Dirección:</strong></label>
-            <p>{{ $user->direccion }}</p>
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Información de Contacto</h5>
+                        <div class="mb-2">
+                            <strong>Correo Electrónico:</strong>
+                            <p class="form-control-plaintext">{{ $user->email }}</p>
+                        </div>
+                        <div class="mb-2">
+                            <strong>Teléfono:</strong>
+                            <p class="form-control-plaintext">{{ $user->telefono }}</p>
+                        </div>
+                        <div class="mb-2">
+                            <strong>Dirección:</strong>
+                            <p class="form-control-plaintext">{{ $user->direccion }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="mt-3 text-center">
-            <p><a href="{{ route('users.edit', $user) }}">Editar Perfil</a></p>
+            <a href="{{ route('users.edit', $user) }}" class="btn btn-primary">Editar Perfil</a>
         </div>
     </div>
 
