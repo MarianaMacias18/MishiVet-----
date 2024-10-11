@@ -27,11 +27,24 @@
         <!-- Sección del título y la imagen -->
         <div class="mb-4 text-center">
             <h2 class="text-primary">Editar Perfil</h2> <!-- Color azul fuerte -->
-            <img src="{{ asset('img/profile_mishi.jpg') }}" alt="Icono de Gato" class="img-fluid rounded-circle" style="max-width: 210px;">
+            @if ($user->avatar)
+                @if (filter_var($user->avatar, FILTER_VALIDATE_URL))
+                    <!-- Si el avatar es una URL completa (como desde GitHub) -->
+                    <img src="{{ $user->avatar }}" alt="Avatar de GitHub" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                @else
+                    <!-- Si el avatar es una imagen subida y almacenada localmente -->
+                    <img src="{{ asset('storage/avatars/' . $user->avatar) }}" alt="Avatar de Perfil" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                @endif
+            @else
+                <!-- Mostrar un avatar por defecto si no hay avatar guardado -->
+                <img src="{{ asset('img/icono_mishi.png') }}" alt="Avatar por defecto" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+            @endif
+
+
         </div>
 
         <!-- Método PUT para hacer un UPDATE de Usuarios -->
-        <form action="{{ route('users.update', $user) }}" method="POST" class="p-4 border rounded shadow-sm bg-light position-relative">
+        <form action="{{ route('users.update', $user) }}" method="POST" class="p-4 border rounded shadow-sm bg-light position-relative" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -79,6 +92,21 @@
                 <label for="direccion" class="form-label">Dirección</label>
                 <textarea id="direccion" name="direccion" class="form-control" rows="3">{{ old('direccion', $user->direccion) }}</textarea>
             </div>
+
+            <!-- Campo para subir una nueva imagen de avatar -->
+            <div class="mb-3">
+                <label for="avatar" class="form-label">Subir o actualizar MishiAvatar</label>
+                <input type="file" id="avatar" name="avatar" class="form-control">
+                <small class="form-text text-muted">Sube una imagen en formato JPG, JPEG o PNG. Tamaño máximo: 2MB.</small>
+            </div>
+
+            <!-- Checkbox para eliminar la imagen actual -->
+            @if ($user->avatar)
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="delete_avatar" name="delete_avatar" value="1">
+                    <label for="delete_avatar" class="form-check-label">Eliminar foto de perfil o avatar actual.</label>
+                </div>
+            @endif
 
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Actualizar Perfil</button>

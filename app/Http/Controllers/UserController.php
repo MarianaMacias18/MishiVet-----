@@ -1,17 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\CustomEmailVerificationRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
 use App\Mail\VerificationEmail;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
 class UserController extends Controller
@@ -35,6 +39,7 @@ class UserController extends Controller
                 'redirect' => route('verification.verify', ['id' => $user->id, 'hash' => $user->email_verification_hash])
             ]
         );
+       
         // Enviar el correo de verificación al usuario
         Mail::to($user->email)->send(new VerificationEmail($user, $verificationUrl));
         Auth::login($user);
@@ -95,26 +100,48 @@ class UserController extends Controller
         }
         public function update(Request $request, User $user)
         {
-            $request->validate([
-                'name' => 'required|alpha_spaces|max:60', 
-                'apellidoP' => 'required|alpha_spaces|max:50',
-                'apellidoM' => 'required|alpha_spaces|max:50',
-                'email' => 'required|string|email|max:255|unique:users,email,' . $user->id, 
+            // Validar los campos del formulario
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'apellidoP' => 'required|string|max:255',
+                'apellidoM' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+                'telefono' => 'nullable|string|max:20',
+                'direccion' => 'nullable|string|max:255',
                 'password' => 'nullable|string|min:8|confirmed',
-                'telefono' => 'required|phone',
-                'direccion' => 'required|string',
+                'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+                'delete_avatar' => 'nullable|boolean',
             ]);
-        
-            // Asignación masiva de los campos que no son la contraseña
-            $user->fill($request->except('password')); 
-            // Encriptar la contraseña 
-            if ($request->filled('password')) {
-                $user->password = bcrypt($request->password);
+
+            // Actualizar el usuario con los nuevos datos
+            $user->update($validatedData);
+
+            // Maneja la eliminación del avatar o img
+            if ($request->has('delete_avatar') && $request->delete_avatar) {
+                // Elimina la imagen actual si existe
+                if ($user->avatar && !filter_var($user->avatar, FILTER_VALIDATE_URL)) {
+                    Storage::delete('public/avatars/' . $user->avatar);
+                    $user->avatar = null;  // Eliminar referencia a la imagen en la base de datos
+                }
             }
-            $user->save(); 
-            return redirect()->route('users.edit', $user->name)
-                             ->with('success', '¡Actualizaste tus datos correctamente!');
+
+            // Maneja la subida de una nueva imagen de avatar
+            if ($request->hasFile('avatar')) {
+                if ($user->avatar && !filter_var($user->avatar, FILTER_VALIDATE_URL)) {
+                    // Eliminar la imagen anterior si existe y no es una URL externa
+                    Storage::delete('public/avatars/' . $user->avatar);
+                }
+
+                // Guardar la nueva imagen
+                $avatarPath = $request->file('avatar')->store('avatars', 'public');
+                $user->avatar = basename($avatarPath); // Guardar solo el nombre del archivo
+            }
+            $user->save();
+            // Redirigir con un mensaje de éxito
+            return redirect()->route('users.edit', $user)->with('success', 'Perfil actualizado exitosamente.');
         }
+
+
         public function destroy(Request $request, User $user) 
         {
             $user->delete();
@@ -132,29 +159,31 @@ class UserController extends Controller
         }   
     // ----------------------------------------------------------------------------------
     // Confirmación de correo electronico exitosa
-        public function verify(EmailVerificationRequest $request)
+        public function verify(CustomEmailVerificationRequest $request)
         {
-            if (!auth()->check()) {
-                // Si el usuario no está autenticado
-                return redirect()->route('users.loginshow')->with('error', 'La verificación de correo ha expirado.');
+            try {
+                $user = $request->user();
+
+                if ($user->hasVerifiedEmail()) {
+                    return redirect()->route('dashboard.index')->with('error', 'Tu correo ya ha sido verificado previamente.');
+                }
+
+                $request->fulfill();
+
+                Auth::login($user);
+                session(['first_login' => true]);
+
+                return redirect()->route('dashboard.index')
+                    ->with('success', 'Tu correo ha sido verificado y has sido autenticado automáticamente.');
+
+            } catch (AuthorizationException $e) {
+                return redirect()->route('users.loginshow')->with('error', $e->getMessage());
             }
-            // Verifica el correo electrónico
-            $request->fulfill();
-            
-            // Autenticar al usuario
-            Auth::login($request->user());
-
-            // Configurar la sesión para indicar que el usuario ha iniciado sesión
-            session(['first_login' => true]);
-
-            // Redirigir a la página deseada
-            return redirect()->route('dashboard.index')
-                ->with('success', 'Tu correo ha sido verificado y has sido autenticado automáticamente.');
         }
         // Reenvio de correo electronico
         public function resendVerificationEmail()
         {
-            // Decodificar el JSON para obtener el usuario
+         
             $user = auth()->user();
 
             // Verificar si el usuario está presente
@@ -171,10 +200,10 @@ class UserController extends Controller
                     'redirect' => route('verification.verify', ['id' => $user->id, 'hash' => $user->email_verification_hash])
                 ]
             );
-
+            
             // Enviar el correo de verificación al usuario
             Mail::to($user->email)->send(new VerificationEmail($user, $verificationUrl));
-
+    
             return redirect()->route('verification.notice')
             ->with('success', '¡Correo reenviado correctamente!')
             ->with('user', $user);  

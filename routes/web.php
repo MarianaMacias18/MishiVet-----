@@ -1,12 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request; 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
-use App\Mail\VerificationEmail;
-use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\SocialiteController;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/', function () {
@@ -18,6 +16,9 @@ Route::middleware(['guest'])->group(function () {
     
     Route::get('/login', [UserController::class, 'loginshow'])->name('users.loginshow'); // Login Usuario
     Route::post('/login', [UserController::class, 'login'])->name('users.login');
+    // Socialite Laravel (Github)
+    Route::get('/auth/github', [SocialiteController::class, 'redirectToGitHub'])->name('login.github');
+    Route::get('/auth/callback', [SocialiteController::class, 'handleGitHubCallback']);
     
 });
 
@@ -48,4 +49,3 @@ Route::get('/email/verify/{id}/{hash}', [UserController::class, 'verify']) //Ver
  ->middleware(['throttle:6,1'])
  ->name('verification.send');
 //------------------------------------------------------------------------
-

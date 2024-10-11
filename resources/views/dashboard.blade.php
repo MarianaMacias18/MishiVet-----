@@ -11,11 +11,17 @@
                 <p><a href="{{ route('users.show', Auth::user()->name) }}" class="btn btn-primary">Ver Perfil</a></p>
             </div>
 
+            <!-- Mensaje de error -->
+            @if (session('error'))
+                <x-alert type="danger" message="{{ session('error') }}" />
+            @endif
+
             <!-- Formulario de Logout -->
             <form action="{{ route('users.logout') }}" method="POST" class="text-center">
                 @csrf
                 <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
             </form>
+
             @if (session('first_login'))
                 <!-- Mensaje de éxito -->
                 <x-alert type="success" message="¡Has iniciado sesión con éxito!" />

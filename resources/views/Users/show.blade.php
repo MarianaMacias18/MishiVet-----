@@ -31,6 +31,20 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Información Personal</h5>
+                        <div class="mb-2 text-center">
+                            @if ($user->avatar)
+                                @if (filter_var($user->avatar, FILTER_VALIDATE_URL))
+                                    <!-- Si el avatar es una URL completa (como desde GitHub) -->
+                                    <img src="{{ $user->avatar }}" alt="Avatar de GitHub" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                                @else
+                                    <!-- Si el avatar es una imagen subida y almacenada localmente -->
+                                    <img src="{{ asset('storage/avatars/' . $user->avatar) }}" alt="Avatar de Perfil" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                                @endif
+                            @else
+                                <!-- Mostrar un avatar por defecto si no hay avatar guardado -->
+                                <img src="{{ asset('img/icono_mishi.png') }}" alt="Avatar por defecto" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                            @endif
+                        </div>
                         <div class="mb-2">
                             <strong>Nombre:</strong>
                             <p class="form-control-plaintext">{{ $user->name }}</p>

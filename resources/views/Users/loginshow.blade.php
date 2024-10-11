@@ -32,13 +32,11 @@
                     <div class="form-group mb-3">
                         <label for="email">Correo Electrónico:</label>
                         <input type="email" id="email" name="email" class="form-control" required>
-                        <small class="form-text text-muted"></small>
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="password">Contraseña:</label>
                         <input type="password" id="password" name="password" class="form-control" minlength="1" required>
-                        <small class="form-text text-muted"></small>
                     </div>
 
                     <div class="form-group mb-3 form-check">
@@ -59,6 +57,13 @@
                     @endif
                 </form>
 
+                <!-- Botón de inicio de sesión con GitHub -->
+                <div class="mt-3 text-center">
+                    <a href="{{ route('login.github') }}" class="btn btn-dark w-100">
+                        <i class="fab fa-github"></i> Iniciar sesión con GitHub
+                    </a>
+                </div>
+
                 <div class="mt-3 text-center">
                     <p>¿No tienes una cuenta? <a href="{{ route('users.create') }}">Regístrate</a></p>
                 </div>
@@ -68,5 +73,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome para el ícono de GitHub -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </body>
 </html>
