@@ -13,6 +13,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('users:clean-inactive')->everyMinute();
+        $schedule->command('users:permanently-delete')->daily();
+        //php artisan schedule:work
+        
     }
 
     /**
@@ -21,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
-
+    
         require base_path('routes/console.php');
     }
 }
