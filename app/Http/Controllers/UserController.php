@@ -5,21 +5,45 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
+use App\Mail\VerificationEmail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 class UserController extends Controller
 {   // Metodos del Registro de Usuarios -----------------------------------
     public function create(){
       return view('Users.create');
     }
-    public function store(StoreUserRequest $request){
+    public function store(StoreUserRequest $request) //Almacenar y enviar un correo electronico 
+    {
         $user = new User($request->all());
         $user->password = Hash::make($request->password);
+        $user->email_verification_hash = sha1($user->email); 
         $user->save();
-     // Redirigir al Login
-    return redirect()->route('users.loginshow');
+        //URL de verificación con el id y el hash del email
+        $verificationUrl = URL::temporarySignedRoute(
+            'verification.verify', // Ruta de verificación
+            now()->addMinutes(60), // Tiempo de expiración
+            [
+                'id' => $user->id,
+                'hash' => $user->email_verification_hash,
+                'redirect' => route('verification.verify', ['id' => $user->id, 'hash' => $user->email_verification_hash])
+            ]
+        );
+        // Enviar el correo de verificación al usuario
+        Mail::to($user->email)->send(new VerificationEmail($user, $verificationUrl));
+        Auth::login($user);
+
+        return redirect()->route('verification.notice')
+        ->with('success', '¡Te has registrado exitosamente! Por favor, revisa tu correo electrónico para verificar tu cuenta.')
+        ->with('user', $user); 
     }
+
 // ------------------------------------------------------------------------
 // Metodos de Login de Usuarios 
     public function loginshow(){
@@ -106,5 +130,55 @@ class UserController extends Controller
             // Redirigir al login con un mensaje 
             return redirect()->route('users.loginshow')->with('success', 'Tú perfil en MishiVet ha sido eliminado correctamente.');
         }   
+    // ----------------------------------------------------------------------------------
+    // Confirmación de correo electronico exitosa
+        public function verify(EmailVerificationRequest $request)
+        {
+            if (!auth()->check()) {
+                // Si el usuario no está autenticado
+                return redirect()->route('users.loginshow')->with('error', 'La verificación de correo ha expirado.');
+            }
+            // Verifica el correo electrónico
+            $request->fulfill();
+            
+            // Autenticar al usuario
+            Auth::login($request->user());
+
+            // Configurar la sesión para indicar que el usuario ha iniciado sesión
+            session(['first_login' => true]);
+
+            // Redirigir a la página deseada
+            return redirect()->route('dashboard.index')
+                ->with('success', 'Tu correo ha sido verificado y has sido autenticado automáticamente.');
+        }
+        // Reenvio de correo electronico
+        public function resendVerificationEmail()
+        {
+            // Decodificar el JSON para obtener el usuario
+            $user = auth()->user();
+
+            // Verificar si el usuario está presente
+            if (!$user) {
+                return back()->with('error', 'No se encontró al usuario. Por favor, intenta registrarte nuevamente.');
+            }
+            // Generar la URL de verificación con el id y el hash del email
+            $verificationUrl = URL::temporarySignedRoute(
+                'verification.verify', // Ruta de verificación
+                now()->addMinutes(60), // Tiempo de expiración
+                [
+                    'id' => $user->id,
+                    'hash' => $user->email_verification_hash,
+                    'redirect' => route('verification.verify', ['id' => $user->id, 'hash' => $user->email_verification_hash])
+                ]
+            );
+
+            // Enviar el correo de verificación al usuario
+            Mail::to($user->email)->send(new VerificationEmail($user, $verificationUrl));
+
+            return redirect()->route('verification.notice')
+            ->with('success', '¡Correo reenviado correctamente!')
+            ->with('user', $user);  
+        }
+
 }
 

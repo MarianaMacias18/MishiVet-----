@@ -11,5 +11,5 @@
             var alert = new bootstrap.Alert(alertElement);
             alert.close();
         }
-    }, 2000); // 2000 ms = 2 segundos
+    }, 2500); // 2000 ms = 2 segundos
 </script>

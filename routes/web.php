@@ -1,43 +1,51 @@
 <?php
 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request; 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Mail\VerificationEmail;
+use Illuminate\Support\Facades\Mail;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/', function () {
         return view('mishivet');
     })->name('mishivet');
-    Route::GET('/registro',[UserController::class,'create'])->name('users.create'); // Registro Usuario <-
-    Route::POST('/registro',[UserController::class,'store'])->name('users.store');
-    Route::GET('/login',[UserController::class,'loginshow'])->name('users.loginshow'); // Login Usuario <-
-    Route::POST('/login',[UserController::class,'login'])->name('users.login'); 
+
+    Route::get('/registro', [UserController::class, 'create'])->name('users.create'); // Registro Usuario
+    Route::post('/registro', [UserController::class, 'store'])->name('users.store');
+    
+    Route::get('/login', [UserController::class, 'loginshow'])->name('users.loginshow'); // Login Usuario
+    Route::post('/login', [UserController::class, 'login'])->name('users.login');
+    
 });
 
-
-Route::middleware(['auth'])->group(function () {
-    Route::POST('/logout',[UserController::class,'logout'])->name('users.logout'); // Logout Usuario <-
-    Route::resource('/dashboard/user', UserController::class)->only(['show','edit', 'update','destroy',]) // Editar Perfil
-    ->names([
+Route::middleware(['auth','verified'])->group(function () {
+    Route::post('/logout', [UserController::class, 'logout'])->name('users.logout'); // Logout Usuario
+    
+    Route::resource('/dashboard/user', UserController::class)->only(['show', 'edit', 'update', 'destroy'])->names([
         'show' => 'users.show',
         'edit' => 'users.edit',
         'update' => 'users.update',
-        'destroy'=> 'users.destroy',
+        'destroy' => 'users.destroy',
     ]);
-    Route::GET('/dashboard',[DashboardController::class,'index'])->name('dashboard.index');
-    Route::GET('/dashboard/nosotros',[DashboardController::class,'nosotros'])->name('dashboard.nosotros');
-
+    
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard/nosotros', [DashboardController::class, 'nosotros'])->name('dashboard.nosotros');
 });
+
+// Verificación de correo <-
+//------------------------------------------------------------------------
+Route::get('/email/verify', function () { //Vista 
+    return view('Users.verification'); 
+})->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', [UserController::class, 'verify']) //Verificacion
+ ->middleware(['signed'])->name('verification.verify');
+
+ Route::post('/email/resend', [UserController::class, 'resendVerificationEmail']) //Reenvio
+ ->middleware(['throttle:6,1'])
+ ->name('verification.send');
+//------------------------------------------------------------------------
+
