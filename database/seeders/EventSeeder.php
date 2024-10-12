@@ -17,12 +17,14 @@ class EventSeeder extends Seeder
             'nombre' => 'Jornada de Adopción de Kittens',
             'fecha' => now()->addDays(30), // Una fecha futura
             'descripcion' => 'Evento especial para promover la adopción de gatos y su cuidado.',
+            'id_usuario_dueño' => 1,
         ]);
 
         Event::create([
             'nombre' => 'Campaña de Vacunación',
             'fecha' => now()->addDays(60), // Asigna otra fecha futura
             'descripcion' => 'Campaña de vacunación gratuita para gatitos.',
+            'id_usuario_dueño' => 2,
         ]);
         Event::factory(10)->create();
     }

@@ -15,6 +15,7 @@ class ShelterEventSeeder extends Seeder
      */
     public function run(): void
     {
+        /*
         $shelter1 = Shelter::inRandomOrder()->first(); // Obtener un refugio aleatorio de la BD
         $shelter2 = Shelter::inRandomOrder()->first(); 
 
@@ -36,5 +37,7 @@ class ShelterEventSeeder extends Seeder
             'ubicacion' => 'Centro de Eventos Local',
             'participantes' => 30,
         ]);
+        */
+        SheltersEvents::factory(20)->create();
     }
 }

@@ -22,11 +22,11 @@ class DatabaseSeeder extends Seeder
         
         $this->call([ //Seeders
             UserSeeder::class,
-            ShelterSeeder::class,
-            KittenSeeder::class,
-            EventSeeder::class,
-            NotificationSeeder::class,
+            //ShelterSeeder::class,
+            //EventSeeder::class,
             ShelterEventSeeder::class,
+            KittenSeeder::class,
+            NotificationSeeder::class,
             //AdoptionUserKittenSeeder::class,   
         ]);
         

@@ -20,6 +20,7 @@ class EventFactory extends Factory
             'nombre' => $this->faker->sentence(3), // Genera un nombre de evento aleatorio
             'fecha' => $this->faker->dateTimeBetween('now', '+6 months'), // Genera una fecha aleatoria en los próximos 6 meses
             'descripcion' => $this->faker->paragraph, 
+            'id_usuario_dueño' => $this->faker->numberBetween(1, 2), // Rango según el número de usuarios
         ];
     }
 }
