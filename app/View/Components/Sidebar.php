@@ -22,26 +22,38 @@ class Sidebar extends Component
             'dashboard.index',
             'users.show',
             'users.edit',
+            'dashboard.nosotros',
         ];
 
         $GuardianRoutes = [
-            'dashboard.nosotros',
+            'shelters.index',
+            'shelters.create',
+            'shelters.edit',
+            'shelters.show',
+            'events.index',
+            'events.create',
+            'events.edit',
+            'events.show',
+            'kittens.index',
+            'kittens.create',
+            'kittens.edit',
+            'kittens.show',
         ];
     
         if (in_array($route, $UserRoutes)) {
             $this->sidebarOptions = [
                 ['label' => 'Adopciones', 'route' => 'dashboard.index', 'icon' => 'bx bxs-donate-heart'],
-                ['label' => 'Ser Guardian', 'route' => 'dashboard.index', 'icon' => 'bx bxs-home-heart'],
+                ['label' => 'Ser Guardian', 'route' => 'shelters.index', 'icon' => 'bx bxs-home-heart'],
                 ['label' => 'Notificaciones', 'route' => 'dashboard.index', 'icon' => 'bx bx-notification'],
                 ['label' => 'Perfil', 'route' => 'users.show', 'params' => [$this->userName], 'icon' => 'bx bx-user'],
                 ['label' => 'Nosotros', 'route' => 'dashboard.nosotros', 'icon' => 'bx bx-building-house'],
             ];
         }  elseif (in_array($route, $GuardianRoutes)) {
             $this->sidebarOptions = [
-                ['label' => 'Refugios', 'route' => 'dashboard.nosotros', 'icon' => 'bx bx-book-heart'],
-                ['label' => 'Mishis', 'route' => 'dashboard.nosotros', 'icon' => 'bx bxs-cat'],
-                ['label' => 'Eventos', 'route' => 'dashboard.nosotros', 'icon' => 'bx bx-calendar'],
-                ['label' => 'Notificaciones', 'route' => 'dashboard.nosotros', 'icon' => 'bx bx-info-circle'],
+                ['label' => 'Refugios', 'route' => 'shelters.index', 'icon' => 'bx bx-book-heart'],
+                ['label' => 'Mishis', 'route' => 'shelters.index', 'icon' => 'bx bxs-cat'],
+                ['label' => 'Eventos', 'route' => 'events.index', 'icon' => 'bx bx-calendar'],
+                ['label' => 'Notificaciones', 'route' => 'shelters.index', 'icon' => 'bx bx-info-circle'],
                 ['label' => 'Volver a adopciones', 'route' => 'dashboard.index', 'icon' => 'bx bxs-caret-left-square'],
             ];
         }

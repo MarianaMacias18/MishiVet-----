@@ -3,63 +3,110 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Shelter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $userId = Auth::id(); // Obtener el ID del usuario autenticado
+        $events = Event::with('shelters')
+                    ->where('id_usuario_dueño', $userId) // Filtrar eventos por el ID del usuario
+                    ->get(); // Obtener eventos con refugios asociados
+
+        return view('events.index', compact('events'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        // Verificar si el usuario tiene permiso para crear un evento
+        $this->authorize('create', Event::class);
+
+        $shelters = Shelter::all(); // Obtener todos los refugios
+        return view('events.create', compact('shelters'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        // Validar los campos
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255', 
+            'fecha' => 'required|date|after:today', 
+            'descripcion' => 'required|string', 
+            'shelters' => 'required|array', 
+            'shelters.*' => 'exists:shelters,id', 
+            'ubicacion' => 'required|string|max:255', 
+            'participantes' => 'required|integer|min:1',
+        ]);
+
+        // Crea el evento con el id_usuario_dueño del usuario autenticado
+        $event = Event::create(array_merge($validatedData, [
+            'id_usuario_dueño' => Auth::id(), // Asigna el ID del usuario autenticado
+        ])); 
+
+        // Asocia refugios al evento
+        $event->shelters()->attach($request->shelters, [
+            'ubicacion' => $request->ubicacion,
+            'participantes' => $request->participantes,
+        ]);
+
+        return redirect()->route('events.index')->with('success', 'Evento creado con éxito');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Event $event)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Event $event)
     {
-        //
+        // Verificar si el usuario tiene permiso para editar el evento
+        $this->authorize('update', $event);
+
+        $shelters = Shelter::all();
+        return view('events.edit', compact('event', 'shelters'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Event $event)
     {
-        //
+        // Verificar si el usuario tiene permiso para actualizar el evento
+        $this->authorize('update', $event);
+
+        // Validar los campos
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255', 
+            'fecha' => 'required|date|after:today', 
+            'descripcion' => 'required|string', 
+            'shelters' => 'required|array', 
+            'shelters.*' => 'exists:shelters,id', 
+            'ubicacion' => 'required|string|max:255', 
+            'participantes' => 'required|integer|min:1', 
+        ]);
+
+        // Actualizar el evento
+        $event->update($validatedData);
+
+        // Sincronizar refugios seleccionados
+        $event->shelters()->sync($request->shelters, [
+            'ubicacion' => $request->ubicacion,
+            'participantes' => $request->participantes,
+        ]);
+
+        return redirect()->route('events.edit',$event)->with('success', '¡Evento actualizado con éxito!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function show(Event $event)
+    {
+        // Verificar si el usuario tiene permiso para ver el evento
+        $this->authorize('view', $event);
+
+        return view('events.show', compact('event'));
+    }
+
     public function destroy(Event $event)
     {
-        //
+        // Verificar si el usuario tiene permiso para eliminar el evento
+        $this->authorize('delete', $event);
+
+        $event->delete();
+        return redirect()->route('events.index')->with('success', 'Evento eliminado con éxito');
     }
 }

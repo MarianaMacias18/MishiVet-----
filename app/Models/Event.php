@@ -15,11 +15,20 @@ class Event extends Model
     {
         return 'nombre'; //Search by team name in url 
     }
+
+    protected $casts = [
+         'fecha' => 'datetime',
+    ];
     #----------------------------------------------------------------
      // Relación N:M con Shelters
-     public function shelters()
-     {
-         return $this->belongsToMany(Shelter::class, 'shelters_events')
-                     ->withPivot('ubicacion', 'participantes'); // Incluye los campos adicionales de la tabla pivote
-     }
+    public function shelters()
+    {
+        return $this->belongsToMany(Shelter::class, 'shelters_events', 'id_evento', 'id_refugio')
+                    ->withPivot('ubicacion', 'participantes'); // Incluye los campos adicionales de la tabla pivote
+    }
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'id_usuario_dueño'); // Cambia 'id_usuario_dueño' si el nombre es diferente
+    }
+
 }

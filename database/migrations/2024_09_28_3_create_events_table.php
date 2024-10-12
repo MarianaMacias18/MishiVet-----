@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_usuario_dueño')->constrained('users')->onDelete('cascade'); // Asegúrate de que exista la relación
             $table->string('nombre'); 
             $table->dateTime('fecha'); 
             $table->text('descripcion'); 
             $table->timestamps();
-            $table->softDeletes();  // Añade el campo deleted_at
+            $table->softDeletes();  // campo deleted_at
         });
     }
 

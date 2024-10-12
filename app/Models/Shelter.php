@@ -33,12 +33,13 @@ class Shelter extends Model
         return $this->hasMany(AdoptionUserKitten::class, 'id_refugio');
     }
     #--------------------------------------------------------------------
-     // Relación N:M con Events
-     public function events()
-     {
-         return $this->belongsToMany(Event::class, 'shelters_events')
-                     ->withPivot('ubicacion', 'participantes'); // Incluye los campos adicionales de la tabla pivote
-     }
+     // Relation N:m
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'shelters_events', 'id_refugio', 'id_evento')
+                    ->withPivot('ubicacion', 'participantes'); // Incluye los campos adicionales de la tabla pivote
+    }
+
     #---------------------------------------------------------------------
     // Relación polimórfica
     public function notifications()
