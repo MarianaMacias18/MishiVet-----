@@ -41,6 +41,19 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/dashboard/nosotros', [DashboardController::class, 'nosotros'])->name('dashboard.nosotros');
 });
 
+// nosotoros 
+Route::get('/nosotros', function () {
+    return view('nosotros');
+});
+
+// contactanos
+Route::get('/contatanos', [ContactanosController::class, 'index'])->name('contactanos.index');
+
+Route::post('/contatanos', [ContactanosController::class, 'store'])->name('contactanos.store');
+
+
+
+
 // Verificación de correo <-
 //------------------------------------------------------------------------
 Route::get('/email/verify', function () { //Vista 

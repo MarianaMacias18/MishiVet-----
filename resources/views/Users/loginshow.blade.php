@@ -6,11 +6,76 @@
     <title>Iniciar Sesión</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos para la barra de navegación */
+        .navbar {
+            background-color:  #2c2f33; /* Color de fondo de la barra */
+        }
+
+        .navbar-brand img {
+            width: 50px; /* Ajustar tamaño del logo */
+            height: 50px; /* Ajustar tamaño del logo */
+            margin-right: 10px; /* Espacio entre el logo y el texto */
+            border-radius: 50%; /* Hacer que la imagen sea circular */
+        }
+
+        .logo-text {
+            color: rgb(255, 223, 0); /* Color del texto MishiVet */
+            font-weight: bold;
+            font-size: 24px; /* Tamaño de la fuente */
+        }
+
+        .nav-link {
+            color: rgb(255, 223, 0); /* Color de texto de los enlaces */
+        }
+
+        .nav-link:hover {
+            color: white; /* Color de texto al pasar el mouse */
+        }
+
+        .gif {
+            width: 250px;
+            height: auto; /* Mantener la proporción */
+            
+           
+            position: absolute; /* Posición absoluta */
+            bottom: -20px; /* Ajustar la distancia desde el contenedor */
+            left: 130%; /* Centrar horizontalmente */
+            transform: translateX(-50%); /* Compensar el desplazamiento del ancho del GIF */
+        }
+
+        .form-container {
+            position: relative; /* Para que el GIF se posicione relativo a este contenedor */
+            padding-bottom: 50px; /* Espacio adicional para el GIF */
+        }
+    </style>
 </head>
+
 <body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url('mishivet.blade.php') }}">
+                <img src="{{ asset('img/Logo1.png') }}" alt="Logo">
+                <span class="logo-text">MishiVet</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto"> <!-- Alineación a la derecha -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('mishivet.blade.php') }}">Inicio</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-6 col-lg-4 form-container">
                 <h2 class="text-center my-4">Iniciar Sesión</h2>
 
                 <!-- Mostrar mensaje de éxito al eliminar perfil -->
@@ -30,7 +95,7 @@
                 <form action="{{ route('users.login') }}" method="POST">
                     @csrf
                     <div class="form-group mb-3">
-                        <label for="email">Correo Electrónico:</label>
+                        <label for="email">Correo Electrónicogeto:</label>
                         <input type="email" id="email" name="email" class="form-control" required>
                     </div>
 
@@ -67,10 +132,11 @@
                 <div class="mt-3 text-center">
                     <p>¿No tienes una cuenta? <a href="{{ route('users.create') }}">Regístrate</a></p>
                 </div>
+                <img src="{{ asset('img/kittyWiggle.gif') }}" alt="" class="gif"> <!-- Añadido el class="gif" aquí -->
             </div>
         </div>
     </div>
-
+    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Font Awesome para el ícono de GitHub -->
