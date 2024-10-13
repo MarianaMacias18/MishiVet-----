@@ -10,20 +10,17 @@
         .navbar {
             background-color: #2c2f33; /* Color de fondo de la barra */
         }
-
         .navbar-brand img {
             width: 50px; /* Ajustar tamaño del logo */
             height: 50px; /* Ajustar tamaño del logo */
             margin-right: 10px; /* Espacio entre el logo y el texto */
             border-radius: 50%; /* Hacer que la imagen sea circular */
         }
-
         .logo-text {
             color: rgb(255, 223, 0); /* Color del texto MishiVet */
             font-weight: bold;
             font-size: 24px; /* Tamaño de la fuente */
         }
-
         .nav-link {
             color: rgb(255, 223, 0); /* Color de texto de los enlaces */
         }
@@ -31,46 +28,37 @@
         .nav-link:hover {
             color: white; /* Color de texto al pasar el mouse */
         }
-
-        /* Centrado del formulario y estilos diferenciados */
-        .form-container {
-            background-color: white;
+        video {  /* Estilos para el video de fondo */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .form-container { /* Centrado del formulario y estilos diferenciados */
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
             padding: 40px;
-            margin: 50px auto;
+            margin: 0 auto; /* Ajuste para centrar el formulario */
             border-radius: 15px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 600px; /* Limita el tamaño del formulario */
-            position: relative; /* Para manejar los GIFs */
+            z-index: 1; /* Asegura que el formulario esté por encima del video */
         }
-        .gif-left {
-            width: 250px;
-            height: auto;
-            position: absolute;
-            bottom: -20px;
-            left: 0; /* Posicionar a la izquierda */
-            transform: translateX(0); /* No desplazar */
-        }
-
-        .gif-right {
-            width: 250px;
-            height: auto;
-            position: absolute;
-            bottom: -20px;
-            right: 0; /* Posicionar a la derecha */
-            transform: translateX(0); /* No desplazar */
-        }
-
-        .form-container {
-            position: relative; /* Para que los GIFs se posicionen relativo a este contenedor */
-            padding-bottom: 100px; /* Espacio adicional para los GIFs */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url('mishivet.blade.php') }}">
+        <a class="navbar-brand" href="{{ route('mishivet') }}">
             <img src="{{ asset('img/Logo1.png') }}" alt="Logo">
             <span class="logo-text">MishiVet</span>
         </a>
@@ -79,15 +67,16 @@
            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto"> <!-- Alineación a la derecha -->
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('mishivet.blade.php') }}">Inicio</a>
+                    <a class="nav-link" href="{{ route('mishivet') }}">Inicio</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
+<!-- Contenedor del formulario -->
 <div class="container">
     <div class="form-container">
         <h2 class="text-center">Registro de Usuario</h2>
@@ -166,13 +155,10 @@
             <p>¿Tienes una cuenta? <a href="{{ route('users.loginshow') }}">¡Inicia Sesión!</a></p>
         </div>
     </div>
-
-    <!-- Contenedor de GIFs -->
-    <div class="gif-container">
-        <img src="{{ asset('img/gift2.gif') }}" alt="" class="gif-left"> <!-- Gif a la izquierda -->
-        <img src="{{ asset('img/gift2.gif') }}" alt="" class="gif-right"> <!-- Gif a la derecha -->
-    </div>
 </div>
+
+<!-- Video de fondo -->
+<video src="{{ asset('video/pasto.mp4') }}" muted loop autoplay></video>
 
 <!-- Scripts de Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
