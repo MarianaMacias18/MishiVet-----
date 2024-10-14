@@ -26,6 +26,8 @@ class KittenFactory extends Factory
             'foto' => $this->faker->imageUrl(640, 480, 'cats'), // URL de imagen aleatoria
             'estado' => $this->faker->randomElement(['adoptado', 'apartado', 'libre']), // Estado aleatorio
             'id_refugio' => $this->faker->numberBetween(1, 5), // Rango según el número de refugios
+            'id_usuario_creador' => $this->faker->numberBetween(1, 2), // Rango según el número de usuarios
+
         ];
     }
 }

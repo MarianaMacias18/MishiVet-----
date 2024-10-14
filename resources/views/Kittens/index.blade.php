@@ -43,7 +43,7 @@
         
                 <td>
                     <a href="{{ route('kittens.show', $kitten) }}" class="btn btn-info">Ver</a>      
-                        <a href="{{ route('kittens.edit', $kitten) }}" class="btn btn-warning">Editar</a>
+                        <a href="{{ route('kittens.edit', $kitten->id) }}" class="btn btn-warning">Editar</a>
                          <form action="{{ route('kittens.destroy', $kitten->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar a {{ $kitten->nombre }}?');">
                         @csrf
                         @method('DELETE')

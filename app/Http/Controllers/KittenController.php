@@ -21,6 +21,7 @@ class KittenController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',kitten::class);
         return view('kittens.create');
     }
 
@@ -57,6 +58,7 @@ class KittenController extends Controller
      */
     public function show(Kitten $kitten)
     {
+        $this->authorize('view',$kitten);
         return view('kittens.show', compact('kitten')); 
     }
 
@@ -65,6 +67,7 @@ class KittenController extends Controller
      */
     public function edit(Kitten $kitten)
     {
+        $this->authorize('update',$kitten);
         return view('kittens.edit', compact('kitten'));
     }
 
@@ -74,6 +77,7 @@ class KittenController extends Controller
     
     public function update(Request $request, Kitten $kitten)
     {
+        $this->authorize('update',$kitten);
         $validated = $request->validate([
             'nombre' => 'required|string|max:255',
             'raza' => 'required|string|max:255',
@@ -102,6 +106,7 @@ class KittenController extends Controller
      */
     public function destroy(Kitten $kitten)
     {
+        $this->authorize('delete',$kitten);
         $kitten->delete(); // Soft delete (si tienes softDeletes en la migración)
     return redirect()->route('kittens.index')->with('success', 'Mishi eliminado exitosamente');
     }
