@@ -23,7 +23,8 @@ return new class extends Migration
             $table->enum('estado', ['adoptado', 'apartado', 'libre']); // Estado del kitten
 
             $table->foreignId('id_refugio')->constrained('shelters')->onDelete('cascade'); // Referencia a la tabla shelters
-            
+            $table->foreignId('id_usuario_creador')->constrained('users')->onDelete('cascade'); //Usuario dueño/creador 
+
             $table->timestamps();
             $table->softDeletes();  // Añade el campo deleted_at
         });
