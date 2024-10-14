@@ -100,6 +100,7 @@ class UserController extends Controller
         }
         public function update(Request $request, User $user)
         {
+            
             // Validar los campos del formulario
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
