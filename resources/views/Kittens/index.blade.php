@@ -33,18 +33,20 @@
                 <td>{{ $kitten->detalles }}</td>
                 
                 <td>
-                    @if($kitten->foto)
-                        <img src="{{ asset($kitten->foto) }}" alt="Foto de {{ $kitten->nombre }}" width="100">
-                    @else
-                        No disponible
-                    @endif
+                      @if (filter_var($kitten->foto, FILTER_VALIDATE_URL))
+                            <!-- Si el avatar es una URL completa (como desde GitHub) -->
+                            <img src="{{ $kitten->foto }}" alt="foto kitten" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                            @else
+                                <!-- Si el avatar es una imagen subida y almacenada localmente -->
+                                <img src="{{ asset('storage/kittens/' . $kitten->foto) }}" alt="kitten foto" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                        @endif
                 </td>
                 <td>{{ $kitten->estado }}</td>
         
                 <td>
                     <a href="{{ route('kittens.show', $kitten) }}" class="btn btn-info">Ver</a>      
-                        <a href="{{ route('kittens.edit', $kitten->id) }}" class="btn btn-warning">Editar</a>
-                         <form action="{{ route('kittens.destroy', $kitten->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar a {{ $kitten->nombre }}?');">
+                        <a href="{{ route('kittens.edit', $kitten) }}" class="btn btn-warning">Editar</a>
+                         <form action="{{ route('kittens.destroy', $kitten) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar a {{ $kitten->nombre }}?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Eliminar</button>

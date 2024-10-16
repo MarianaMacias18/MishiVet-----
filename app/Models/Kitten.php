@@ -21,7 +21,12 @@ class Kitten extends Model
     {
         return $this->belongsTo(Shelter::class, 'id_refugio');
     }
-    
+    // Relacion inversa: Un Kitten pertenece a un unico dueño (creador de un refugio)
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'id_usuario_creador');
+    }
+
     public function adoptions()
     {
         return $this->hasMany(AdoptionUserKitten::class, 'id_gato');

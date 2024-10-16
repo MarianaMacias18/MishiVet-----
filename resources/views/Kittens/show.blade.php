@@ -9,7 +9,7 @@
     <p>Edad: {{ $kitten->edad }}</p>
     <p>Sexo: {{ $kitten->sexo }}</p>
     <p>Color: {{ $kitten->color}}</p>
-    <p>Sexo: {{ $kitten->sexo }}</p>
+    <p>Sexo: {{ $kitten->estado }}</p>
     <p>Detalles: {{ $kitten->detalles }}</p>
     <p>Foto: 
         <td>
