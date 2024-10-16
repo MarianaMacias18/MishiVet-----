@@ -61,7 +61,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Shelter::class, 'id_usuario_dueño');
     }
-  
+    //Un usuario puede ser dueño de varios Kittens (Al ser dueño de un refugio)
+    public function kittens()
+    {
+        return $this->hasMany(Kitten::class, 'id_usuario_creador');
+    }
+
     public function adoptions()
     {
         return $this->hasMany(AdoptionUserKitten::class, 'id_usuario_adoptivo');
