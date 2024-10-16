@@ -16,8 +16,9 @@ class KittenController extends Controller
      */
     public function index()
     {
+        $kittens=auth()->user()->kittens;
         //$userId = Auth::id(); // Obtener el ID del usuario autenticado
-        $kittens = Kitten::all(); // Asegúrate de que estás obteniendo todos los gatos
+        //$kittens = Kitten::all(); // Asegúrate de que estás obteniendo todos los gatos
         return view('kittens.index', compact('kittens')); // Pasa los datos a la vista
         //$kittens = Kitten::with('kittens')
         //            ->where('id_usuario_creador', $userId); // Filtrar eventos por el ID del usuario
@@ -33,7 +34,7 @@ class KittenController extends Controller
     public function create()
     {
         $this->authorize('create',kitten::class);
-        $shelters = Shelter::all(); 
+        $shelters = auth()->user()->shelters;
         return view('kittens.create',compact('shelters'));
     }
 
@@ -104,7 +105,7 @@ class KittenController extends Controller
     public function edit(Kitten $kitten)
     {
         $this->authorize('update',$kitten);
-        $shelters = Shelter::all(); 
+        $shelters = auth()->user()->shelters;
         return view('kittens.edit', compact('kitten','shelters'));
     }
 
