@@ -15,7 +15,7 @@
         <!-- Formulario interno del componente -->
         <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" class="form-control @error('nombre') is-invalid @enderror" required value="{{ old('nombre') }}">
+            <input type="text" name="nombre" id="nombre" class="form-control @error('nombre') is-invalid @enderror" required value="{{ old('nombre') }}">
             @error('nombre')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -25,7 +25,7 @@
 
         <div class="form-group">
             <label for="direccion">Dirección</label>
-            <input type="text" name="direccion" class="form-control @error('direccion') is-invalid @enderror" required value="{{ old('direccion') }}">
+            <input type="text" name="direccion" id="direccion" class="form-control @error('direccion') is-invalid @enderror" required value="{{ old('direccion') }}">
             @error('direccion')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -35,7 +35,7 @@
 
         <div class="form-group">
             <label for="telefono">Teléfono</label>
-            <input type="text" name="telefono" class="form-control @error('telefono') is-invalid @enderror" required value="{{ old('telefono') }}">
+            <input type="text" name="telefono" id="telefono" class="form-control @error('telefono') is-invalid @enderror" required value="{{ old('telefono') }}">
             @error('telefono')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -45,7 +45,7 @@
 
         <div class="form-group">
             <label for="correo">Correo</label>
-            <input type="email" name="correo" class="form-control @error('correo') is-invalid @enderror" required value="{{ old('correo') }}">
+            <input type="email" name="correo" id="correo" class="form-control @error('correo') is-invalid @enderror" required value="{{ old('correo') }}">
             @error('correo')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -55,7 +55,7 @@
 
         <div class="form-group">
             <label for="descripcion">Descripción</label>
-            <textarea name="descripcion" class="form-control @error('descripcion') is-invalid @enderror">{{ old('descripcion') }}</textarea>
+            <textarea name="descripcion" id="descripcion" class="form-control @error('descripcion') is-invalid @enderror">{{ old('descripcion') }}</textarea>
             @error('descripcion')
                 <div class="invalid-feedback">
                     {{ $message }}

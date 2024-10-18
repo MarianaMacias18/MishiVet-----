@@ -6,7 +6,15 @@
 <div class="container mt-5">
     <h1>Mis Refugios</h1>
     <a href="{{ route('shelters.create') }}" class="btn btn-primary">Agregar Refugio</a>
+    <!-- Mensaje de error -->
+    @if (session('error'))
+        <x-alert type="danger" message="{{ session('error') }}" />
+    @endif
 
+    <!-- Mensaje de éxito -->
+    @if (session('success'))
+        <x-alert type="success" message="{{ session('success') }}" />
+    @endif
     <table class="table">
         <thead>
             <tr>

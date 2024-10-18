@@ -15,7 +15,7 @@
 
         <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" class="form-control" value="{{ old('nombre', $shelter->nombre) }}" required>
+            <input type="text" name="nombre" id="nombre" class="form-control" value="{{ old('nombre', $shelter->nombre) }}" required>
             @error('nombre')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -23,7 +23,7 @@
 
         <div class="form-group">
             <label for="direccion">Dirección</label>
-            <input type="text" name="direccion" class="form-control" value="{{ old('direccion', $shelter->direccion) }}" required>
+            <input type="text" name="direccion" id="direccion" class="form-control" value="{{ old('direccion', $shelter->direccion) }}" required>
             @error('direccion')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -31,7 +31,7 @@
 
         <div class="form-group">
             <label for="telefono">Teléfono</label>
-            <input type="text" name="telefono" class="form-control" value="{{ old('telefono', $shelter->telefono) }}" required>
+            <input type="text" name="telefono" id="telefono" class="form-control" value="{{ old('telefono', $shelter->telefono) }}" required>
             @error('telefono')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -39,7 +39,7 @@
 
         <div class="form-group">
             <label for="correo">Correo</label>
-            <input type="email" name="correo" class="form-control" value="{{ old('correo', $shelter->correo) }}" required>
+            <input type="email" name="correo" id="correo" class="form-control" value="{{ old('correo', $shelter->correo) }}" required>
             @error('correo')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -47,7 +47,7 @@
 
         <div class="form-group">
             <label for="descripcion">Descripción</label>
-            <textarea name="descripcion" class="form-control">{{ old('descripcion', $shelter->descripcion) }}</textarea>
+            <textarea name="descripcion" id="descripcion" class="form-control">{{ old('descripcion', $shelter->descripcion) }}</textarea>
             @error('descripcion')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

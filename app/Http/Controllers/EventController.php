@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Shelter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon; 
 
 class EventController extends Controller
 {
@@ -83,12 +84,18 @@ class EventController extends Controller
 
         // Actualizar el evento
         $event->update($validatedData);
-
+        
         // Sincronizar refugios seleccionados
-        $event->shelters()->sync($request->shelters, [
-            'ubicacion' => $request->ubicacion,
-            'participantes' => $request->participantes,
-        ]);
+        $syncData = [];
+        foreach ($request->shelters as $shelterId) {
+            $syncData[$shelterId] = [
+                'ubicacion' => $request->ubicacion,
+                'participantes' => $request->participantes,
+                'updated_at' => Carbon::now(), // updated_at 
+            ];
+        }
+
+        $event->shelters()->sync($syncData);
 
         return redirect()->route('events.edit',$event)->with('success', '¡Evento actualizado con éxito!');
     }
@@ -105,7 +112,8 @@ class EventController extends Controller
     {
         // Verificar si el usuario tiene permiso para eliminar el evento
         $this->authorize('delete', $event);
-
+        // Eliminar los registros relacionados en la tabla pivote
+        $event->shelters()->detach();
         $event->delete();
         return redirect()->route('events.index')->with('success', 'Evento eliminado con éxito');
     }

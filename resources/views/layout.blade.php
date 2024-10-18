@@ -6,7 +6,7 @@
     <title>@yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <script src="https://kit.fontawesome.com/887a835504.js" crossorigin="anonymous"></script>
+    
     <style>
         /* Para mantener visibles los íconos cuando se colapsa el sidebar */
         .sidebar {

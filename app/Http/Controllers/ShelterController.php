@@ -67,7 +67,15 @@ class ShelterController extends Controller
 
     public function destroy(Shelter $shelter)
     {
-        $this->authorize('delete', $shelter); // Política para autorizar la eliminación
+        // Verificar si el usuario tiene permiso para eliminar el refugio
+        $this->authorize('delete', $shelter);
+
+        // Comprobar si el refugio está asociado a eventos
+        if ($shelter->events()->exists()) {
+            return redirect()->route('shelters.index')->with('error', 'No deben haber eventos relacionados con el refugio para poder eliminarlo.');
+        }
+
+        // Eliminar el refugio
         $shelter->delete();
 
         return redirect()->route('shelters.index')->with('success', 'Refugio eliminado con éxito.');
