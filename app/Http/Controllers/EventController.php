@@ -70,7 +70,7 @@ class EventController extends Controller
     {
         // Verificar si el usuario tiene permiso para actualizar el evento
         $this->authorize('update', $event);
-
+        
         // Validar los campos
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255', 

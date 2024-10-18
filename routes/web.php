@@ -1,11 +1,14 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request; 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\KittenController;
 use App\Http\Controllers\ShelterController;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\SocialiteController;
 
 Route::middleware(['guest'])->group(function () {
@@ -36,6 +39,8 @@ Route::middleware(['auth','verified'])->group(function () {
     
     Route::resource('shelters', ShelterController::class);
     Route::resource('events', EventController::class);
+    Route::resource('kittens', KittenController::class);
+    
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/dashboard/nosotros', [DashboardController::class, 'nosotros'])->name('dashboard.nosotros');

@@ -51,7 +51,7 @@ class Sidebar extends Component
         }  elseif (in_array($route, $GuardianRoutes)) {
             $this->sidebarOptions = [
                 ['label' => 'Refugios', 'route' => 'shelters.index', 'icon' => 'bx bx-book-heart'],
-                ['label' => 'Mishis', 'route' => 'shelters.index', 'icon' => 'bx bxs-cat'],
+                ['label' => 'Mishis', 'route' => 'kittens.index', 'icon' => 'bx bxs-cat'],
                 ['label' => 'Eventos', 'route' => 'events.index', 'icon' => 'bx bx-calendar'],
                 ['label' => 'Notificaciones', 'route' => 'shelters.index', 'icon' => 'bx bx-info-circle'],
                 ['label' => 'Volver a adopciones', 'route' => 'dashboard.index', 'icon' => 'bx bxs-caret-left-square'],

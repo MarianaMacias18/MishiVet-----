@@ -23,6 +23,7 @@ class KittenSeeder extends Seeder
             'foto' => 'ruta/a/la/foto1.jpg',
             'estado' => 'libre',
             'id_refugio' => 1, 
+            'id_usuario_creador' => 1, 
         ]);
 
         Kitten::create([
@@ -35,6 +36,7 @@ class KittenSeeder extends Seeder
             'foto' => 'ruta/a/la/foto2.jpg',
             'estado' => 'adoptado',
             'id_refugio' => 1, 
+            'id_usuario_creador' => 1, 
         ]);
         Kitten::factory(10)->create();
     }
