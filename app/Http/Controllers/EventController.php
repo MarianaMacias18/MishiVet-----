@@ -26,7 +26,7 @@ class EventController extends Controller
         // Verificar si el usuario tiene permiso para crear un evento
         $this->authorize('create', Event::class);
 
-        $shelters = Shelter::all(); // Obtener todos los refugios
+        $shelters = auth()->user()->shelters; // Refugios del usuario autenticado
         return view('events.create', compact('shelters'));
     }
 
@@ -40,7 +40,7 @@ class EventController extends Controller
             'shelters' => 'required|array', 
             'shelters.*' => 'exists:shelters,id', 
             'ubicacion' => 'required|string|max:255', 
-            'participantes' => 'required|integer|min:1',
+            'participantes' => 'required|integer|min:20',
         ]);
 
         // Crea el evento con el id_usuario_dueño del usuario autenticado
@@ -63,7 +63,7 @@ class EventController extends Controller
         // Verificar si el usuario tiene permiso para editar el evento
         $this->authorize('update', $event);
 
-        $shelters = Shelter::all();
+        $shelters = auth()->user()->shelters; // Refugios del usuario autenticado
         return view('events.edit', compact('event', 'shelters'));
     }
 
@@ -80,7 +80,7 @@ class EventController extends Controller
             'shelters' => 'required|array', 
             'shelters.*' => 'exists:shelters,id', 
             'ubicacion' => 'required|string|max:255', 
-            'participantes' => 'required|integer|min:1', 
+            'participantes' => 'required|integer|min:20', 
         ]);
 
         // Actualizar el evento
