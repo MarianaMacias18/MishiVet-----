@@ -62,6 +62,16 @@
                 </div>
             @enderror
         </div>
+
+        <!-- Campo para subir una nueva imagen de avatar -->
+        <div class="mb-3">
+            <label for="foto" class="form-label">Subir foto de refugio:</label>
+            <input type="file" id="foto" name="foto" class="form-control">
+            <small class="form-text text-muted">Sube una imagen en formato JPG, JPEG o PNG. Tamaño máximo: 2MB. <br>Nota: Puedes subir una foto después.</small>
+            @error('foto')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
     </x-edit-component>
 </div>
 @endsection

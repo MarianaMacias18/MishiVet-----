@@ -6,6 +6,7 @@
 <div class="container mt-5">
     <h1>Eventos</h1>
     <a href="{{ route('events.create') }}" class="btn btn-primary mb-3">Crear Evento</a>
+
     <!-- Mensaje de error -->
     @if (session('error'))
         <x-alert type="danger" message="{{ session('error') }}" />
@@ -15,41 +16,34 @@
     @if (session('success'))
         <x-alert type="success" message="{{ session('success') }}" />
     @endif
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Fecha</th>
-                <th>Descripción</th>
-                <th>Refugios Asociados</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($events as $event)
-            <tr>
-                <td>{{ $event->id }}</td>
-                <td>{{ $event->nombre }}</td>
-                <td>{{ $event->fecha }}</td>
-                <td>{{ $event->descripcion }}</td>
-                <td>
-                    @foreach($event->shelters as $shelter)
-                        {{ $shelter->nombre }}<br>
-                    @endforeach
-                </td>
-                <td>
-                    <a href="{{ route('events.show', $event) }}" class="btn btn-info">Ver</a>
-                    <a href="{{ route('events.edit', $event) }}" class="btn btn-warning">Editar</a>
-                    <form action="{{ route('events.destroy', $event) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    
+    <div class="row">
+        @foreach ($events as $event)
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $event->nombre }}</h5>
+                        <p><strong>Fecha:</strong> {{ $event->fecha }}</p>
+                        <p><strong>Descripción:</strong> {{ $event->descripcion }}</p>
+                        <p><strong>Refugios Asociados:</strong></p>
+                        <ul>
+                            @foreach($event->shelters as $shelter)
+                                <li>{{ $shelter->nombre }}</li>
+                            @endforeach
+                        </ul>
+                        <div class="btn-group" role="group" aria-label="Acciones">
+                            <a href="{{ route('events.show', $event) }}" class="btn btn-info">Ver</a>
+                            <a href="{{ route('events.edit', $event) }}" class="btn btn-warning">Editar</a>
+                            <form action="{{ route('events.destroy', $event) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar el evento {{ $event->nombre }}?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
 </div>
 @endsection

@@ -5,6 +5,13 @@
 @section('content')
 <div class="container mt-5">
     <h1>{{ $shelter->nombre }}</h1>
+    <div class="text-center mb-3">
+        @if ($shelter->foto)
+            <img src="{{ asset('storage/shelters/' . $shelter->foto) }}" alt="{{ $shelter->nombre }}" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+        @else
+            <img src="{{ asset('img/icono_refugio.png') }}" alt="Foto por defecto" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+        @endif
+    </div>
     <p>Dirección: {{ $shelter->direccion }}</p>
     <p>Teléfono: {{ $shelter->telefono }}</p>
     <p>Correo: {{ $shelter->correo }}</p>

@@ -6,7 +6,8 @@ use App\Models\Event;
 use App\Models\Shelter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon; 
+use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 
 class EventController extends Controller
 {
@@ -33,7 +34,7 @@ class EventController extends Controller
     {
         // Validar los campos
         $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255', 
+            'nombre' => ['required','string','max:255', Rule::unique('events')->whereNull('deleted_at'),],
             'fecha' => 'required|date|after:today', 
             'descripcion' => 'required|string', 
             'shelters' => 'required|array', 
@@ -73,7 +74,7 @@ class EventController extends Controller
         
         // Validar los campos
         $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255', 
+            'nombre' => ['required','string','max:255',Rule::unique('events')->ignore($event->id)->whereNull('deleted_at'),],
             'fecha' => 'required|date|after:today', 
             'descripcion' => 'required|string', 
             'shelters' => 'required|array', 

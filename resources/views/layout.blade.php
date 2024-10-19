@@ -109,6 +109,9 @@
             opacity: 0; /* Ocultar el texto cuando el sidebar está colapsado */
             pointer-events: none; /* Evitar clics en el texto */
         }
+        .text-dark-blue {
+            color: #003879; /* Un azul más fuerte */
+        }
     </style>
 </head>
 

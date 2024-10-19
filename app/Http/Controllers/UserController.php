@@ -27,6 +27,8 @@ class UserController extends Controller
     {
         $user = new User($request->all());
         $user->password = Hash::make($request->password);
+
+        /* Verificacion de Correo por medio de Mailtrap <-
         $user->email_verification_hash = sha1($user->email); 
         $user->save();
         //URL de verificación con el id y el hash del email
@@ -47,6 +49,13 @@ class UserController extends Controller
         return redirect()->route('verification.notice')
         ->with('success', '¡Te has registrado exitosamente! Por favor, revisa tu correo electrónico para verificar tu cuenta.')
         ->with('user', $user); 
+        */
+        // Sin verificacion de correo al iniciar sesion 
+        $user->email_verified_at = now(); // Se verifica el email sin correo para tests
+        Auth::login($user);
+        $user->save();
+        return redirect()->route('users.loginshow')->with('success', '¡Te has registrado exitosamente! Inicia sesión para continuar.');
+
     }
 
 // ------------------------------------------------------------------------
