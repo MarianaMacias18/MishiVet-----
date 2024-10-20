@@ -85,6 +85,11 @@ class KittenController extends Controller
         //$kitten->shelter()->attach($request->id_refugio);
         // Crear el nuevo Kitten
         //$kitten = Kitten::create($data);
+        
+        // anadir 
+        // validaciones para que no pueda eligir mas de un refugio
+        // añadir en la show los refugio al al que pertenece el mishi
+        // viata editar mostrar o seleccionar al que pertenece el mishi.
     
         return redirect()->route('kittens.index')->with('success', 'Mishi creado exitosamente');
     
