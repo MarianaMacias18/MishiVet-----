@@ -21,12 +21,6 @@
         <img src="{{ asset('img/Logo1.png') }}" alt="Logo" class="rounded-circle">
     </div>
 
-    @if(request()->route()->getName() === 'dashboard.index') 
-        <div class="text-warning text-center mt-1 fs-5 welcome-message"> 
-            <strong>¡Welcome {{ $userName }}!</strong>
-        </div>
-    @endif
-
     <form action="{{ route('users.logout') }}" method="POST" class="mt-auto">
         @csrf
         <button class="btn btn-danger btn-sm logout-button" type="submit">

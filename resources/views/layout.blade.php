@@ -116,15 +116,17 @@
 </head>
 
 <body class="d-flex">
-
+   
     <!-- Sidebar Componente Dinámico -->
     <x-sidebar />
-
+   
     <!-- Main content -->
     <div class="flex-grow-1 main-content">
+        <!-- Barra de navegación -->
+        <x-navbar />
         @yield('content')
     </div>
-
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         let sidebar = document.querySelector(".sidebar");

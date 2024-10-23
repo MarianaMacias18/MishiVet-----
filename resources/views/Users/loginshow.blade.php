@@ -58,26 +58,9 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('mishivet') }}">
-                <img src="{{ asset('img/Logo1.png') }}" alt="Logo">
-                <span class="logo-text">MishiVet</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('mishivet') }}">Inicio</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <!-- Barra de navegación -->
+    <x-navbar />
+    <br>
     <!-- Contenedor centrado para el formulario -->
     <div class="centered">
         <div class="col-md-6 col-lg-4 form-container">
