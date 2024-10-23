@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\KittenController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ShelterController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\SocialiteController;
@@ -37,13 +38,22 @@ Route::middleware(['auth','verified'])->group(function () {
         'destroy' => 'users.destroy',
     ]);
     
-    Route::resource('shelters', ShelterController::class);
-    Route::resource('events', EventController::class);
-    Route::resource('kittens', KittenController::class);
+    Route::resource('/dashboard/admin/shelters', ShelterController::class);
+    Route::resource('/dashboard/admin/events', EventController::class);
+    Route::resource('/dashboard/admin/kittens', KittenController::class);
     
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::post('/dashboard/adoptar/{kitten}', [NotificationController::class, 'store'])->name('notifications.store'); # Notificacion de Adopcion pendiente <- (Usuario)
+    Route::delete('/dashboard/adoptar/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy'); # Notificacion de Adopcion finalizada <- (Usuario)
+    Route::post('/dashboard/adoptar/aceptar/{kitten}', [NotificationController::class, 'accept'])->name('notifications.accept'); # Notficacion aceptada adopcion <- (Dueño)
+    Route::post('/dashboard/adoptar/rechazar/{kitten}', [NotificationController::class, 'reject'])->name('notifications.reject'); # Notficacion rechazada adopcion <- (Dueño)
+
     Route::get('/dashboard/nosotros', [DashboardController::class, 'nosotros'])->name('dashboard.nosotros');
+    Route::get('/dashboard/notificaciones', [DashboardController::class, 'notificaciones'])->name('dashboard.notificaciones');
+    Route::get('/dashboard/admin/notificaciones', [DashboardController::class, 'ADMINnotificaciones'])->name('dashboard.admin.notificaciones');
+
 });
 
 // Verificación de correo <-

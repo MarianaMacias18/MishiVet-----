@@ -23,6 +23,7 @@ class Sidebar extends Component
             'users.show',
             'users.edit',
             'dashboard.nosotros',
+            'dashboard.admin.notificaciones',
         ];
 
         $GuardianRoutes = [
@@ -38,13 +39,14 @@ class Sidebar extends Component
             'kittens.create',
             'kittens.edit',
             'kittens.show',
+            'dashboard.notificaciones',
         ];
     
         if (in_array($route, $UserRoutes)) {
             $this->sidebarOptions = [
                 ['label' => 'Adopciones', 'route' => 'dashboard.index', 'icon' => 'bx bxs-donate-heart'],
                 ['label' => 'Ser Guardian', 'route' => 'shelters.index', 'icon' => 'bx bxs-home-heart'],
-                ['label' => 'Notificaciones', 'route' => 'dashboard.index', 'icon' => 'bx bx-notification'],
+                ['label' => 'Notificaciones', 'route' => 'dashboard.admin.notificaciones', 'icon' => 'bx bx-notification'],
                 ['label' => 'Perfil', 'route' => 'users.show', 'params' => [$this->userName], 'icon' => 'bx bx-user'],
                 ['label' => 'Nosotros', 'route' => 'dashboard.nosotros', 'icon' => 'bx bx-building-house'],
             ];
@@ -53,7 +55,7 @@ class Sidebar extends Component
                 ['label' => 'Refugios', 'route' => 'shelters.index', 'icon' => 'bx bx-book-heart'],
                 ['label' => 'Mishis', 'route' => 'kittens.index', 'icon' => 'bx bxs-cat'],
                 ['label' => 'Eventos', 'route' => 'events.index', 'icon' => 'bx bx-calendar'],
-                ['label' => 'Notificaciones', 'route' => 'shelters.index', 'icon' => 'bx bx-info-circle'],
+                ['label' => 'Notificaciones', 'route' => 'dashboard.notificaciones', 'icon' => 'bx bx-info-circle'],
                 ['label' => 'Volver a adopciones', 'route' => 'dashboard.index', 'icon' => 'bx bxs-caret-left-square'],
             ];
         }

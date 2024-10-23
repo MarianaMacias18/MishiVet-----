@@ -73,7 +73,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     #---------------------------------------------------------------------------------
      // Relación polimórfica
-     public function notifications()
+     public function customNotifications()
      {
          return $this->morphMany(Notification::class, 'notificable');
      }

@@ -11,6 +11,9 @@ class Notification extends Model
     use HasFactory,SoftDeletes;
 
     protected $guarded = ['id'];
+    protected $casts = [
+        'fecha' => 'datetime',
+   ];
 
      // Relación polimórfica
      public function notificable()
