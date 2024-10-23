@@ -101,12 +101,12 @@
     <div class="container">
         <div class="header">
             <div class="logo-container text-center mb-2">
-                <i class="fas fa-cat icon"></i> <!-- Ícono de gato de Font Awesome -->
+                <img src="{{ asset('img/Logo1.png') }}" alt="Logo" class="rounded-circle"> <!-- LOGO -->
             </div>
             <h1>¡Bienvenido a MishiVet!</h1>
         </div>
         <p class="greeting">¡Hola Mishi {{$user->name}}!</p>
-        <p>Gracias por unirte a nuestra comunidad dedicada a la adopción de gatos. Tu registro es un paso importante para ayudar a estos adorables felinos a encontrar un hogar amoroso.</p>
+        <p>Gracias por unirte a nuestra comunidad dedicada a la adopción de mishis. Tu registro es un paso importante para ayudar a estos adorables felinos a encontrar un hogar amoroso.</p>
         <p class="highlight">Para activar tu cuenta y acceder a todas nuestras funcionalidades, por favor confirma tu correo electrónico haciendo clic en el botón de abajo:</p>
         <div class="text-center">
             <a href="{{ $verificationUrl }}" class="btn btn-primary">

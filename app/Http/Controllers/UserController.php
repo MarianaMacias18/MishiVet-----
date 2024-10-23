@@ -28,7 +28,7 @@ class UserController extends Controller
         $user = new User($request->all());
         $user->password = Hash::make($request->password);
 
-        /* Verificacion de Correo por medio de Mailtrap <-
+        // Verificacion de Correo por medio de Mailtrap <-
         $user->email_verification_hash = sha1($user->email); 
         $user->save();
         //URL de verificación con el id y el hash del email
@@ -49,12 +49,13 @@ class UserController extends Controller
         return redirect()->route('verification.notice')
         ->with('success', '¡Te has registrado exitosamente! Por favor, revisa tu correo electrónico para verificar tu cuenta.')
         ->with('user', $user); 
-        */
+        
+
         // Sin verificacion de correo al iniciar sesion 
-        $user->email_verified_at = now(); // Se verifica el email sin correo para tests
-        Auth::login($user);
-        $user->save();
-        return redirect()->route('users.loginshow')->with('success', '¡Te has registrado exitosamente! Inicia sesión para continuar.');
+        // $user->email_verified_at = now(); // Se verifica el email sin correo para tests
+        //Auth::login($user);
+        //$user->save();
+        //return redirect()->route('users.loginshow')->with('success', '¡Te has registrado exitosamente! Inicia sesión para continuar.');
 
     }
 
@@ -175,7 +176,7 @@ class UserController extends Controller
                 $user = $request->user();
 
                 if ($user->hasVerifiedEmail()) {
-                    return redirect()->route('dashboard.index')->with('error', 'Tu correo ya ha sido verificado previamente.');
+                    return redirect()->route('dashboard.index')->with('danger', 'Tu correo ya ha sido verificado previamente.');
                 }
 
                 $request->fulfill();
@@ -198,7 +199,7 @@ class UserController extends Controller
 
             // Verificar si el usuario está presente
             if (!$user) {
-                return back()->with('error', 'No se encontró al usuario. Por favor, intenta registrarte nuevamente.');
+                return back()->with('danger', 'No se encontró al usuario. Por favor, intenta registrarte nuevamente.');
             }
             // Generar la URL de verificación con el id y el hash del email
             $verificationUrl = URL::temporarySignedRoute(
