@@ -134,8 +134,11 @@
         </form>
 
         <div class="mt-3 text-center">
-            <p>¿Tienes una cuenta? <a href="{{ route('users.loginshow') }}">¡Inicia Sesión!</a></p>
+            <p class="text-dark">¿Tienes una cuenta? 
+                <a href="{{ route('users.loginshow') }}" class="btn btn-link text-primary fw-bold">¡Inicia Sesión!</a>
+            </p>
         </div>
+        
     </div>
 </div>
 

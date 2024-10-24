@@ -55,7 +55,7 @@ class Sidebar extends Component
                 ['label' => 'Refugios', 'route' => 'shelters.index', 'icon' => 'bx bx-book-heart'],
                 ['label' => 'Mishis', 'route' => 'kittens.index', 'icon' => 'bx bxs-cat'],
                 ['label' => 'Eventos', 'route' => 'events.index', 'icon' => 'bx bx-calendar'],
-                ['label' => 'Notificaciones', 'route' => 'dashboard.notificaciones', 'icon' => 'bx bx-info-circle'],
+                ['label' => 'Notificaciones de Adopción', 'route' => 'dashboard.notificaciones', 'icon' => 'bx bx-info-circle'],
                 ['label' => 'Volver a adopciones', 'route' => 'dashboard.index', 'icon' => 'bx bxs-caret-left-square'],
             ];
         }

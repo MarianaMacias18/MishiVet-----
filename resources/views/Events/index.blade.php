@@ -25,14 +25,15 @@
             botonTexto="Cerrar" 
         />
     @else
-        <div class="row">
+        <div class="row" id="eventList">
             @foreach ($events as $event)
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4 event-card">
                     <div class="card shadow-sm h-100">
                         <div class="card-body">
                             <h5 class="card-title">{{ $event->nombre }}</h5>
-                            <p><strong>Fecha:</strong> {{ $event->fecha }}</p>
-                            <p><strong>Descripción:</strong> {{ $event->descripcion }}</p>
+                            <p class="event-date" data-fecha="{{ \Carbon\Carbon::parse($event->fecha)->format('Y-m-d H:i') }}">
+                                <strong>Fecha:</strong> {{ \Carbon\Carbon::parse($event->fecha)->format('d/m/Y') }} <strong>Hora:</strong> {{ \Carbon\Carbon::parse($event->fecha)->format('H:i') }}
+                            </p>                                                       
                             <p><strong>Refugios Asociados:</strong></p>
                             <ul>
                                 @foreach($event->shelters as $shelter)

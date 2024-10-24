@@ -9,7 +9,7 @@
             @foreach($sidebarOptions as $option)
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center {{ $option['label'] === 'Volver a adopciones' ? 'text-warning' : 'text-white' }}" href="{{ route($option['route'], $option['params'] ?? []) }}">
-                        <i class="{{ $option['icon'] }} bx-md"></i>
+                        <i class="{{ $option['icon'] }} bx-md text-info"></i>
                         <span class="ms-3">{{ $option['label'] }}</span>
                     </a>
                 </li>

@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $kittens = Kitten::whereDoesntHave('owner', function($query) {
             $query->where('id', auth()->id()); // Excluye los mishis del usuario autenticado
         })
-        ->whereIn('estado', ['pendiente', 'libre']) // Filtra solo mishis con estado "pendiente" o "libre"
+        ->whereIn('estado', ['apartado', 'libre']) // Filtra solo mishis con estado "pendiente" o "libre"
         ->get();
         
         return view('dashboard', compact('kittens'));

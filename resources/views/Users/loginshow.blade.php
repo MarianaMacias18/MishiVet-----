@@ -54,6 +54,15 @@
             align-items: center;
             min-height: 100vh;
         }
+        .highlight-link {
+            position: relative;
+            text-decoration: none; /* Elimina subrayado por defecto */
+            color: #007bff; /* Color del enlace */
+            transition: color 0.3s; /* Transición suave para el color */
+        }
+        .highlight-link:hover {
+            color: #197e30; /* Color verde al pasar el mouse */
+        }
     </style>
 </head>
 
@@ -111,8 +120,10 @@
                 </a>
             </div>
 
-            <div class="mt-3 text-center">
-                <p>¿No tienes una cuenta? <a href="{{ route('users.create') }}">Regístrate</a></p>
+            <div class="text-center mt-4">
+                <p class="text-dark">¿No tienes una cuenta? 
+                    <a href="{{ route('users.create') }}" class="highlight-link">Regístrate</a>
+                </p>
             </div>
         </div>
     </div>

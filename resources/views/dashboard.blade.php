@@ -1,8 +1,8 @@
-@extends('layout')  <!-- Extiende del layout base que contiene la estructura HTML -->
+@extends('layout')
 
-@section('title', 'Dashboard')  <!-- Título de la página -->
+@section('title', 'Dashboard')
 
-@section('content') <!-- Sección del contenido principal -->
+@section('content')
     <div class="container mt-5">
         @if(Auth::check())
             <h2 class="text-center">Bienvenido a MishiVet, {{ Auth::user()->name }}</h2>
@@ -15,7 +15,6 @@
                 <x-alert type="success" message="{{ session('success') }}" />
             @endif
 
-            <!-- Gatos disponibles para adopción (excepto los del usuario) -->
             <h3 class="mt-5">Gatos disponibles para adopción</h3>
 
             @if ($kittens->isEmpty())
@@ -74,4 +73,4 @@
             <h2 class="text-center">Bienvenido, Invitado</h2>
         @endif
     </div>
-@endsection <!-- Fin de la sección -->
+@endsection

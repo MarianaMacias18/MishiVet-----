@@ -110,6 +110,9 @@ class NotificationController extends Controller
     #---------------------------------------------------------------------------------------------------
     public function store(Kitten $kitten) # Envia una notificacion como "usuario solicitante" 
     {
+        if($kitten->estado == 'Apartado'){
+            return redirect()->back()->with('danger', 'Lo sentimos, el mishi actual se encuentra en estado apartado, inténtalo de nuevo más tarde.');
+        }
         $kitten->estado = 'Apartado';
         $kitten->save();
     
