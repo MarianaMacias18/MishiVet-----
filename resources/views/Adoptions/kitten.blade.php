@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Ver Mishi')
+@section('title', 'Ver Mishi en Adopción')
 
 @section('content')
 <div class="container mt-5">
@@ -24,7 +24,7 @@
         </div>
     @endif
 
-    <h2 class="text-center mb-4 text-primary">Perfil de {{ $kitten->nombre }}</h2>
+    <h2 class="text-center mb-4 text-primary">Detalles del mishi <span class="text-danger">{{ $kitten->nombre }}</span></h2>
 
     <div class="row mb-4">
         <div class="col-md-6 mb-3">
@@ -79,13 +79,55 @@
         </div>
     </div>
 
+    <h3 class="text-center mb-4">Detalles del Refugio Asociado</h3>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>{{ $kitten->shelter->nombre }}</h5>
+            <div class="text-center mb-3">
+                @if ($kitten->shelter->foto)
+                    <img src="{{ asset('storage/shelters/' . $kitten->shelter->foto) }}" alt="{{ $kitten->shelter->nombre }}" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                @else
+                    <img src="{{ asset('img/icono_refugio.png') }}" alt="Foto por defecto" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                @endif
+            </div>
+            <p><strong> Dirección </strong>: {{ $kitten->shelter->direccion }}</p>
+            <p><strong> Teléfono </strong>: {{ $kitten->shelter->telefono }}</p>
+            <p><strong> Correo </strong>: {{ $kitten->shelter->correo }}</p>
+            <p><strong> Descripción </strong>: {{ $kitten->shelter->descripcion }}</p>
+        </div>
+    </div>
+
+    <h3 class="text-center mb-4">Eventos Asociados</h3>
+    <div class="card mb-4">
+        <div class="card-body">
+            @if($events->isEmpty())
+                <p>No hay eventos asociados a este mishi o su refugio.</p>
+            @else
+                <ul>
+                    @foreach($events as $event)
+                        <li>
+                            <h5>{{ $event->nombre }}</h5>
+                            <p><strong>Fecha:</strong> {{ $event->fecha }}</p>
+                            <p><strong>Descripción:</strong> {{ $event->descripcion }}</p>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+        </div>
+    </div>
+
     <div class="mt-3 text-center">
-        <a href="{{ route('kittens.index') }}" class="btn btn-primary">Volver</a>
-        <a href="{{ route('kittens.edit', $kitten) }}" class="btn btn-warning">Editar</a>
-        <form action="{{ route('kittens.destroy', $kitten) }}" method="POST" style="display:inline;">
+        <a href="{{ route('dashboard.index') }}" class="btn btn-primary btn-lg me-2">Volver</a>
+        <form action="{{ route('notifications.store', $kitten) }}" method="POST" style="display: inline;">
             @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <button type="submit" class="btn btn-success btn-lg"
+                @if($kitten->estado == 'Apartado') disabled @endif>
+                @if($kitten->estado == 'Apartado')
+                    Adopción no disponible por el momento
+                @else
+                    ¡Quiero adoptar este Mishi!
+                @endif
+            </button>
         </form>
     </div>
 </div>

@@ -15,7 +15,7 @@
                 <x-alert type="success" message="{{ session('success') }}" />
             @endif
 
-            <h3 class="mt-5">Gatos disponibles para adopción</h3>
+            <h3 class="mt-5">Mishis disponibles para adopción</h3>
 
             @if ($kittens->isEmpty())
                 <x-aviso-component 
@@ -45,16 +45,10 @@
                                     <p><strong>Detalles:</strong> {{ $kitten->detalles }}</p>
                                     <p><strong>Estado:</strong> {{ $kitten->estado }}</p>
                                     
-                                    <!-- Botón para ver detalles -->
-                                    <div class="btn-group mb-2" role="group" aria-label="Acciones">
-                                        <a href="{{ route('kittens.show', $kitten) }}" class="btn btn-info">Ver</a>
+                                    <!-- Botón para ver detalles centrado -->
+                                    <div class="text-center mb-2">
+                                        <a href="{{ route('dashboard.kittens.show', $kitten) }}" class="btn btn-primary btn-lg">Detalles</a>
                                     </div>
-
-                                    <!-- Botón de adopción -->
-                                    <form action="{{ route('notifications.store', $kitten) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-primary btn-block">Adoptar</button>
-                                    </form>
                                 </div>
                             </div>
                         </div>

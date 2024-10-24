@@ -41,5 +41,14 @@ class DashboardController extends Controller
             
         return view('admin_notificaciones', compact('notificaciones'));
     }
-    
+    public function kitten(Kitten $kitten) // Mostrar Mishi en adopción de forma individual
+    {
+        // Obtener el refugio al que pertenece el mishi
+        $shelter = $kitten->shelter; 
+        // Obtener los eventos relacionados con el refugio
+        $events = $shelter ? $shelter->events : collect(); // Verifica si hay un refugio antes de acceder a los eventos
+
+        return view('Adoptions.kitten', compact('kitten', 'shelter', 'events'));
+    }
+
 }

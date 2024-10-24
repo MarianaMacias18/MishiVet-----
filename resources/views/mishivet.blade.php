@@ -20,6 +20,14 @@
         .text p i, 
         .text p:last-of-type { 
             color: #FFD700; /* Color amarillo */
+            transition: transform 0.3s ease, font-size 0.3s ease; /* Suaviza el cambio de tamaño */
+        }
+
+        /* Al pasar el mouse sobre h2 (ADOPCIÓN) y h3 (Y CUIDADO DE GATOS), disminuye el tamaño del texto */
+        .text h2:hover, 
+        .text h3:hover {
+            transform: scale(1.2); /* disminuye el tamaño */
+            font-size: 2.5em; /* disminuye el tamaño de la fuente */
         }
 
         /* Tamaño inicial del ícono de WhatsApp */
@@ -65,9 +73,9 @@
         </div>
 
         <ul class="social">
-            <li><a href="#"><img src="https://i.ibb.co/x7P24fL/facebook.png"></a></li>
-            <li><a href="#"><img src="https://i.ibb.co/Wnxq2Nq/twitter.png"></a></li>
-            <li><a href="#"><img src="https://i.ibb.co/ySwtH4B/instagram.png"></a></li>
+            <li><a href="https://www.facebook.com/"><img src="https://i.ibb.co/x7P24fL/facebook.png"></a></li>
+            <li><a href="https://x.com/"><img src="{{ asset('img/x_logo.png') }}" alt="X Icon"></a></li>
+            <li><a href="https://www.instagram.com/"><img src="https://i.ibb.co/ySwtH4B/instagram.png"></a></li>
         </ul>
     </section>
 

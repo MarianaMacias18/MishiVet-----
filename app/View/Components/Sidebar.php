@@ -24,6 +24,7 @@ class Sidebar extends Component
             'users.edit',
             'dashboard.nosotros',
             'dashboard.admin.notificaciones',
+            'dashboard.kittens.show',
         ];
 
         $GuardianRoutes = [

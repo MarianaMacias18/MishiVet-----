@@ -34,19 +34,42 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="raza">Raza</label>
-                        <input type="text" name="raza" id="raza" class="form-control" value="{{ old('raza', $kitten->raza) }}" required>
+                        <select name="raza" id="raza" class="form-control" required onchange="handleRazaChange(this)">
+                            <option value="">Selecciona una raza</option>
+                            <option value="Persa" {{ old('raza', mb_strtolower($kitten->raza)) == 'persa' ? 'selected' : '' }}>Persa</option>
+                            <option value="Siames" {{ old('raza', mb_strtolower($kitten->raza)) == 'siamés' ? 'selected' : '' }}>Siamés</option>
+                            <option value="Bengali" {{ old('raza', mb_strtolower($kitten->raza)) == 'bengalí' ? 'selected' : '' }}>Bengalí</option>
+                            <option value="Maine Coon" {{ old('raza', mb_strtolower($kitten->raza)) == 'maine coon' ? 'selected' : '' }}>Maine Coon</option>
+                            <option value="Sphynx" {{ old('raza', mb_strtolower($kitten->raza)) == 'sphynx' ? 'selected' : '' }}>Sphynx</option>
+                            <option value="Scottish Fold" {{ old('raza', mb_strtolower($kitten->raza)) == 'scottish fold' ? 'selected' : '' }}>Scottish Fold</option>
+                            <option value="Ragdoll" {{ old('raza', mb_strtolower($kitten->raza)) == 'ragdoll' ? 'selected' : '' }}>Ragdoll</option>
+                            <option value="Birmano" {{ old('raza', mb_strtolower($kitten->raza)) == 'birmano' ? 'selected' : '' }}>Birmano</option>
+                            <option value="Britanico de pelo corto" {{ old('raza', mb_strtolower($kitten->raza)) == 'británico de pelo corto' ? 'selected' : '' }}>Británico de pelo corto</option>
+                            <option value="Chartreux" {{ old('raza', mb_strtolower($kitten->raza)) == 'chartreux' ? 'selected' : '' }}>Chartreux</option>
+                            <option value="Mezclada" {{ old('raza', mb_strtolower($kitten->raza)) == 'mezclada' ? 'selected' : '' }}>Mezclada</option>
+                        </select>
+                    
                         @error('raza')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
+                                   
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="edad">Edad</label>
-                        <input type="text" name="edad" id="edad" class="form-control" value="{{ old('edad', $kitten->edad) }}" required>
+                        <label for="edad">Edad en años</label>
+                        <select name="edad" id="edad" class="form-control" required>
+                            <option value="">Selecciona la edad</option>
+                            @for($i = 1; $i <= 15; $i++)
+                                <option value="{{ $i }}" {{ old('edad', $kitten->edad) == $i ? 'selected' : '' }}>
+                                    {{ $i == 1 ? 'Mishito (menos de 1 año a un año)' : $i . ' años' }}
+                                </option>
+                            @endfor
+                        </select>
+                        
                         @error('edad')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -70,15 +93,29 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="color">Color</label>
-                        <input type="text" name="color" id="color" class="form-control" value="{{ old('color', $kitten->color) }}" required>
+                        <select name="color" id="color" class="form-control" required onchange="handleColorChange(this)">
+                            <option value="">Selecciona un color</option>
+                            <option value="Blanco" {{ old('color', mb_strtolower($kitten->color)) == 'blanco' ? 'selected' : '' }}>Blanco</option>
+                            <option value="Negro" {{ old('color', mb_strtolower($kitten->color)) == 'negro' ? 'selected' : '' }}>Negro</option>
+                            <option value="Gris" {{ old('color', mb_strtolower($kitten->color)) == 'gris' ? 'selected' : '' }}>Gris</option>
+                            <option value="Marrón" {{ old('color', mb_strtolower($kitten->color)) == 'marrón' ? 'selected' : '' }}>Marrón</option>
+                            <option value="Atigrado" {{ old('color', mb_strtolower($kitten->color)) == 'atigrado' ? 'selected' : '' }}>Atigrado</option>
+                            <option value="Bicolor" {{ old('color', mb_strtolower($kitten->color)) == 'bicolor' ? 'selected' : '' }}>Bicolor</option>
+                            <option value="Tricolor" {{ old('color', mb_strtolower($kitten->color)) == 'tricolor' ? 'selected' : '' }}>Tricolor</option>
+                            <option value="Siamés" {{ old('color', mb_strtolower($kitten->color)) == 'siamés' ? 'selected' : '' }}>Siamés</option>
+                            <option value="Tabby" {{ old('color', mb_strtolower($kitten->color)) == 'tabby' ? 'selected' : '' }}>Tabby</option>
+                            <option value="Persa" {{ old('color', mb_strtolower($kitten->color)) == 'persa' ? 'selected' : '' }}>Persa</option>
+                            <option value="Naranjiño" {{ old('color', mb_strtolower($kitten->color)) == 'naranjiño' ? 'selected' : '' }}>Naranjiño</option>
+                            <option value="Multicolor" {{ old('color', mb_strtolower($kitten->color)) == 'multicolor' ? 'selected' : '' }}>Multicolor</option>
+                        </select>
                         @error('color')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div>                    
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="estado">Estado</label>
+                        <label for="estado">Estado actual del Mishi</label>
                         <select name="estado" id="estado" class="form-control" required>
                             <option value="Libre" {{ old('estado', $kitten->estado) == 'Libre' ? 'selected' : '' }}>Libre</option>
                             <option value="Apartado" {{ old('estado', $kitten->estado) == 'Apartado' ? 'selected' : '' }}>Apartado</option>
@@ -94,6 +131,7 @@
             <div class="mb-3">
                 <label for="detalles">Detalles</label>
                 <textarea name="detalles" id="detalles" class="form-control">{{ old('detalles', $kitten->detalles) }}</textarea>
+                <small class="form-text text-muted">Los detalles son opcionales, sin embargo, pueden ser una guía de cuidados y aspectos a tener en consideración del mishi.</small>
                 @error('detalles')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror

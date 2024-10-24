@@ -53,11 +53,12 @@
                 <select multiple class="form-control @error('shelters') is-invalid @enderror" name="shelters[]" id="shelters">
                     @foreach($shelters as $shelter)
                         <option value="{{ $shelter->id }}" 
-                            {{ isset($event) && $event->shelters->contains($shelter->id) ? 'selected' : '' }}>
+                            {{ isset($event) && $event->shelters->contains($shelter->id) ? 'selected' : ($loop->first ? 'selected' : '') }}>
                             {{ $shelter->nombre }}
                         </option>
                     @endforeach
                 </select>
+                <small class="form-text text-muted">Nota: Puedes seleccionar a más de un refugio para participar en el evento.</small>
                 @error('shelters')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -78,6 +79,7 @@
             <div class="form-group">
                 <label for="participantes">Número de Participantes</label>
                 <input type="number" class="form-control @error('participantes') is-invalid @enderror" required name="participantes" id="participantes" value="{{ old('participantes', $event->pivot->participantes ?? '') }}">
+                <small class="form-text text-muted">Para crear un evento, debe haber un mínimo de 20 participantes.</small>
                 @error('participantes')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

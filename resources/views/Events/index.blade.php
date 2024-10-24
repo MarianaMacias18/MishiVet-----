@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1>Eventos</h1>
+    <h1>Mis Eventos</h1>
     <a href="{{ route('events.create') }}" class="btn btn-primary mb-3">Crear Evento</a>
 
     <!-- Mensaje de error -->

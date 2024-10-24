@@ -50,6 +50,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::post('/dashboard/adoptar/aceptar/{kitten}', [NotificationController::class, 'accept'])->name('notifications.accept'); # Notficacion aceptada adopcion <- (Dueño)
     Route::post('/dashboard/adoptar/rechazar/{kitten}', [NotificationController::class, 'reject'])->name('notifications.reject'); # Notficacion rechazada adopcion <- (Dueño)
 
+    Route::get('/dashboard/detalles/{kitten}', [DashboardController::class, 'kitten'])->name('dashboard.kittens.show');
     Route::get('/dashboard/nosotros', [DashboardController::class, 'nosotros'])->name('dashboard.nosotros');
     Route::get('/dashboard/notificaciones', [DashboardController::class, 'notificaciones'])->name('dashboard.notificaciones');
     Route::get('/dashboard/admin/notificaciones', [DashboardController::class, 'ADMINnotificaciones'])->name('dashboard.admin.notificaciones');

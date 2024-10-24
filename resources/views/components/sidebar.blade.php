@@ -18,7 +18,7 @@
     </div>
 
     <div class="logo-container text-center mb-2">
-        <img src="{{ asset('img/Logo1.png') }}" alt="Logo" class="rounded-circle">
+        <img src="{{ asset('img/mishi_dance.gif') }}" alt="Logo" class="rounded-circle">
     </div>
 
     <form action="{{ route('users.logout') }}" method="POST" class="mt-auto">

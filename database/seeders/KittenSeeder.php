@@ -15,13 +15,13 @@ class KittenSeeder extends Seeder
     {
         Kitten::create([
             'nombre' => 'Kitten Negrosito',
-            'raza' => 'Siamés',
+            'raza' => 'Ragdoll',
             'edad' => 2,
             'sexo' => 'macho',
             'color' => 'Negro',
             'detalles' => 'Kitten que desaparece de día y vuelve de noche.',
             'foto' => null,
-            'estado' => 'libre',
+            'estado' => 'Libre',
             'id_refugio' => 1, 
             'id_usuario_creador' => 1, 
         ]);
@@ -34,7 +34,7 @@ class KittenSeeder extends Seeder
             'color' => 'Blanco',
             'detalles' => 'Kitten que solo come, duerme y le gustan los peluches de esfera.',
             'foto' => null,
-            'estado' => 'adoptado',
+            'estado' => 'Adoptado',
             'id_refugio' => 1, 
             'id_usuario_creador' => 1, 
         ]);

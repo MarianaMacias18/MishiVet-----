@@ -144,7 +144,7 @@ class NotificationController extends Controller
         ]);
     
         // Redirecciona de vuelta 
-        return redirect()->back()->with('success', 'Solicitud de adopción enviada correctamente.');
+        return redirect()->back()->with('success', 'Solicitud de adopción enviada correctamente, puedes contactar al refugio para más detalles.');
     }
     public function destroy($id) # Elimina una notificacion al ser aceptada por el usuario solicitante
     {

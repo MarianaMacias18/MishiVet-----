@@ -42,7 +42,7 @@
                             <h5 class="card-title">{{ $kitten->nombre }}</h5>
                             <h6 class="card-subtitle mb-2 text-dark-blue">Refugio: {{ $kitten->shelter->nombre ?? 'No asignado' }}</h6>
                             <p><strong>Raza:</strong> {{ $kitten->raza }}</p>
-                            <p><strong>Edad:</strong> {{ $kitten->edad }}</p>
+                            <p><strong>Edad en años:</strong> {{ $kitten->edad }}</p>
                             <p><strong>Sexo:</strong> {{ $kitten->sexo }}</p>
                             <p><strong>Color:</strong> {{ $kitten->color }}</p>
                             <p><strong>Detalles:</strong> {{ $kitten->detalles }}</p>

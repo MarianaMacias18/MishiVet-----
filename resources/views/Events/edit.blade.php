@@ -52,6 +52,7 @@
                     </option>
                 @endforeach
             </select>
+            <small class="form-text text-muted">Nota: Puedes tener varios refugios participando en un mismo evento.</small>
             @error('shelters')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -74,7 +75,8 @@
             <label for="participantes">Número de Participantes</label>
             <input type="number" class="form-control @error('participantes') is-invalid @enderror" name="participantes" id="participantes"
                 value="{{ old('participantes', isset($event) && $event->shelters->isNotEmpty() ? $event->shelters->first()->pivot->participantes : 0) }}">
-            @error('participantes')
+                <small class="form-text text-muted">El evento debe contar con un mínimo de 20 participantes.</small>
+                @error('participantes')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
