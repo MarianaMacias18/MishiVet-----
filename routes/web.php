@@ -53,6 +53,10 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/dashboard/detalles/{kitten}', [DashboardController::class, 'kitten'])->name('dashboard.kittens.show');
     // RUTA GENERAR PDF <-
     Route::get('/generar-pdf/{kitten}', [DashboardController::class, 'generarPDF'])->name('doc.pdf');
+    // RUTA GENERAR PAGO/DONACION <-
+    Route::get('/payment/{kitten}', [DashboardController::class,'generarDONACION'])->name('dashboard.donate');
+    Route::post('/pay/{shelter}', [DashboardController::class, 'pay'])->name('dashboard.pay');
+    Route::get('/dashboard/donations', [DashboardController::class, 'donations'])->name('donations.index');
 
     Route::get('/dashboard/nosotros', [DashboardController::class, 'nosotros'])->name('dashboard.nosotros');
     Route::get('/dashboard/notificaciones', [DashboardController::class, 'notificaciones'])->name('dashboard.notificaciones');

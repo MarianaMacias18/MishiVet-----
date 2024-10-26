@@ -122,7 +122,8 @@
     </div>
 
     <div class="mt-3 text-center">
-        <a href="{{ route('dashboard.index') }}" class="btn btn-primary btn-lg me-2">Volver</a>
+        <a href="{{ route('dashboard.index') }}" class="btn btn-primary btn-lg me-3">Volver</a>
+        
         <form action="{{ route('notifications.store', $kitten) }}" method="POST" style="display: inline;">
             @csrf
             <button type="submit" class="btn btn-success btn-lg"
@@ -134,8 +135,14 @@
                 @endif
             </button>
         </form>
-        <a href="{{ route('doc.pdf', $kitten) }}" class="btn btn-danger btn-lg ms-auto">Descargar PDF</a>
+        
+        <div class="mt-3">
+            <a href="{{ route('doc.pdf', $kitten) }}" class="btn btn-danger btn-lg me-3">Descargar PDF</a>
+            <a href="{{ route('dashboard.donate', $kitten) }}" class="btn btn-secondary btn-lg"> Donar al Refugio</a>
+
+        </div>
     </div>
+    
     
 </div>
 

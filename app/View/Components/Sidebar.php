@@ -47,6 +47,7 @@ class Sidebar extends Component
             'kittens.edit',
             'kittens.show',
             'dashboard.notificaciones',
+            'donations.index',
         ];
 
         if (in_array($route, $UserRoutes)) {
@@ -63,7 +64,9 @@ class Sidebar extends Component
                 ['label' => 'Mishis', 'route' => 'kittens.index', 'icon' => 'bx bxs-cat'],
                 ['label' => 'Eventos', 'route' => 'events.index', 'icon' => 'bx bx-calendar'],
                 ['label' => 'Notificaciones de Adopción', 'route' => 'dashboard.notificaciones', 'icon' => $this->userNotificationCount > 0 ? 'bx bx-info-circle text-danger' : 'bx bx-info-circle'], // Cambiar icono a rojo si hay notificaciones
+                ['label' => 'Donaciones', 'route' => 'donations.index', 'icon' => 'bx bx-credit-card-alt'],
                 ['label' => 'Volver a adopciones', 'route' => 'dashboard.index', 'icon' => 'bx bxs-caret-left-square'],
+                
             ];
         }
     }

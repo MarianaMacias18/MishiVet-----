@@ -10,7 +10,11 @@
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center {{ $option['label'] === 'Volver a adopciones' ? 'text-warning' : 'text-white' }}" 
                        href="{{ route($option['route'], $option['params'] ?? []) }}">
-                        <i class="{{ $option['icon'] }} bx-md text-info"></i> 
+                        @if ($option['label'] === 'Donaciones')
+                             <i class="{{ $option['icon'] }} bx-md text-warning"></i> 
+                        @else
+                             <i class="{{ $option['icon'] }} bx-md text-info"></i> 
+                        @endif
                         <span class="ms-3">{{ $option['label'] }}</span>
 
                         {{-- Mostrar conteos específicos en "Notificaciones" y "Notificaciones de Adopción" --}}
