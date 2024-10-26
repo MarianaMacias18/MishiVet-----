@@ -8,9 +8,21 @@
         <ul class="nav flex-column">
             @foreach($sidebarOptions as $option)
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center {{ $option['label'] === 'Volver a adopciones' ? 'text-warning' : 'text-white' }}" href="{{ route($option['route'], $option['params'] ?? []) }}">
-                        <i class="{{ $option['icon'] }} bx-md text-info"></i>
+                    <a class="nav-link d-flex align-items-center {{ $option['label'] === 'Volver a adopciones' ? 'text-warning' : 'text-white' }}" 
+                       href="{{ route($option['route'], $option['params'] ?? []) }}">
+                        <i class="{{ $option['icon'] }} bx-md text-info"></i> 
                         <span class="ms-3">{{ $option['label'] }}</span>
+
+                        {{-- Mostrar conteos específicos en "Notificaciones" y "Notificaciones de Adopción" --}}
+                        {{-- Notificaciones que recibe un "Usuario" de parte de un "Guardian" --}}
+                        @if ($option['label'] === 'Notificaciones' && $guardianNotificationCount > 0)
+                            <span class="badge bg-danger ms-3">{{ $guardianNotificationCount }}</span>
+                        {{-- Notificaciones que recibe un "Guardian" de parte de un "Usuario" --}}
+                        @elseif ($option['label'] === 'Notificaciones de Adopción' && $userNotificationCount > 0)
+                            <span class="badge bg-danger ms-3">{{ $userNotificationCount }}</span>
+                        @elseif ($option['label'] === 'Ser Guardian' && $userNotificationCount > 0)
+                            <span class="badge bg-danger ms-4">{{ $userNotificationCount }}</span>
+                        @endif
                     </a>
                 </li>
             @endforeach
