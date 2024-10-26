@@ -37,14 +37,14 @@
                         <select name="raza" id="raza" class="form-control" required onchange="handleRazaChange(this)">
                             <option value="">Selecciona una raza</option>
                             <option value="Persa" {{ old('raza', mb_strtolower($kitten->raza)) == 'persa' ? 'selected' : '' }}>Persa</option>
-                            <option value="Siames" {{ old('raza', mb_strtolower($kitten->raza)) == 'siamés' ? 'selected' : '' }}>Siamés</option>
-                            <option value="Bengali" {{ old('raza', mb_strtolower($kitten->raza)) == 'bengalí' ? 'selected' : '' }}>Bengalí</option>
+                            <option value="Siamés" {{ old('raza', mb_strtolower($kitten->raza)) == 'siamés' ? 'selected' : '' }}>Siamés</option>
+                            <option value="Bengalí" {{ old('raza', mb_strtolower($kitten->raza)) == 'bengalí' ? 'selected' : '' }}>Bengalí</option>
                             <option value="Maine Coon" {{ old('raza', mb_strtolower($kitten->raza)) == 'maine coon' ? 'selected' : '' }}>Maine Coon</option>
                             <option value="Sphynx" {{ old('raza', mb_strtolower($kitten->raza)) == 'sphynx' ? 'selected' : '' }}>Sphynx</option>
                             <option value="Scottish Fold" {{ old('raza', mb_strtolower($kitten->raza)) == 'scottish fold' ? 'selected' : '' }}>Scottish Fold</option>
                             <option value="Ragdoll" {{ old('raza', mb_strtolower($kitten->raza)) == 'ragdoll' ? 'selected' : '' }}>Ragdoll</option>
                             <option value="Birmano" {{ old('raza', mb_strtolower($kitten->raza)) == 'birmano' ? 'selected' : '' }}>Birmano</option>
-                            <option value="Britanico de pelo corto" {{ old('raza', mb_strtolower($kitten->raza)) == 'británico de pelo corto' ? 'selected' : '' }}>Británico de pelo corto</option>
+                            <option value="Británico de pelo corto" {{ old('raza', mb_strtolower($kitten->raza)) == 'británico de pelo corto' ? 'selected' : '' }}>Británico de pelo corto</option>
                             <option value="Chartreux" {{ old('raza', mb_strtolower($kitten->raza)) == 'chartreux' ? 'selected' : '' }}>Chartreux</option>
                             <option value="Mezclada" {{ old('raza', mb_strtolower($kitten->raza)) == 'mezclada' ? 'selected' : '' }}>Mezclada</option>
                         </select>

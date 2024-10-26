@@ -71,8 +71,10 @@
                         <p class="form-control-plaintext">{{ $kitten->estado }}</p>
                     </div>
                     <div class="mb-2">
-                        <strong>Detalles:</strong>
-                        <p class="form-control-plaintext">{{ $kitten->detalles }}</p>
+                        @if (!empty($kitten->detalles))
+                            <strong>Detalles:</strong>
+                            <p class="form-control-plaintext">{{ $kitten->detalles }}</p>
+                        @endif     
                     </div>
                 </div>
             </div>
@@ -93,7 +95,10 @@
             <p><strong> Dirección </strong>: {{ $kitten->shelter->direccion }}</p>
             <p><strong> Teléfono </strong>: {{ $kitten->shelter->telefono }}</p>
             <p><strong> Correo </strong>: {{ $kitten->shelter->correo }}</p>
-            <p><strong> Descripción </strong>: {{ $kitten->shelter->descripcion }}</p>
+            @if (!empty($kitten->shelter->descripcion))
+                  <p><strong> Descripción </strong>: {{ $kitten->shelter->descripcion }}</p>
+            @endif
+            
         </div>
     </div>
 
@@ -129,7 +134,9 @@
                 @endif
             </button>
         </form>
+        <a href="{{ route('doc.pdf', $kitten) }}" class="btn btn-danger btn-lg ms-auto">Descargar PDF</a>
     </div>
+    
 </div>
 
 <!-- jQuery y Bootstrap JS -->

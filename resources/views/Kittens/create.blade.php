@@ -33,14 +33,14 @@
             <select name="raza" id="raza" class="form-control" required onchange="handleRazaChange(this)">
                 <option value="">Selecciona una raza</option>
                 <option value="Persa" {{ old('raza') == 'Persa' ? 'selected' : '' }}>Persa</option>
-                <option value="Siames" {{ old('raza') == 'Siames' ? 'selected' : '' }}>Siamés</option>
-                <option value="Bengali" {{ old('raza') == 'Bengali' ? 'selected' : '' }}>Bengalí</option>
+                <option value="Siamés" {{ old('raza') == 'Siamés' ? 'selected' : '' }}>Siamés</option>
+                <option value="Bengalí" {{ old('raza') == 'Bengalí' ? 'selected' : '' }}>Bengalí</option>
                 <option value="Maine Coon" {{ old('raza') == 'Maine Coon' ? 'selected' : '' }}>Maine Coon</option>
                 <option value="Sphynx" {{ old('raza') == 'Sphynx' ? 'selected' : '' }}>Sphynx</option>
                 <option value="Scottish Fold" {{ old('raza') == 'Scottish Fold' ? 'selected' : '' }}>Scottish Fold</option>
                 <option value="Ragdoll" {{ old('raza') == 'Ragdoll' ? 'selected' : '' }}>Ragdoll</option>
                 <option value="Birmano" {{ old('raza') == 'Birmano' ? 'selected' : '' }}>Birmano</option>
-                <option value="Britanico de pelo corto" {{ old('raza') == 'Britanico de pelo corto' ? 'selected' : '' }}>Británico de pelo corto</option>
+                <option value="Británico de pelo corto" {{ old('raza') == 'Británico de pelo corto' ? 'selected' : '' }}>Británico de pelo corto</option>
                 <option value="Chartreux" {{ old('raza') == 'Chartreux' ? 'selected' : '' }}>Chartreux</option>
                 <option value="Mezclada" {{ old('raza') == 'Mezclada' ? 'selected' : '' }}>Mezclada</option>
             </select>
@@ -54,7 +54,7 @@
             <select name="edad" id="edad" class="form-control" required>
                 <option value="">Selecciona la edad</option>
                 @for($i = 1; $i <= 15; $i++)
-                    <option value="{{ $i }}" {{ old('edad') == $i ? 'selected' : '' }}>{{ $i == 1 ? 'Mishito (menos de 1 año a un año)' : $i . ' año' }}</option>
+                    <option value="{{ $i }}" {{ old('edad') == $i ? 'selected' : '' }}>{{ $i == 1 ? 'Mishito (menos de 1 año a un año)' : $i . ' años' }}</option>
                 @endfor
             </select>
             

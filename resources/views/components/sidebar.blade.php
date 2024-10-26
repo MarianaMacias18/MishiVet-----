@@ -24,7 +24,7 @@
     <form action="{{ route('users.logout') }}" method="POST" class="mt-auto">
         @csrf
         <button class="btn btn-danger btn-sm logout-button" type="submit">
-            <i class="bx bx-log-out"></i> Salir
+            <i class="bx bx-log-out"></i> Cerrar Sesión 
         </button>
     </form>
 </div>

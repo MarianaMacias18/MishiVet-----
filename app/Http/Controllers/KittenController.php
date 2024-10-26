@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Kitten;
 use App\Models\Shelter;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+
 
 class KittenController extends Controller
 {
@@ -46,7 +48,7 @@ class KittenController extends Controller
     {
         $validatedData = $request->validate([
             'nombre' => ['required','string','max:255', Rule::unique('kittens')->whereNull('deleted_at'),],
-            'raza' => 'required|string|alpha|max:255',
+            'raza' => 'required|string|max:255',
             'edad' => 'required|integer',
             'sexo' => 'required|in:Macho,Hembra',
             'color' => 'required|string|max:255',
@@ -99,7 +101,7 @@ class KittenController extends Controller
     {
         $validatedData = $request->validate([
             'nombre' => ['required','string','max:255',Rule::unique('kittens')->ignore($kitten->id)->whereNull('deleted_at'),],
-            'raza' => 'required|string|alpha|max:255',
+            'raza' => 'required|string|max:255',
             'edad' => 'required|integer',
             'sexo' => 'required|in:Macho,Hembra',
             'color' => 'required|string|max:255',

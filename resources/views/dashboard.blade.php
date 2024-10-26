@@ -42,7 +42,9 @@
                                     <p><strong>Edad:</strong> {{ $kitten->edad }} años</p>
                                     <p><strong>Sexo:</strong> {{ $kitten->sexo }}</p>
                                     <p><strong>Color:</strong> {{ $kitten->color }}</p>
-                                    <p><strong>Detalles:</strong> {{ $kitten->detalles }}</p>
+                                    @if (!empty($kitten->detalles))
+                                        <p><strong>Detalles:</strong> {{ $kitten->detalles }}</p>
+                                    @endif 
                                     <p><strong>Estado:</strong> {{ $kitten->estado }}</p>
                                     
                                     <!-- Botón para ver detalles centrado -->
@@ -55,14 +57,6 @@
                     @endforeach
                 </div>
             @endif
-
-            <!-- Formulario de Logout -->
-            <div class="text-center mt-5">
-                <form action="{{ route('users.logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
-                </form>
-            </div>
         @else
             <h2 class="text-center">Bienvenido, Invitado</h2>
         @endif

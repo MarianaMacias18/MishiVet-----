@@ -45,7 +45,9 @@
                             <p><strong>Edad en años:</strong> {{ $kitten->edad }}</p>
                             <p><strong>Sexo:</strong> {{ $kitten->sexo }}</p>
                             <p><strong>Color:</strong> {{ $kitten->color }}</p>
-                            <p><strong>Detalles:</strong> {{ $kitten->detalles }}</p>
+                            @if (!empty($kitten->detalles))
+                                <p><strong>Detalles:</strong> {{ $kitten->detalles }}</p>
+                            @endif
                             <p><strong>Estado:</strong> {{ $kitten->estado }}</p>
                             <div class="btn-group" role="group" aria-label="Acciones">
                                 <a href="{{ route('kittens.show', $kitten) }}" class="btn btn-info">Ver</a>

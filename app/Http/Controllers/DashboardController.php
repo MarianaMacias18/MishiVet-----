@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Kitten;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DashboardController extends Controller
 {
@@ -49,6 +50,21 @@ class DashboardController extends Controller
         $events = $shelter ? $shelter->events : collect(); // Verifica si hay un refugio antes de acceder a los eventos
 
         return view('Adoptions.kitten', compact('kitten', 'shelter', 'events'));
+    }
+
+    public function generarPDF(Kitten $kitten){
+        
+        $shelter = $kitten->shelter; //Obtiene el Shelter al que pertenece el Kitten 
+        
+        //Carga la vista del PDF con los datos del Kitten y el Shelter respectivamente 
+        $pdf = Pdf::loadView('Adoptions.pdf', [
+            'kittens' => $kitten,
+            'shelters' => $shelter,
+        ]);
+
+        //En lugar de retornar una vista, retorna la descarga del PDF en el navegador
+        return $pdf->download('MishiVet_adoption_details.pdf'); 
+        //return view('Adoptions.pdf');
     }
 
 }
