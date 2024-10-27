@@ -28,7 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'direccion',   
     ];
     */
-    protected $guarded = ['id', 'password', 'remember_token', 'github_id']; // Campos que no se pueden asignar masivamente (contrario a fileable) <-
+    protected $guarded = ['id', 'remember_token', 'github_id']; // Campos que no se pueden asignar masivamente (contrario a fileable) <-
 
     /**
      * The attributes that should be hidden for serialization.

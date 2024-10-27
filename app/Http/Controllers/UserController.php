@@ -78,7 +78,7 @@ class UserController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
             // Autenticación exitosa
             session(['first_login' => true]);
-            return redirect()->route('dashboard.index');
+            return redirect()->route('dashboard.index')->with('success', '¡Has iniciado sesión exitosamente!');
         }
     
         // Redirigir de vuelta con un mensaje de error
@@ -110,7 +110,6 @@ class UserController extends Controller
         }
         public function update(Request $request, User $user)
         {
-            
             // Validar los campos del formulario
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
@@ -123,6 +122,14 @@ class UserController extends Controller
                 'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
                 'delete_avatar' => 'nullable|boolean',
             ]);
+           
+            // Se hashéa la contraseña antes de actualizar <-
+            if (!empty($validatedData['password'])) {
+                $validatedData['password'] = bcrypt($validatedData['password']);
+            } else {
+                unset($validatedData['password']); // Elimina la contraseña si no se proporciona
+            }
+            //dd($validatedData);
 
             // Actualizar el usuario con los nuevos datos
             $user->update($validatedData);
@@ -147,7 +154,8 @@ class UserController extends Controller
                 $avatarPath = $request->file('avatar')->store('avatars', 'public');
                 $user->avatar = basename($avatarPath); // Guardar solo el nombre del archivo
             }
-            $user->save();
+
+            $user->save(); // Guarda todos los cambios en el modelo
             // Redirigir con un mensaje de éxito
             return redirect()->route('users.edit', $user)->with('success', 'Perfil actualizado exitosamente.');
         }
