@@ -39,5 +39,8 @@
             </tbody>
         </table>
     @endif
+    <div class="col-md-6">
+        <img src="{{ asset('img/donation.gif') }}" alt="Donaciones" >
+    </div>
 </div>
 @endsection

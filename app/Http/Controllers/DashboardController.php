@@ -84,6 +84,7 @@ class DashboardController extends Controller
     }
     public function pay(Request $request, Shelter $shelter) 
     {
+        return $request;
         // Validar la entrada
         $request->validate([
             'amount' => 'required|numeric|min:5|max:10000', // Valida que el monto sea numérico y este entre 5 y 10000

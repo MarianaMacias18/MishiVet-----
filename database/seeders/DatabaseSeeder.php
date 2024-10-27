@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             KittenSeeder::class,
             NotificationSeeder::class,
             //AdoptionUserKittenSeeder::class,   
+            DonationSeeder::class,
         ]);
         
     }
