@@ -105,6 +105,16 @@ class ShelterController extends Controller
             return redirect()->route('shelters.index')->with('error', 'No deben haber eventos relacionados con el refugio para poder eliminarlo.');
         }
 
+        // Elimina la imagen del Shelter si existe
+        if ($shelter->foto) {
+            // Ruta completa al archivo en el disco 'public'
+            $fotoPath = 'shelters/' . $shelter->foto;
+
+            if (Storage::disk('public')->exists($fotoPath)) {
+                Storage::disk('public')->delete($fotoPath); // Elimina la imagen almacenada en public
+            }
+        }
+
         // Eliminar el refugio
         $shelter->delete();
 

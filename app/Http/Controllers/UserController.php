@@ -163,6 +163,17 @@ class UserController extends Controller
 
         public function destroy(Request $request, User $user) 
         {
+
+            // Verifica si existe un avatar ligado al Usuario
+            if ($user->avatar) {
+                // Ruta completa al archivo en el disco 'public'
+                $fotoPath = 'avatars/' . $user->avatar;
+    
+                if (Storage::disk('public')->exists($fotoPath)) {
+                    Storage::disk('public')->delete($fotoPath); // Elimina la imagen almacenada en public
+                }
+            }
+
             $user->delete();
             //$deletedUsers = User::onlyTrashed()->get(); // Recupera los usuarios eliminados
             //$user = User::withTrashed()->find($id); // Restaura un usuario eliminado en "Softdeletes"

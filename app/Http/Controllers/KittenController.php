@@ -146,8 +146,20 @@ class KittenController extends Controller
      */
     public function destroy(Kitten $kitten)
     {
-        $this->authorize('delete',$kitten);
-        $kitten->delete(); // Soft delete (si tienes softDeletes en la migración)
-    return redirect()->route('kittens.index')->with('success', 'Mishi eliminado exitosamente');
+        $this->authorize('delete', $kitten);
+
+        // Elimina la imagen del Kitten si existe
+        if ($kitten->foto) {
+            // Ruta completa al archivo en el disco 'public'
+            $fotoPath = 'kittens/' . $kitten->foto;
+
+            if (Storage::disk('public')->exists($fotoPath)) {
+                Storage::disk('public')->delete($fotoPath); // Elimina la imagen almacenada en public
+            }
+        }
+
+        $kitten->delete();
+
+        return redirect()->route('kittens.index')->with('success', 'Mishi eliminado exitosamente');
     }
 }
