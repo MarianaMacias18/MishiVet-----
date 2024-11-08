@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container mt-5">
-        <h2 class="text-center">Notificaciones de Adopción</h2>
+        <h2 class="text-center text-uppercase text-primary mb-4">Notificaciones de Adopción</h2>
 
         <!-- Mensajes de error y éxito -->
         @if (session('danger'))
@@ -15,21 +15,23 @@
         @endif
 
         @if($notifications->isEmpty())
-            <div class="alert alert-info text-center">No tienes notificaciones pendientes.</div>
+            <div class="alert alert-info text-center shadow-sm">No tienes notificaciones pendientes.</div>
         @else
             <div id="notificationsContainer">
                 @foreach($notifications as $notification)
-                    <div class="card mb-3 notification" data-date="{{ \Carbon\Carbon::parse($notification->created_at)->format('Y-m-d') }}">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Solicitud de adopción para: {{ $notification->kitten->nombre }}</h5>
-                            <h6 class="card-title">Salvaguardado en el refugio: {{ $notification->kitten->shelter->nombre }}</h6>
+                    <div class="card mb-4 notification border-0 shadow-sm" style="background-color: #f8f9fa;">
+                        <div class="card-body text-center p-4">
+                            <h5 class="card-title text-uppercase font-weight-bold text-dark mb-2">Solicitud de adopción para: 
+                                <span class="text-primary">{{ $notification->kitten->nombre }}</span>
+                            </h5>
+                            <h6 class="card-subtitle text-muted mb-3">Refugio: {{ $notification->kitten->shelter->nombre }}</h6>
 
                             <!-- Mostrar imagen del gato -->
                             <div class="mb-3">
-                                @if ($notification->kitten->foto) 
-                                    <img src="{{ asset('storage/kittens/' . $notification->kitten->foto) }}" alt="{{ $notification->kitten->nombre }}" class="img-fluid" style="max-width: 150px; max-height: 150px; object-fit: cover; border-radius: 50%;">
+                                @if ($notification->kitten->foto)
+                                    <img src="{{ asset('storage/kittens/' . $notification->kitten->foto) }}" alt="{{ $notification->kitten->nombre }}" class="img-fluid rounded-circle shadow" style="width: 150px; height: 150px; object-fit: cover;">
                                 @else
-                                    <img src="{{ asset('img/icono_mishi.png') }}" alt="Foto por defecto" class="img-fluid" style="max-width: 150px; max-height: 150px; object-fit: cover; border-radius: 50%;">
+                                    <img src="{{ asset('img/icono_mishi.png') }}" alt="Foto por defecto" class="img-fluid rounded-circle shadow" style="width: 150px; height: 150px; object-fit: cover;">
                                 @endif
                             </div>
 
@@ -43,18 +45,25 @@
                                 <strong>Fecha de Notificación:</strong> {{ \Carbon\Carbon::parse($notification->created_at)->translatedFormat('d \d\e F \d\e Y') }}<br>
                             </p>
 
-                            <!-- Formulario para aceptar la adopción -->
-                            <form action="{{ route('notifications.accept', $notification->kitten) }}" method="POST" style="display:inline;">
-                                @csrf
-                                <input type="hidden" name="ubicacion_refugio" value="{{ $notification->kitten->shelter->ubicacion }}">
-                                <button type="submit" class="btn btn-success">Aceptar</button>
-                            </form>
+                            <!-- Botones de acción -->
+                            <div class="mt-3">
+                                <!-- Formulario para aceptar la adopción -->
+                                <form action="{{ route('notifications.accept', $notification->kitten) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <input type="hidden" name="ubicacion_refugio" value="{{ $notification->kitten->shelter->ubicacion }}">
+                                    <button type="submit" class="btn btn-success btn-sm px-4">
+                                        <i class="fas fa-check-circle"></i> Aceptar
+                                    </button>
+                                </form>
 
-                            <!-- Botón de rechazar -->
-                            <form action="{{ route('notifications.reject', $notification->kitten) }}" method="POST" style="display:inline;">
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Rechazar</button>
-                            </form>
+                                <!-- Botón de rechazar -->
+                                <form action="{{ route('notifications.reject', $notification->kitten) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger btn-sm px-4">
+                                        <i class="fas fa-times-circle"></i> Rechazar
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 @endforeach

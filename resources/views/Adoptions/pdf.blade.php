@@ -14,11 +14,11 @@
             box-sizing: border-box;
         }
         .pdf-container {
-            width: 90%; /* Reduce el ancho general */
-            max-width: 750px; /* Ajusta el ancho máximo */
+            width: 100%; /* Se ajusta a toda la pantalla */
+            max-width: 750px;
             margin: auto;
-            padding: 15px; /* Reduce el padding interior */
-            border: 1px solid #000; /* Disminuye el grosor de la línea */
+            padding: 15px;
+            border: 1px solid #000;
             border-radius: 8px;
             page-break-inside: avoid;
         }
@@ -27,24 +27,24 @@
             align-items: center;
             flex-direction: column;
             border-bottom: 1px solid #dee2e6;
-            padding-bottom: 8px; /* Ajusta el espaciado inferior */
-            margin-bottom: 15px; /* Reduce el margen inferior */
+            padding-bottom: 8px;
+            margin-bottom: 15px;
         }
         .header-logo {
-            width: 60px; /* Reduce el tamaño del logo */
+            width: 60px;
             height: auto;
-            margin-bottom: 8px; 
+            margin-bottom: 8px;
         }
         .header-info {
             text-align: center;
         }
         .header-info h1 {
-            font-size: 1.5rem; /* Reduce tamaño de MishiVet */
+            font-size: 1.5rem;
             color: red;
             margin: 0;
         }
         .header-info h2 {
-            font-size: 1rem; /* Reduce el tamaño del subtítulo */
+            font-size: 1rem;
             color: black;
             margin: 0;
         }
@@ -56,12 +56,12 @@
         .card {
             border: 1px solid #dee2e6;
             border-radius: 6px;
-            padding: 10px; /* Reduce padding */
-            margin: 5px 0; /* Reduce margen */
+            padding: 10px;
+            margin: 5px 0;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
         }
         .card-header {
-            font-size: 1.1rem; /* Reduce el tamaño */
+            font-size: 1.1rem;
             font-weight: bold;
             color: #007bff;
             text-align: center;
@@ -69,7 +69,7 @@
         }
         .img-thumbnail {
             border-radius: 50%;
-            width: 90px; /* Reduce el tamaño de las imágenes */
+            width: 90px;
             height: 90px;
             object-fit: cover;
             display: block;
@@ -90,15 +90,61 @@
             flex-direction: row;
             justify-content: space-between;
             gap: 8px;
+            flex-wrap: wrap; /* Permite que el contenido se ajuste */
         }
-        .info-label {
-            font-weight: bold;
+        .info-label, .info-value {
+            font-size: 0.9rem;
             color: #495057;
-            font-size: 0.9rem; /* Ajuste de tamaño de texto */
         }
         .info-value {
             color: #212529;
-            font-size: 0.9rem; /* Ajuste de tamaño de texto */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-info h1 {
+                font-size: 1.2rem;
+            }
+            .header-info h2 {
+                font-size: 0.9rem;
+            }
+            .img-thumbnail {
+                width: 70px;
+                height: 70px;
+            }
+            .card-header {
+                font-size: 1rem;
+            }
+            .info-label, .info-value {
+                font-size: 0.8rem;
+            }
+            .pdf-container {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-info h1 {
+                font-size: 1rem;
+            }
+            .header-info h2 {
+                font-size: 0.8rem;
+            }
+            .img-thumbnail {
+                width: 60px;
+                height: 60px;
+            }
+            .card-header {
+                font-size: 0.9rem;
+            }
+            .info-row {
+                flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+                gap: 4px;
+            }
+            .info-label, .info-value {
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
@@ -141,13 +187,13 @@
             </div>
             <br>
             <div class="info-row">
-                <span class="info-label">Estado actual del Mishi:</span><span class="info-value badge"> <strong>{{ $kittens->estado }} <-</strong></span>
+                <span class="info-label">Estado actual del Mishi:</span><span class="info-value badge"> <strong>{{ $kittens->estado }}</strong></span>
             </div>
         </div>
 
         <!-- Información del Refugio -->
         <div class="card">
-            <div class="card-header">Información del Refugio Asociado  <span style="color: red;">{{$shelters->nombre}}</span><</div>
+            <div class="card-header">Información del Refugio Asociado <span style="color: red;">{{$shelters->nombre}}</span></div>
             <div class="text-center">
                 @if ($shelters->foto)
                     <img src="{{ public_path('storage/shelters/' . $shelters->foto) }}" alt="{{ $shelters->nombre }}" class="img-thumbnail">

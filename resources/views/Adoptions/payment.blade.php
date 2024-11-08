@@ -58,13 +58,57 @@
         }
         /* Cambia la altura de la barra de progreso */
         .progress {
-            height: 40px; /* Aumenta la altura de la barra */
+            height: 40px;
         }
         .progress-bar {
-            font-size: 1.2rem; /* Ajusta el tamaño de fuente */
-            font-weight: bold; /* Hace el texto en la barra más visible */
+            font-size: 1.2rem;
+            font-weight: bold;
         }
-    </style>
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .payment-option {
+                width: 45%; /* Ajusta el ancho para pantallas medianas */
+            }
+            .shelter-img {
+                max-width: 200px;
+            }
+            .note {
+                font-size: 0.8rem; /* Reduce el tamaño de fuente de las notas */
+            }
+            .progress {
+                height: 30px; /* Reduce la altura de la barra de progreso */
+            }
+            .progress-bar {
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .payment-methods {
+                flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+                align-items: center;
+            }
+            .payment-option {
+                width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+                margin-bottom: 8px;
+            }
+            .shelter-img {
+                max-width: 150px;
+            }
+            .method-payment img, .payment-logo {
+                width: 40px; /* Ajusta el tamaño de las imágenes de pago */
+                margin: 5px;
+            }
+            .progress {
+                height: 25px; /* Reduce aún más la altura de la barra */
+            }
+            .progress-bar {
+                font-size: 0.9rem;
+            }
+            .note {
+                font-size: 0.75rem;
+            }
+        }
+    </style>    
 </head>
 <body>
     <!-- Alert messages for session states -->

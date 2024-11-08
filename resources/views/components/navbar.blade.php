@@ -51,6 +51,29 @@
         color: #ffc107; /* Color del texto */
         text-align: center; /* Centra el texto */
     }
+
+    /* Mejora de la responsividad para pantallas pequeñas */
+    @media (max-width: 768px) {
+        .navbar-nav {
+            flex-direction: column; /* Hacer que los enlaces de navegación se apilen */
+            text-align: center; /* Alinear los enlaces al centro */
+        }
+
+        .search-form {
+            width: 100%; /* Hacer que el formulario de búsqueda ocupe todo el ancho */
+            margin-top: 1rem;
+        }
+
+        .filter-container {
+            flex-direction: column; /* Los filtros también deben apilarse en pantallas pequeñas */
+            margin-left: 0;
+            margin-top: 1rem;
+        }
+
+        .filter-text {
+            margin-right: 0; /* Quitar margen derecho en pantallas pequeñas */
+        }
+    }
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-lg">
@@ -126,10 +149,9 @@
            @if (request()->routeIs('dashboard.notificaciones'))
                 <div class="ms-3 filter-container">
                     <label for="filterDate" class="filter-text mb-0">Filtrar por Fecha</label>
-                    <input type="date" id="filterDate" class="form-control" onchange="filtrarNotificaciones()">
+                    <input type="date" id="filterDate" class="form-control" onchange="filterByDate()">
                 </div>
-           @endif
-
+            @endif
         </div>
     </div>
 </nav>
