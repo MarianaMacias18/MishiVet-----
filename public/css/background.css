@@ -33,3 +33,116 @@
     border-width: 4px !important; /* Aumenta el grosor del borde */
     box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.7); /* Sombra para resaltar más el borde */
 }
+
+  /* Fondo de la sección principal */
+  .background-video {
+    position: relative;
+    overflow: hidden;
+}
+
+.background-video video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Hace que el video quede en el fondo */
+}
+
+/* Animación de desvanecido */
+.fade-in {
+    opacity: 0;
+    animation: fadeInAnimation 1s forwards;
+}
+
+@keyframes fadeInAnimation {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Carrusel */
+.carousel-inner {
+transition: transform 0.5s ease-in-out;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    filter: invert(1); /* Hace los iconos visibles en fondos oscuros */
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.carousel-control-prev:hover, .carousel-control-next:hover {
+    opacity: 1;
+}
+
+/* Efecto hover para las tarjetas */
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos de badge personalizado */
+.badge-libre {
+    background-color: #17a2b8;
+    color: white;
+}
+.badge-ocupado {
+    background-color: #ffc107;
+    color: black;
+}
+
+/* Fondo del footer de las tarjetas */
+.card-footer-custom {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: #ffffff;
+}
+
+/* Estilo del título principal */
+.title {
+    color: #f8f9fa;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
+    padding: 25px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Estilo para el enlace que cubre todo el div */
+.card a {
+    display: block; /* Hace que el enlace ocupe todo el espacio */
+    color: inherit; /* Mantiene el color del texto original */
+    text-decoration: none; /* Elimina el subrayado del enlace */
+    height: 100%; /* Asegura que el enlace ocupe toda la tarjeta */
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .title {
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .carousel-inner {
+        display: block;
+        overflow: hidden;
+    }
+
+    .carousel-item {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-img-top {
+        height: 250px; /* Ajusta el tamaño de las imágenes en pantallas más pequeñas */
+    }
+}

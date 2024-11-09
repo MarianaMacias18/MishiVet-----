@@ -153,7 +153,7 @@
             @if ($kitten->foto)
                 <div class="form-check mb-3">
                     <input type="checkbox" class="form-check-input" id="delete_foto" name="delete_foto" value="1">
-                    <label for="delete_foto" class="form-check-label">Eliminar foto del Mishi actual.</label>
+                    <label for="delete_foto" class="form-check-label text-white">Eliminar foto del Mishi actual.</label>
                 </div>
             @endif
 
