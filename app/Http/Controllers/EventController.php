@@ -13,10 +13,13 @@ class EventController extends Controller
 {
     public function index()
     {
-        $userId = Auth::id(); // Obtener el ID del usuario autenticado
+        $userId = Auth::id(); // Obtiene el ID del usuario autenticado
+        
+        // Obtiene eventos del usuario autenticado y ordenarlos por fecha (más reciente primero)
         $events = Event::with('shelters')
-                    ->where('id_usuario_dueño', $userId) // Filtrar eventos por el ID del usuario
-                    ->get(); // Obtener eventos con refugios asociados
+                        ->where('id_usuario_dueño', $userId) // Filtrar eventos por el ID del usuario
+                        ->orderBy('fecha', 'asc') // Ordenar por la fecha de los eventos de más reciente a más lejana
+                        ->get(); // Obtiene eventos con refugios asociados
 
         return view('events.index', compact('events'));
     }

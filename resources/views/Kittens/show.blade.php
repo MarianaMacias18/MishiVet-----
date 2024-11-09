@@ -24,18 +24,20 @@
         </div>
     @endif
 
-    <h2 class="text-center mb-4 text-primary">Perfil de {{ $kitten->nombre }}</h2>
+    <!-- Título centrado -->
+    <h2 class="text-center mb-5 text-primary">Información de {{ $kitten->nombre }}</h2>
 
     <div class="row mb-4">
-        <div class="col-md-6 mb-3">
+        <!-- Columna izquierda: Información principal -->
+        <div class="col-md-6 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">Información del Mishi</h5>
+                    <h5 class="card-title text-secondary">Información del Mishi</h5>
                     <div class="text-center mb-3">
                         @if ($kitten->foto)
-                            <img src="{{ asset('storage/kittens/' . $kitten->foto) }}" alt="{{ $kitten->nombre }}" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                            <img src="{{ asset('storage/kittens/' . $kitten->foto) }}" alt="{{ $kitten->nombre }}" class="rounded-circle img-fluid mb-3" style="width: 120px; height: 120px; object-fit: cover;">
                         @else
-                            <img src="{{ asset('img/icono_mishi.png') }}" alt="Foto por defecto" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                            <img src="{{ asset('img/icono_mishi.png') }}" alt="Foto por defecto" class="rounded-circle img-fluid mb-3" style="width: 120px; height: 120px; object-fit: cover;">
                         @endif
                     </div>
                     <div class="mb-2">
@@ -54,10 +56,11 @@
             </div>
         </div>
 
-        <div class="col-md-6 mb-3">
+        <!-- Columna derecha: Detalles adicionales y botones -->
+        <div class="col-md-6 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">Detalles Adicionales</h5>
+                    <h5 class="card-title text-secondary">Detalles Adicionales</h5>
                     <div class="mb-2">
                         <strong>Sexo:</strong>
                         <p class="form-control-plaintext">{{ $kitten->sexo }}</p>
@@ -67,26 +70,24 @@
                         <p class="form-control-plaintext">{{ $kitten->color }}</p>
                     </div>
                     <div class="mb-2">
-                        <strong>Estado actual del mishi:</strong>
+                        <strong>Estado actual del Mishi:</strong>
                         <p class="form-control-plaintext">{{ $kitten->estado }}</p>
                     </div>
                     <div class="mb-2">
                         <strong>Detalles:</strong>
                         <p class="form-control-plaintext">{{ $kitten->detalles }}</p>
                     </div>
+
+                    <!-- Botones debajo de los detalles -->
+                    <div class="mt-3 text-center">
+                        <!-- Botón Volver -->
+                        <a href="{{ route('kittens.index') }}" class="btn btn-lg btn-outline-primary w-100 mb-3">Volver</a>
+                        <!-- Botón Editar -->
+                        <a href="{{ route('kittens.edit', $kitten) }}" class="btn btn-lg btn-outline-warning w-100 mb-3">Editar</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="mt-3 text-center">
-        <a href="{{ route('kittens.index') }}" class="btn btn-primary">Volver</a>
-        <a href="{{ route('kittens.edit', $kitten) }}" class="btn btn-warning">Editar</a>
-        <form action="{{ route('kittens.destroy', $kitten) }}" method="POST" style="display:inline;">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Eliminar</button>
-        </form>
     </div>
 </div>
 

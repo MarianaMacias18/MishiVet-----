@@ -2,43 +2,46 @@
     <!-- Modal de éxito -->
     @if (session('success'))
         <div class="modal fade show" id="successModal" tabindex="-1" role="dialog" style="display: block; background-color: rgba(0, 0, 0, 0.5);">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">¡Mishi-éxito!</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="$('#successModal').modal('hide');"></button>
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content bg-success text-white rounded-4 shadow-lg border-0">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title fw-bold">¡Mishi-éxito!</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="$('#successModal').modal('hide');"></button>
                     </div>
                     <div class="modal-body">
-                        <p>{{ session('success') }}</p>
+                        <p class="mb-0">{{ session('success') }}</p>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="$('#successModal').modal('hide');">Cerrar</button>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-light rounded-pill shadow-sm" data-bs-dismiss="modal" onclick="$('#successModal').modal('hide');">Cerrar</button>
                     </div>
                 </div>
             </div>
         </div>
     @endif
 
-    <h1 class="text text-center">{{ $title }}</h1>
+    <!-- Título -->
+    <h1 class="text-center mb-4 text-warning fw-bold display-5">{{ $title }}</h1>
 
-    <form action="{{ $action }}" method="POST" class="p-4 border rounded shadow-sm bg-light position-relative" enctype="multipart/form-data">
+    <!-- Formulario con fondo transparente -->
+    <form action="{{ $action }}" method="POST" class="p-4 rounded-4 shadow-lg bg-transparent position-relative" enctype="multipart/form-data" style="max-width: 700px; margin: auto; background-color: rgba(255, 255, 255, 0.7);">
         @csrf
         @method($method)
 
         {{ $slot }}
-        <br>
-        <div class="text-center">
-            <button type="submit" class="btn btn-success">{{ $submitText }}</button>
+        <!-- Botón de envío estilizado -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success w-50 shadow rounded-pill">Guardar Cambios</button>
         </div>
     </form>
 
-    <div class="mt-3 text-center d-flex justify-content-center">
-        <a href="{{ $backRoute }}" class="btn btn-outline-secondary me-2">Volver</a>
+    <!-- Botones de navegación y eliminar -->
+    <div class="mt-4 d-flex justify-content-center gap-3">
+        <a href="{{ $backRoute }}" class="btn btn-outline-primary px-4 rounded-pill shadow-sm border-2 border-secondary">Volver</a>
         @if ($deleteAction)
             <form id="delete-form" action="{{ $deleteAction }}" method="POST" class="m-0">
                 @csrf
                 @method('DELETE')
-                <button type="button" class="btn btn-danger" id="delete-btn">
+                <button type="button" class="btn btn-danger rounded-pill shadow-sm" id="delete-btn">
                     Eliminar {{ strtolower($title) }}
                 </button>
             </form>
@@ -58,7 +61,7 @@
 
         @if ($deleteAction)
             $('#delete-btn').on('click', function(event) {
-                event.preventDefault(); // Prevenir el comportamiento por defecto del botón
+                event.preventDefault();
                 if (confirm('¿Estás seguro de que deseas eliminar este {{ strtolower($title) }}? Esta acción no se puede deshacer.')) {
                     $('#delete-form').submit();
                 }

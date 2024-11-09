@@ -228,23 +228,36 @@
     function filtrarEventos() {
         const fechaSeleccionada = document.getElementById('dateFilter').value; // Obtiene la fecha seleccionada
         const mesSeleccionado = document.getElementById('monthFilter').value; // Obtiene el mes seleccionado
-        const eventos = document.querySelectorAll('.event-card'); // Obtiene todas las tarjetas de evento
+        const eventos = document.querySelectorAll('.event-card'); // Obtiene todas las tarjetas de eventos
     
+        // Filtra los eventos según la fecha seleccionada y el mes seleccionado
         eventos.forEach(evento => {
-            const fechaEvento = evento.querySelector('.event-date').getAttribute('data-fecha'); // Obtiene la fecha del evento en formato YYYY-MM-DD HH:MM
-            const mesEvento = fechaEvento.split('-')[1]; // Obtiene el mes de la fecha del evento
+            const fechaEvento = evento.getAttribute('data-fecha'); // Obtiene la fecha del evento
+            const fecha = new Date(fechaEvento); // Convierte la fecha del evento en un objeto Date
     
-            // Verificar el filtro
-            const esFechaValida = fechaSeleccionada === '' || fechaEvento.startsWith(fechaSeleccionada);
-            const esMesValido = mesSeleccionado === '' || mesEvento === mesSeleccionado;
+            let mostrarEvento = true;
     
-            if (esFechaValida && esMesValido) {
-                evento.style.display = 'block'; // Muestra el evento si coincide
+            // Si se ha seleccionado una fecha, se filtra por ella
+            if (fechaSeleccionada && fechaEvento !== fechaSeleccionada) {
+                mostrarEvento = false;
+            }
+    
+            // Si se ha seleccionado un mes, se filtra por el mes
+            if (mesSeleccionado && fecha.getMonth() + 1 !== parseInt(mesSeleccionado)) {
+                mostrarEvento = false;
+            }
+    
+            // Muestra u oculta el evento según los filtros
+            if (mostrarEvento) {
+                evento.style.display = 'block';
             } else {
-                evento.style.display = 'none'; // Oculta el evento si no coincide
+                evento.style.display = 'none';
             }
         });
     }
+    
+    
+    
     function filtrarNotificaciones() {
         const fechaSeleccionada = document.getElementById('filterDate').value; // Obtiene la fecha seleccionada
         const notificaciones = document.querySelectorAll('.notification-card'); // Cambia esto según la clase de tus tarjetas de notificación

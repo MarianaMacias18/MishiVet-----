@@ -3,10 +3,13 @@
 @section('title', 'Editar Mishi')
 
 @section('content')
-    <div class="container mt-5 position-relative">
+<div class="background-image" style="background-image: url('{{ asset('img/mishi2.jpg') }}');">
+    <div class="container mt-5">
+        <!-- Contenedor del formulario con fondo semi-transparente -->
+        <div class="bg-dark bg-opacity-50 p-5 rounded-3 shadow-sm">
         <!-- Método PUT para hacer un UPDATE de Kittens -->
         <x-edit-component 
-            title="Edición Mishis" 
+            title="Editar Mishi" 
             action="{{ route('kittens.update', $kitten) }}" 
             method="PUT" 
             submitText="Actualizar Mishi" 
@@ -24,17 +27,17 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control" value="{{ old('nombre', $kitten->nombre) }}" required>
+                        <label for="nombre" class="form-label fw-semibold text-white"><strong>Nombre</strong></label>
+                        <input type="text" name="nombre" id="nombre" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('nombre') is-invalid border-warning @enderror" value="{{ old('nombre', $kitten->nombre) }}" required>
                         @error('nombre')
-                            <div class="text-danger">{{ $message }}</div>
+                            <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="raza">Raza</label>
-                        <select name="raza" id="raza" class="form-control" required onchange="handleRazaChange(this)">
+                        <label for="raza" class="form-label fw-semibold text-white"><strong>Raza</strong></label>
+                        <select name="raza" id="raza" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('raza') is-invalid border-warning @enderror" required onchange="handleRazaChange(this)">
                             <option value="">Selecciona una raza</option>
                             <option value="Persa" {{ old('raza', mb_strtolower($kitten->raza)) == 'persa' ? 'selected' : '' }}>Persa</option>
                             <option value="Siamés" {{ old('raza', mb_strtolower($kitten->raza)) == 'siamés' ? 'selected' : '' }}>Siamés</option>
@@ -50,7 +53,7 @@
                         </select>
                     
                         @error('raza')
-                            <div class="text-danger">{{ $message }}</div>
+                            <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
                     </div>
                                    
@@ -60,8 +63,8 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="edad">Edad en años</label>
-                        <select name="edad" id="edad" class="form-control" required>
+                        <label for="edad" class="form-label fw-semibold text-white"><strong>Edad en años</strong></label>
+                        <select name="edad" id="edad" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('edad') is-invalid border-warning @enderror" required>
                             <option value="">Selecciona la edad</option>
                             @for($i = 1; $i <= 15; $i++)
                                 <option value="{{ $i }}" {{ old('edad', $kitten->edad) == $i ? 'selected' : '' }}>
@@ -71,19 +74,19 @@
                         </select>
                         
                         @error('edad')
-                            <div class="text-danger">{{ $message }}</div>
+                            <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="sexo">Sexo</label>
-                        <select name="sexo" id="sexo" class="form-control" required>
+                        <label for="sexo" class="form-label fw-semibold text-white"><strong>Sexo</strong></label>
+                        <select name="sexo" id="sexo" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('sexo') is-invalid border-warning @enderror" required>
                             <option value="Macho" {{ old('sexo', $kitten->sexo) == 'Macho' ? 'selected' : '' }}>Macho</option>
                             <option value="Hembra" {{ old('sexo', $kitten->sexo) == 'Hembra' ? 'selected' : '' }}>Hembra</option>
                         </select>
                         @error('sexo')
-                            <div class="text-danger">{{ $message }}</div>
+                            <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
@@ -92,8 +95,8 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="color">Color</label>
-                        <select name="color" id="color" class="form-control" required onchange="handleColorChange(this)">
+                        <label for="color" class="form-label fw-semibold text-white"><strong>Color</strong></label>
+                        <select name="color" id="color" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('color') is-invalid border-warning @enderror" required onchange="handleColorChange(this)">
                             <option value="">Selecciona un color</option>
                             <option value="Blanco" {{ old('color', mb_strtolower($kitten->color)) == 'blanco' ? 'selected' : '' }}>Blanco</option>
                             <option value="Negro" {{ old('color', mb_strtolower($kitten->color)) == 'negro' ? 'selected' : '' }}>Negro</option>
@@ -109,41 +112,41 @@
                             <option value="Multicolor" {{ old('color', mb_strtolower($kitten->color)) == 'multicolor' ? 'selected' : '' }}>Multicolor</option>
                         </select>
                         @error('color')
-                            <div class="text-danger">{{ $message }}</div>
+                            <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
                     </div>                    
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="estado">Estado actual del Mishi</label>
-                        <select name="estado" id="estado" class="form-control" required>
+                        <label for="estado" class="form-label fw-semibold text-white"><strong>Estado actual del Mishi</strong></label>
+                        <select name="estado" id="estado" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('estado') is-invalid border-warning @enderror" required>
                             <option value="Libre" {{ old('estado', $kitten->estado) == 'Libre' ? 'selected' : '' }}>Libre</option>
                             <option value="Apartado" {{ old('estado', $kitten->estado) == 'Apartado' ? 'selected' : '' }}>Apartado</option>
                             <option value="Adoptado" {{ old('estado', $kitten->estado) == 'Adoptado' ? 'selected' : '' }}>Adoptado</option>
                         </select>
                         @error('estado')
-                            <div class="text-danger">{{ $message }}</div>
+                            <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="detalles">Detalles</label>
-                <textarea name="detalles" id="detalles" class="form-control">{{ old('detalles', $kitten->detalles) }}</textarea>
-                <small class="form-text text-muted">Los detalles son opcionales, sin embargo, pueden ser una guía de cuidados y aspectos a tener en consideración del mishi.</small>
+                <label for="detalles" class="form-label fw-semibold text-white"><strong>Detalles</strong></label>
+                <textarea name="detalles" id="detalles" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('detalles') is-invalid border-warning @enderror">{{ old('detalles', $kitten->detalles) }}</textarea>
+                <small class="form-text text-white">Los detalles son opcionales, sin embargo, pueden ser una guía de cuidados y aspectos a tener en consideración del mishi.</small>
                 @error('detalles')
-                    <div class="text-danger">{{ $message }}</div>
+                    <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                 @enderror
             </div>
 
             <!-- Campo para subir una nueva imagen del mishi -->
             <div class="mb-3">
-                <label for="foto" class="form-label">Subir foto de mishi:</label>
-                <input type="file" id="foto" name="foto" class="form-control">
-                <small class="form-text text-muted">Sube una imagen en formato JPG, JPEG o PNG. Tamaño máximo: 2MB.</small>
+                <label for="imagen" class="form-label fw-semibold text-white"><strong>Subir imagen del Mishi</strong></label>
+                <input type="file" id="foto" name="foto" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('imagen') is-invalid border-warning @enderror">
+                <small class="form-text text-white">Sube una imagen en formato JPG, JPEG o PNG. Tamaño máximo: 2MB.</small>
                 @error('foto')
-                    <div class="text-danger">{{ $message }}</div>
+                    <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                 @enderror
             </div>
             <!-- Checkbox para eliminar la imagen actual -->
@@ -155,8 +158,8 @@
             @endif
 
             <div class="form-group">
-                <label for="id_refugio">Refugio Asociado</label>
-                <select class="form-control @error('id_refugio') is-invalid @enderror" name="id_refugio" id="id_refugio" required>
+                <label for="id_refugio" class="form-label fw-semibold text-white"><strong>Refugio Asociado</strong></label> 
+                <select class="form-control text-dark fw-bold opacity-75 border-dark rounded-3 shadow-sm @error('id_refugio') is-invalid border-warning @enderror" name="id_refugio" id="id_refugio" required>
                     @foreach($shelters as $shelter)
                     <option value="{{ $shelter->id }}" {{ old('id_refugio', $kitten->shelter->id ?? null) == $shelter->id ? 'selected' : '' }}>
                         {{ $shelter->nombre }}
@@ -164,15 +167,12 @@
                     @endforeach
                 </select>
                 @error('id_refugio')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group">
-                <label>Dueño:</label>
-                <input type="text" class="form-control bg-light" value="{{ auth()->user()->name }}" readonly style="background-color: #dcdcdc; color: #000; border: 1px solid #aaa;">
-            </div>
+         
         </x-edit-component>
+        </div>
     </div>
+</div>
 @endsection
