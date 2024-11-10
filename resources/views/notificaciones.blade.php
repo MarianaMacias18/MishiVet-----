@@ -3,8 +3,9 @@
 @section('title', 'Notificaciones')
 
 @section('content')
+<div class="background-image" style="background-image: url('{{ asset('img/not3.png') }}');">
     <div class="container mt-5">
-        <h2 class="text-center text-uppercase text-primary mb-4">Notificaciones de Adopción</h2>
+        <h2 class="text-center text-uppercase text-warning mb-4">Notificaciones de Adopción</h2>
 
         <!-- Mensajes de error y éxito -->
         @if (session('danger'))
@@ -19,12 +20,12 @@
         @else
             <div id="notificationsContainer">
                 @foreach($notifications as $notification)
-                    <div class="card mb-4 notification border-0 shadow-sm" style="background-color: #f8f9fa;">
+                    <div class="card mb-4 notification border-0 shadow-sm" style="background-color: rgba(255, 255, 255, 0.75);">
                         <div class="card-body text-center p-4">
                             <h5 class="card-title text-uppercase font-weight-bold text-dark mb-2">Solicitud de adopción para: 
                                 <span class="text-primary">{{ $notification->kitten->nombre }}</span>
                             </h5>
-                            <h6 class="card-subtitle text-muted mb-3">Refugio: {{ $notification->kitten->shelter->nombre }}</h6>
+                            <h6 class="card-subtitle text-success mb-3"><strong>Refugio: {{ $notification->kitten->shelter->nombre }}</strong></h6>
 
                             <!-- Mostrar imagen del gato -->
                             <div class="mb-3">
@@ -70,4 +71,5 @@
             </div>
         @endif
     </div>
+</div>
 @endsection

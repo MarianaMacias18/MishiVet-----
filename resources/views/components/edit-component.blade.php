@@ -68,4 +68,19 @@
             });
         @endif
     });
+    // Función para mostrar la vista previa de la imagen cargada
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const preview = document.getElementById('image-preview');
+            preview.src = reader.result;
+            preview.style.display = 'block'; // Muestra la imagen
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
 </script>

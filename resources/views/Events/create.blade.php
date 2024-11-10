@@ -27,7 +27,7 @@
                     <div class="form-group">
                         <label for="nombre" class="form-label fw-semibold text-white"><strong>Nombre del Evento</strong></label>
                         <input type="text" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('nombre') is-invalid border-warning @enderror" 
-                               name="nombre" id="nombre" value="{{ old('nombre', $event->nombre ?? '') }}" required>
+                               name="nombre" id="nombre" placeholder="Ingresa nombre" value="{{ old('nombre', $event->nombre ?? '') }}" required>
                         @error('nombre')
                             <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label for="descripcion" class="form-label fw-semibold text-white"><strong>Descripción</strong></label>
                         <textarea class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('descripcion') is-invalid border-warning @enderror" 
-                                  name="descripcion" id="descripcion" required>{{ old('descripcion', $event->descripcion ?? '') }}</textarea>
+                                  name="descripcion" id="descripcion" placeholder="Ingresa descripción" required>{{ old('descripcion', $event->descripcion ?? '') }}</textarea>
                         @error('descripcion')
                             <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
@@ -75,7 +75,7 @@
                     <div class="form-group">
                         <label for="ubicacion" class="form-label fw-semibold text-white"><strong>Ubicación del Evento</strong></label>
                         <input type="text" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('ubicacion') is-invalid border-warning @enderror" 
-                               required name="ubicacion" id="ubicacion" value="{{ old('ubicacion', $event->pivot->ubicacion ?? '') }}">
+                               required name="ubicacion" id="ubicacion" placeholder="Ej: México, Jal, GDL" value="{{ old('ubicacion', $event->pivot->ubicacion ?? '') }}">
                         @error('ubicacion')
                             <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
@@ -85,7 +85,7 @@
                     <div class="form-group">
                         <label for="participantes" class="form-label fw-semibold text-white"><strong>Número de Participantes</strong></label>
                         <input type="number" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('participantes') is-invalid border-warning @enderror" 
-                               required name="participantes" id="participantes" value="{{ old('participantes', $event->pivot->participantes ?? '') }}">
+                               required name="participantes" id="participantes" placeholder="Ingresa cantidad" value="{{ old('participantes', $event->pivot->participantes ?? '') }}">
                         <small class="form-text text-white">Para crear un evento, debe haber un mínimo de 20 participantes.</small>
                         @error('participantes')
                             <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>

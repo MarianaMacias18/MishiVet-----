@@ -150,11 +150,11 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">$</span>
                                     </div>
-                                    <input type="number" id="amount" name="amount" class="form-control" min="5" max="10000" required>
+                                    <input type="number" id="amount" name="amount" class="form-control" min="10" max="10000" required>
                                 </div>
-                                <small class="note">Puedes donar desde $5 pesos hasta $10,000 por transacción. (MX)</small>
+                                <small class="note">Puedes donar desde $10 pesos hasta $10,000 por transacción. (MX)</small>
                                 @if ($errors->has('amount'))
-                                    <div class="alert alert-danger mt-2">
+                                    <div class="alert alert-danger mt-5">
                                         {{ $errors->first('amount') }}
                                     </div>
                                 @endif

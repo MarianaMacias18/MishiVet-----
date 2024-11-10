@@ -3,9 +3,10 @@
 @section('title', 'Nosotros')
 
 @section('content')
+<div class="background-image" style="background-image: url('{{ asset('img/kittyWiggle.gif') }}');">
     <div class="container mt-5">
         <!-- Sección principal sobre nosotros -->
-        <div class="row align-items-center mb-5">
+        <div class="row align-items-center mb-4">
             <div class="col-md-6">
                 <h2 class="display-5 fw-bold">Sobre Nosotros</h2>
                 <p class="lead mt-3">
@@ -69,4 +70,5 @@
             <p><i class="bx bx-map"></i> Dirección: Calle de los Michis 123, Ciudad Gatuna</p>
         </div>
     </div>
+</div>
 @endsection

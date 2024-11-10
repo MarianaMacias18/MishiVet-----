@@ -115,7 +115,7 @@ class UserController extends Controller
                 'name' => 'required|string|max:255',
                 'apellidoP' => 'required|string|max:255',
                 'apellidoM' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
+                'email' => 'required|email|unique:users,email,' . $user->id,
                 'telefono' => 'nullable|string|max:20',
                 'direccion' => 'nullable|string|max:255',
                 'password' => 'nullable|string|min:8|confirmed',

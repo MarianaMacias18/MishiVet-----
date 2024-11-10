@@ -26,7 +26,7 @@
                 <!-- Nombre -->
                 <div class="form-group mb-3">
                     <label for="nombre" class="form-label fw-semibold text-white"><strong>Nombre</strong></label>
-                    <input type="text" name="nombre" id="nombre" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('nombre') is-invalid border-warning @enderror" value="{{ old('nombre') }}" required>
+                    <input type="text" name="nombre" id="nombre" placeholder="Ingresa nombre del mishi" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('nombre') is-invalid border-warning @enderror" value="{{ old('nombre') }}" required>
                     <small class="form-text text-white">El nombre del mishi no debe repetirse en otros mishis.</small>
                     @error('nombre')
                         <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
@@ -119,7 +119,7 @@
                 <!-- Detalles -->
                 <div class="form-group mb-3">
                     <label for="detalles" class="form-label fw-semibold text-white"><strong>Detalles</strong></label>
-                    <textarea name="detalles" id="detalles" rows="3" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('detalles') is-invalid border-warning @enderror">{{ old('detalles') }}</textarea>
+                    <textarea name="detalles" id="detalles" placeholder="Ingresa detalles del mishi" rows="3" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('detalles') is-invalid border-warning @enderror">{{ old('detalles') }}</textarea>
                     <small class="form-text text-white">La información adicional puede incluir tratamientos, enfermedades o cuidados del mishi.</small>
                     @error('detalles')
                         <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
@@ -129,11 +129,15 @@
                 <!-- Imagen -->
                 <div class="form-group mb-3">
                     <label for="imagen" class="form-label fw-semibold text-white"><strong>Subir imagen del Mishi</strong></label>
-                    <input type="file" name="imagen" id="imagen" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('imagen') is-invalid border-warning @enderror" accept="image/*">
+                    <input type="file" name="imagen" id="imagen" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('imagen') is-invalid border-warning @enderror" accept="image/*" onchange="previewImage(event)">
                     <small class="form-text text-white">Nota: Puedes subir una foto del mishi para después.</small>
                     @error('imagen')
                         <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                     @enderror
+                </div>
+                <!-- Vista previa de la foto cargada -->
+                <div id="preview-container" class="mt-3 text-center">
+                    <img id="image-preview" src="#" alt="Vista previa de la imagen" style="max-width: 200px; height: auto; display: none; margin: 0 auto;">
                 </div>
                 <!-- Refugio -->
                 <div class="form-group mb-3">
@@ -143,6 +147,7 @@
                             <option value="{{ $shelter->id }}" {{ old('id_refugio') == $shelter->id ? 'selected' : '' }}>{{ $shelter->nombre }}</option>
                         @endforeach
                     </select>
+                    <small class="form-text text-white">Tú mishi solo puede pertenecer a un refugio a la vez.</small>
                     @error('id_refugio')
                         <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                     @enderror

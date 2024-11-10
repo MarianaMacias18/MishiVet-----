@@ -3,6 +3,7 @@
 @section('title', 'Ver Refugio')
 
 @section('content')
+<div class="background-image" style="background-image: url('{{ asset('img/background6.jpg') }}');">
 <div class="container mt-5">
     <!-- Título del refugio -->
     <h1 class="text-center text-primary mb-4">{{ $shelter->nombre }}</h1>
@@ -17,7 +18,7 @@
     </div>
 
     <!-- Información del refugio -->
-    <div class="card shadow-sm mb-4">
+    <div class="card shadow-sm mb-4" style="background-color: rgba(255, 255, 255, 0.75);">
         <div class="card-body">
             <p class="fs-5"><strong>Dirección:</strong> {{ $shelter->direccion }}</p>
             <p class="fs-5"><strong>Teléfono:</strong> {{ $shelter->telefono }}</p>
@@ -33,5 +34,6 @@
         <!-- Botón Editar -->
         <a href="{{ route('shelters.edit', $shelter) }}" class="btn btn-lg btn-outline-warning w-50 mb-3">Editar</a>
     </div>
+</div>
 </div>
 @endsection

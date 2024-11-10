@@ -3,8 +3,9 @@
 @section('title', 'Notificaciones Admin')
 
 @section('content')
-<div class="container mt-5">
-    <h2 class="text-center mb-4 text-uppercase text-primary">Notificaciones</h2>
+<div class="background-image" style="background-image: url('{{ asset('img/not2.jpg') }}');">
+<div class="container mt-1">
+    <h2 class="text-center mb-5 text-uppercase text-warning">Notificaciones</h2>
 
     @if(session('success'))
         <div class="alert alert-success text-center font-weight-bold shadow-sm">{{ session('success') }}</div>
@@ -19,7 +20,7 @@
         </div>
     @else
         @foreach($notificaciones as $notificacion)
-            <div class="notification mb-4 p-4 border rounded shadow-lg" style="background-color: #f8f9fa;">
+            <div class="notification mb-4 p-4 border rounded shadow-lg" style="background-color: rgba(255, 255, 255, 0.75);">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="text-dark">
                         <i class="fas fa-bell text-warning"></i>
@@ -30,7 +31,7 @@
                     </span>
                 </div>
                 
-                <p><strong>Gato:</strong> <span class="text-primary">{{ $notificacion->kitten->nombre }}</span></p>
+                <p><strong>Gato: <span class="text-primary">{{ $notificacion->kitten->nombre }}</span></p></strong> 
                 <p><strong>Fecha de adopción:</strong> {{ $notificacion->fecha->format('d/m/Y H:i') }}</p>
                 <p><strong>Ubicación de refugio:</strong> {{ $notificacion->kitten->shelter->direccion ?? 'Ubicación no disponible' }}</p>
                 <p><strong>Contacto:</strong> {{ $notificacion->kitten->shelter->telefono ?? 'Teléfono no disponible' }}</p>
@@ -47,5 +48,6 @@
             </div>
         @endforeach
     @endif
+</div>
 </div>
 @endsection

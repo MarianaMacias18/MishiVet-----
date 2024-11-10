@@ -3,8 +3,10 @@
 @section('title', 'Mishis')
 
 @section('content')
+<div class="background-video position-relative">
+    <video class="position-fixed top-0 start-0 w-100 h-100 object-fit-cover" src="{{ asset('video/mishi_admin.mp4') }}" muted loop autoplay></video>
 <div class="container mt-5">
-    <h1 class="text-center mb-4 text-primary">MIS MISHIS</h1>
+    <h1 class="text-center mb-4 text-primary"><strong>MIS MISHIS</strong></h1>
     
     <!-- Crear Mishi -->
     <div class="text-center mb-4">
@@ -35,7 +37,7 @@
         <div class="row">
             @foreach($kittens as $kitten)
                 <div class="col-md-4 mb-4">
-                    <div class="card shadow-lg h-100 border-dark rounded" style="margin: 10px; display: flex; flex-direction: column;">
+                    <div class="card shadow-lg h-100 border-dark rounded" style="margin: 10px; display: flex; flex-direction: column; background-color: rgba(255, 255, 255, 0.75);">
                         <!-- Envolver toda la tarjeta con un enlace para ver detalles -->
                         <a href="{{ route('kittens.show', $kitten) }}" style="text-decoration: none; flex-grow: 1; color: inherit;">
                             <div class="text-center">
@@ -45,9 +47,9 @@
                                     <img src="{{ asset('img/icono_mishi.png') }}" alt="Foto por defecto" class="card-img-top rounded-3" style="width: 100%; height: 300px; object-fit: cover;">
                                 @endif
                             </div>
-                            <div class="card-body bg-light">
-                                <h5 class="card-title text-dark">{{ $kitten->nombre }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Refugio: {{ $kitten->shelter->nombre ?? 'No asignado' }}</h6>
+                            <div class="card-body bg-white bg-opacity-25">
+                                <h5 class="card-title text-primary"><strong>{{ $kitten->nombre }}</strong></h5>
+                                <h6 class="card-subtitle mb-2 text-success"><strong>Refugio: {{ $kitten->shelter->nombre ?? 'No asignado' }}</strong></h6>
                                 <p><strong>Raza:</strong> {{ $kitten->raza }}</p>
                                 <p><strong>Edad en años:</strong> {{ $kitten->edad }}</p>
                                 <p><strong>Sexo:</strong> {{ $kitten->sexo }}</p>
@@ -84,5 +86,6 @@
             @endforeach
         </div>
     @endif
+</div>
 </div>
 @endsection

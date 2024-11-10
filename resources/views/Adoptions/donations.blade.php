@@ -3,7 +3,8 @@
 @section('title', 'Donaciones')
 
 @section('content')
-<div class="container mt-5">
+<div class="background-image" style="background-image: url('{{ asset('img/background6.jpg') }}');">
+<div class="container mt-1">
     @if ($donations->isEmpty())
         <div class="alert alert-info text-center shadow-sm p-3" role="alert">
             <strong>No has recibido alguna donación aún.</strong>
@@ -58,5 +59,6 @@
         <img src="{{ asset('img/donation.gif') }}" alt="Donaciones" 
              class="img-fluid rounded shadow-sm">
     </div>
+</div>
 </div>
 @endsection

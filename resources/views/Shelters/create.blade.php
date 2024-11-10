@@ -22,7 +22,7 @@
                         <label for="nombre" class="form-label fw-semibold text-white"><strong>Nombre</strong></label>
                         <input type="text" 
                                class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('nombre') is-invalid border-warning @enderror" 
-                               id="nombre" name="nombre" placeholder="Nombre del refugio" required value="{{ old('nombre') }}">
+                               id="nombre" name="nombre" placeholder="Ingresa nombre del refugio" required value="{{ old('nombre') }}">
                         @error('nombre')
                             <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
@@ -33,7 +33,7 @@
                         <label for="direccion" class="form-label fw-semibold text-white"><strong>Dirección</strong></label>
                         <input type="text" 
                                class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('direccion') is-invalid border-warning @enderror" 
-                               id="direccion" name="direccion" placeholder="Dirección" required value="{{ old('direccion') }}">
+                               id="direccion" name="direccion" placeholder="Ingresa dirección" required value="{{ old('direccion') }}">
                         @error('direccion')
                             <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
@@ -46,7 +46,7 @@
                         <label for="telefono" class="form-label fw-semibold text-white"><strong>Teléfono</strong></label>
                         <input type="text" 
                                class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('telefono') is-invalid border-warning @enderror" 
-                               id="telefono" name="telefono" placeholder="Teléfono" required value="{{ old('telefono') }}">
+                               id="telefono" name="telefono" placeholder="Ingresa teléfono " required value="{{ old('telefono') }}">
                         @error('telefono')
                             <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
@@ -57,7 +57,7 @@
                         <label for="correo" class="form-label fw-semibold text-white"><strong>Correo</strong></label>
                         <input type="email" 
                                class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('correo') is-invalid border-warning @enderror" 
-                               id="correo" name="correo" placeholder="Correo" required value="{{ old('correo') }}">
+                               id="correo" name="correo" placeholder="Ingresa un correo" required value="{{ old('correo') }}">
                         @error('correo')
                             <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
@@ -70,7 +70,7 @@
                         <label for="descripcion" class="form-label fw-semibold text-white"><strong>Descripción</strong></label>
                         <textarea 
                             class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('descripcion') is-invalid border-warning @enderror" 
-                            id="descripcion" name="descripcion" placeholder="Descripción">{{ old('descripcion') }}</textarea>
+                            id="descripcion" name="descripcion" placeholder="Ingresa descripción del refugio">{{ old('descripcion') }}</textarea>
                         @error('descripcion')
                             <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
@@ -99,23 +99,4 @@
         </div>
     </div>
 </div>
-
-<script>
-    // Función para mostrar la vista previa de la imagen cargada
-    function previewImage(event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function() {
-            const preview = document.getElementById('image-preview');
-            preview.src = reader.result;
-            preview.style.display = 'block'; // Muestra la imagen
-        }
-
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    }
-</script>
-
 @endsection

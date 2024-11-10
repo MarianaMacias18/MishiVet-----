@@ -3,6 +3,7 @@
 @section('title', 'Ver Mishi')
 
 @section('content')
+<div class="background-image" style="background-image: url('{{ asset('img/mishi1.jpg') }}');">
 <div class="container mt-5">
     <!-- Modal de éxito -->
     @if (session('success'))
@@ -25,14 +26,14 @@
     @endif
 
     <!-- Título centrado -->
-    <h2 class="text-center mb-5 text-primary">Información de {{ $kitten->nombre }}</h2>
+    <h2 class="text-center mb-5 text-warning"><strong>Información de {{ $kitten->nombre }}</strong></h2>
 
     <div class="row mb-4">
         <!-- Columna izquierda: Información principal -->
         <div class="col-md-6 mb-4">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm" style="background-color: rgba(255, 255, 255, 0.75);">
                 <div class="card-body">
-                    <h5 class="card-title text-secondary">Información del Mishi</h5>
+                    <h5 class="card-title text-success"><strong>Información del Mishi</strong></h5>
                     <div class="text-center mb-3">
                         @if ($kitten->foto)
                             <img src="{{ asset('storage/kittens/' . $kitten->foto) }}" alt="{{ $kitten->nombre }}" class="rounded-circle img-fluid mb-3" style="width: 120px; height: 120px; object-fit: cover;">
@@ -58,9 +59,9 @@
 
         <!-- Columna derecha: Detalles adicionales y botones -->
         <div class="col-md-6 mb-4">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm" style="background-color: rgba(255, 255, 255, 0.75);">
                 <div class="card-body">
-                    <h5 class="card-title text-secondary">Detalles Adicionales</h5>
+                    <h5 class="card-title text-success"><strong>Detalles Adicionales</strong></h5>
                     <div class="mb-2">
                         <strong>Sexo:</strong>
                         <p class="form-control-plaintext">{{ $kitten->sexo }}</p>
@@ -90,7 +91,7 @@
         </div>
     </div>
 </div>
-
+</div>
 <!-- jQuery y Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

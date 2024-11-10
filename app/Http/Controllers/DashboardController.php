@@ -87,7 +87,7 @@ class DashboardController extends Controller
     {
         // Validar la entrada
         $request->validate([
-            'amount' => 'required|numeric|min:5|max:10000', // Valida que el monto sea numérico y este entre 5 y 10000
+            'amount' => 'required|numeric|min:10|max:10000', // Valida que el monto sea numérico y este entre 5 y 10000
             'stripeToken' => 'required', // Token requerido
             'payment_method' => 'required|string', // Validación del método de pago
         ]);

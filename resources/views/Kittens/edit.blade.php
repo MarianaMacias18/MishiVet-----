@@ -28,7 +28,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="nombre" class="form-label fw-semibold text-white"><strong>Nombre</strong></label>
-                        <input type="text" name="nombre" id="nombre" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('nombre') is-invalid border-warning @enderror" value="{{ old('nombre', $kitten->nombre) }}" required>
+                        <input type="text" name="nombre" id="nombre" placeholder="Nombre de mishi" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('nombre') is-invalid border-warning @enderror" value="{{ old('nombre', $kitten->nombre) }}" required>
                         @error('nombre')
                             <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
@@ -133,7 +133,7 @@
 
             <div class="mb-3">
                 <label for="detalles" class="form-label fw-semibold text-white"><strong>Detalles</strong></label>
-                <textarea name="detalles" id="detalles" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('detalles') is-invalid border-warning @enderror">{{ old('detalles', $kitten->detalles) }}</textarea>
+                <textarea name="detalles" id="detalles" placeholder="Detalles del mishi" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('detalles') is-invalid border-warning @enderror">{{ old('detalles', $kitten->detalles) }}</textarea>
                 <small class="form-text text-white">Los detalles son opcionales, sin embargo, pueden ser una guía de cuidados y aspectos a tener en consideración del mishi.</small>
                 @error('detalles')
                     <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
@@ -143,12 +143,18 @@
             <!-- Campo para subir una nueva imagen del mishi -->
             <div class="mb-3">
                 <label for="imagen" class="form-label fw-semibold text-white"><strong>Subir imagen del Mishi</strong></label>
-                <input type="file" id="foto" name="foto" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('imagen') is-invalid border-warning @enderror">
+                <input type="file" id="foto" name="foto" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('imagen') is-invalid border-warning @enderror" onchange="previewImage(event)">
                 <small class="form-text text-white">Sube una imagen en formato JPG, JPEG o PNG. Tamaño máximo: 2MB.</small>
                 @error('foto')
                     <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                 @enderror
             </div>
+
+            <!-- Vista previa de la foto cargada -->
+            <div id="preview-container" class="mt-3 text-center">
+                <img id="image-preview" src="#" alt="Vista previa de la imagen" style="max-width: 200px; height: auto; display: none; margin: 0 auto;">
+            </div>
+
             <!-- Checkbox para eliminar la imagen actual -->
             @if ($kitten->foto)
                 <div class="form-check mb-3">

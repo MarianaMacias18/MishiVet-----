@@ -3,8 +3,10 @@
 @section('title', 'Eventos')
 
 @section('content')
+<div class="background-video position-relative">
+    <video class="position-fixed top-0 start-0 w-100 h-100 object-fit-cover" src="{{ asset('video/mishi_admin2.mp4') }}" muted loop autoplay></video>
 <div class="container mt-5">
-    <h1 class="text-center mb-4 text-primary">MIS PROXIMOS EVENTOS</h1>
+    <h1 class="text-center mb-4 text-primary"><strong>MIS PROXIMOS EVENTOS</strong></h1>
     <!-- Agregar Evento -->
     <div class="text-center mb-4">
         <a href="{{ route('events.create') }}" class="btn btn-lg btn-success">Crear Evento</a>
@@ -38,11 +40,11 @@
                         <div class="row">
                             @foreach ($chunk as $event)
                                 <div class="col-md-4 mb-4 event-card" data-fecha="{{ \Carbon\Carbon::parse($event->fecha)->format('Y-m-d') }}">
-                                    <div class="card shadow-lg h-100 border border-dark rounded">
+                                    <div class="card shadow-lg h-100 border border-dark rounded" style="background-color: rgba(255, 255, 255, 0.75);">
                                         <a href="{{ route('events.show', $event) }}" class="text-decoration-none text-dark" style="display: block; height: 100%;">
-                                            <div class="card-body bg-light" style="height: 100%; padding: 20px;">
+                                            <div class="card-body bg-light bg-opacity-25" style="height: 100%; padding: 20px;">
                                                 <h5 class="card-title text-success">
-                                                    {{ $event->nombre }}
+                                                    <strong>{{ $event->nombre }}</strong>
                                                 </h5>
                                                 <p class="event-date">
                                                     <strong>Fecha:</strong> {{ \Carbon\Carbon::parse($event->fecha)->format('d/m/Y') }} 
@@ -83,5 +85,6 @@
             </button>
         </div>
     @endif
+</div>
 </div>
 @endsection
