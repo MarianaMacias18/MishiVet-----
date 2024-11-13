@@ -3,6 +3,7 @@
 @section('title', 'Ver Perfil')
 
 @section('content')
+<div class="background-image" style="background-image: url('{{ asset('img/background5.jpg') }}');">
     <div class="container mt-5">
         <!-- Modal de éxito -->
         @if (session('success'))
@@ -24,13 +25,13 @@
             </div>
         @endif
 
-        <h2 class="text-center mb-4 text-primary">Perfil de Usuario</h2>
+        <h2 class="text-center mb-4 text-warning">Perfil de Usuario</h2>
 
         <div class="row mb-4">
             <div class="col-md-6 mb-3">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm" style="background-color: rgba(255, 255, 255, 0.85);">
                     <div class="card-body">
-                        <h5 class="card-title">Información Personal</h5>
+                        <h5 class="card-title text-success"><strong>Información Personal</strong></h5>
                         <div class="mb-2 text-center">
                             @if ($user->avatar)
                                 @if (filter_var($user->avatar, FILTER_VALIDATE_URL))
@@ -62,9 +63,9 @@
             </div>
 
             <div class="col-md-6 mb-3">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm" style="background-color: rgba(255, 255, 255, 0.85);">
                     <div class="card-body">
-                        <h5 class="card-title">Información de Contacto</h5>
+                        <h5 class="card-title text-success"><strong>Información de Contacto</strong></h5>
                         <div class="mb-2">
                             <strong>Correo Electrónico:</strong>
                             <p class="form-control-plaintext">{{ $user->email }}</p>
@@ -83,9 +84,10 @@
         </div>
 
         <div class="mt-3 text-center">
-            <a href="{{ route('users.edit', $user) }}" class="btn btn-primary">Editar Perfil</a>
+            <a href="{{ route('users.edit', $user) }}" class="btn btn-lg btn-outline-warning w-50 mb-3">Editar Perfil</a>
         </div>
     </div>
+</div>
 
     <!-- jQuery y Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -3,9 +3,10 @@
 @section('title', 'Nosotros')
 
 @section('content')
+<div class="background-image"  >
     <div class="container mt-5">
         <!-- Sección principal sobre nosotros -->
-        <div class="row align-items-center mb-5">
+        <div class="row align-items-center mb-4">
             <div class="col-md-6">
                 <h2 class="display-5 fw-bold">Sobre Nosotros</h2>
                 <p class="lead mt-3">
@@ -25,7 +26,13 @@
             </div>
             <!-- Imagen de gatito -->
             <div class="col-md-6">
-                <img src="{{ asset('img/gift3.gif') }}" alt="Adopción de Gatitos" >
+                <img src="{{ asset('img/gift3.gif') }}"
+                    alt="Adopción de Gatitos"
+                    style="width: 800px; 
+                           height: auto;
+                           margin-top: -200px;"
+                    class="img-fluid">
+
             </div>
         </div>
 
@@ -69,4 +76,5 @@
             <p><i class="bx bx-map"></i> Dirección: Calle de los Michis 123, Ciudad Gatuna</p>
         </div>
     </div>
+</div>
 @endsection

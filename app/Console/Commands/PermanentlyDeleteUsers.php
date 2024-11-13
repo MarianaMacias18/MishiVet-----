@@ -20,6 +20,8 @@ class PermanentlyDeleteUsers extends Command
     {
         // Obtiene la fecha de hace 10 días
         $tenDaysAgo = Carbon::now()->subDays(10);
+         // Testing
+        //$tenDaysAgo = Carbon::now()->subMinute();
 
         // Busca usuarios que hayan sido eliminados (soft-deleted) hace más de 10 días
         $usersToDelete = User::onlyTrashed() // suarios eliminados con SoftDeletes

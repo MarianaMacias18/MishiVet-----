@@ -15,8 +15,9 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('users:clean-inactive')->everyMinute();
         $schedule->command('users:permanently-delete')->daily();
-        //php artisan schedule:work
-        
+        $schedule->command('delete:accepted-notifications')->everyMinute();
+        //php artisan schedule:work 
+        //php artisan queue:work (Jobs)
     }
 
     /**

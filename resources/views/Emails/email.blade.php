@@ -37,6 +37,15 @@
             font-weight: bold;
             text-align: center; /* Centrar el texto */
         }
+        /* Ajuste del logo */
+        .logo-container img {
+            max-width: 150px; /* Tamaño máximo razonable del logo */
+            width: 100%;
+            height: auto; /* Mantiene la proporción del logo */
+            display: block;
+            margin: 0 auto; /* Centra la imagen */
+            border-radius: 50%; /* Aplica un borde redondeado para un logo circular */
+        }
         .btn-primary {
             background-color: #dc3545; /* Color del botón */
             border: none;
@@ -45,12 +54,12 @@
             border-radius: 5px;
             text-decoration: none;
             font-size: 18px;
-            transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave para el fondo y la transformación */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Transición para el fondo y la transformación */
         }
         .btn-primary:hover {
             background-color: #c82333; /* Color al pasar el mouse */
             transform: scale(1.05); /* Escala el botón ligeramente */
-            box-shadow: 0 0 15px rgba(220, 53, 69, 0.7); /* Añade sombra para efecto de brillo */
+            box-shadow: 0 0 15px rgba(220, 53, 69, 0.7); /* sombra para efecto de brillo */
         }
         .footer {
             text-align: center;
@@ -70,7 +79,7 @@
             color: #333;
             margin-top: 20px;
             text-align: center; /* Centrar el texto */
-            background-color: #e9ecef; /* Fondo gris claro para el saludo */
+            background-color: #e9ecef; /* Fondo gris claro */
             padding: 10px;
             border-radius: 5px;
         }
@@ -91,7 +100,7 @@
             margin: 0 10px; /* Espaciado entre íconos */
         }
         .highlight {
-            background-color: #ffeeba; /* Fondo amarillo suave para destacar */
+            background-color: #ffeeba; /* Fondo amarillo  */
             border-radius: 5px;
             padding: 10px;
         }
@@ -101,12 +110,12 @@
     <div class="container">
         <div class="header">
             <div class="logo-container text-center mb-2">
-                <i class="fas fa-cat icon"></i> <!-- Ícono de gato de Font Awesome -->
+                <img src="https://placekitten.com/200/200" alt="Logo" class="rounded-circle"> <!-- IMG -->
             </div>
             <h1>¡Bienvenido a MishiVet!</h1>
         </div>
         <p class="greeting">¡Hola Mishi {{$user->name}}!</p>
-        <p>Gracias por unirte a nuestra comunidad dedicada a la adopción de gatos. Tu registro es un paso importante para ayudar a estos adorables felinos a encontrar un hogar amoroso.</p>
+        <p>Gracias por unirte a nuestra comunidad dedicada a la adopción de mishis. Tu registro es un paso importante para ayudar a estos adorables felinos a encontrar un hogar amoroso.</p>
         <p class="highlight">Para activar tu cuenta y acceder a todas nuestras funcionalidades, por favor confirma tu correo electrónico haciendo clic en el botón de abajo:</p>
         <div class="text-center">
             <a href="{{ $verificationUrl }}" class="btn btn-primary">

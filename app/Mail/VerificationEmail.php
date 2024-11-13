@@ -9,8 +9,8 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-
-class VerificationEmail extends Mailable 
+// implements ShouldQueue
+class VerificationEmail extends Mailable implements ShouldQueue // Mail with Queues <-
 {
     use Queueable, SerializesModels;
 

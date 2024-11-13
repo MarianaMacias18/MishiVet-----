@@ -27,6 +27,8 @@ class UserController extends Controller
     {
         $user = new User($request->all());
         $user->password = Hash::make($request->password);
+
+        // Verificacion de Correo por medio de Mailtrap <-
         $user->email_verification_hash = sha1($user->email); 
         $user->save();
         //URL de verificación con el id y el hash del email
@@ -47,6 +49,14 @@ class UserController extends Controller
         return redirect()->route('verification.notice')
         ->with('success', '¡Te has registrado exitosamente! Por favor, revisa tu correo electrónico para verificar tu cuenta.')
         ->with('user', $user); 
+        
+
+        // Sin verificacion de correo al iniciar sesion 
+        // $user->email_verified_at = now(); // Se verifica el email sin correo para tests
+        //Auth::login($user);
+        //$user->save();
+        //return redirect()->route('users.loginshow')->with('success', '¡Te has registrado exitosamente! Inicia sesión para continuar.');
+
     }
 
 // ------------------------------------------------------------------------
@@ -68,7 +78,7 @@ class UserController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
             // Autenticación exitosa
             session(['first_login' => true]);
-            return redirect()->route('dashboard.index');
+            return redirect()->route('dashboard.index')->with('success', '¡Has iniciado sesión exitosamente!');
         }
     
         // Redirigir de vuelta con un mensaje de error
@@ -100,19 +110,26 @@ class UserController extends Controller
         }
         public function update(Request $request, User $user)
         {
-            
             // Validar los campos del formulario
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'apellidoP' => 'required|string|max:255',
                 'apellidoM' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
+                'email' => 'required|email|unique:users,email,' . $user->id,
                 'telefono' => 'nullable|string|max:20',
                 'direccion' => 'nullable|string|max:255',
                 'password' => 'nullable|string|min:8|confirmed',
                 'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
                 'delete_avatar' => 'nullable|boolean',
             ]);
+           
+            // Se hashéa la contraseña antes de actualizar <-
+            if (!empty($validatedData['password'])) {
+                $validatedData['password'] = bcrypt($validatedData['password']);
+            } else {
+                unset($validatedData['password']); // Elimina la contraseña si no se proporciona
+            }
+            //dd($validatedData);
 
             // Actualizar el usuario con los nuevos datos
             $user->update($validatedData);
@@ -137,7 +154,8 @@ class UserController extends Controller
                 $avatarPath = $request->file('avatar')->store('avatars', 'public');
                 $user->avatar = basename($avatarPath); // Guardar solo el nombre del archivo
             }
-            $user->save();
+
+            $user->save(); // Guarda todos los cambios en el modelo
             // Redirigir con un mensaje de éxito
             return redirect()->route('users.edit', $user)->with('success', 'Perfil actualizado exitosamente.');
         }
@@ -145,6 +163,17 @@ class UserController extends Controller
 
         public function destroy(Request $request, User $user) 
         {
+
+            // Verifica si existe un avatar ligado al Usuario
+            if ($user->avatar) {
+                // Ruta completa al archivo en el disco 'public'
+                $fotoPath = 'avatars/' . $user->avatar;
+    
+                if (Storage::disk('public')->exists($fotoPath)) {
+                    Storage::disk('public')->delete($fotoPath); // Elimina la imagen almacenada en public
+                }
+            }
+
             $user->delete();
             //$deletedUsers = User::onlyTrashed()->get(); // Recupera los usuarios eliminados
             //$user = User::withTrashed()->find($id); // Restaura un usuario eliminado en "Softdeletes"
@@ -166,7 +195,7 @@ class UserController extends Controller
                 $user = $request->user();
 
                 if ($user->hasVerifiedEmail()) {
-                    return redirect()->route('dashboard.index')->with('error', 'Tu correo ya ha sido verificado previamente.');
+                    return redirect()->route('dashboard.index')->with('danger', 'Tu correo ya ha sido verificado previamente.');
                 }
 
                 $request->fulfill();
@@ -189,7 +218,7 @@ class UserController extends Controller
 
             // Verificar si el usuario está presente
             if (!$user) {
-                return back()->with('error', 'No se encontró al usuario. Por favor, intenta registrarte nuevamente.');
+                return back()->with('danger', 'No se encontró al usuario. Por favor, intenta registrarte nuevamente.');
             }
             // Generar la URL de verificación con el id y el hash del email
             $verificationUrl = URL::temporarySignedRoute(

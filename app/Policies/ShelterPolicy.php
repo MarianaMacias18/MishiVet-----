@@ -46,4 +46,7 @@ class ShelterPolicy
     {
         return $user->id === $shelter->id_usuario_dueño; // El usuario puede eliminar el refugio si es el dueño
     }
+ 
 }
+
+

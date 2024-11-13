@@ -6,15 +6,20 @@ use App\Models\Event;
 use App\Models\Shelter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 
 class EventController extends Controller
 {
     public function index()
     {
-        $userId = Auth::id(); // Obtener el ID del usuario autenticado
+        $userId = Auth::id(); // Obtiene el ID del usuario autenticado
+        
+        // Obtiene eventos del usuario autenticado y ordenarlos por fecha (más reciente primero)
         $events = Event::with('shelters')
-                    ->where('id_usuario_dueño', $userId) // Filtrar eventos por el ID del usuario
-                    ->get(); // Obtener eventos con refugios asociados
+                        ->where('id_usuario_dueño', $userId) // Filtrar eventos por el ID del usuario
+                        ->orderBy('fecha', 'asc') // Ordenar por la fecha de los eventos de más reciente a más lejana
+                        ->get(); // Obtiene eventos con refugios asociados
 
         return view('events.index', compact('events'));
     }
@@ -24,7 +29,7 @@ class EventController extends Controller
         // Verificar si el usuario tiene permiso para crear un evento
         $this->authorize('create', Event::class);
 
-        $shelters = Shelter::all(); // Obtener todos los refugios
+        $shelters = auth()->user()->shelters; // Refugios del usuario autenticado
         return view('events.create', compact('shelters'));
     }
 
@@ -32,13 +37,13 @@ class EventController extends Controller
     {
         // Validar los campos
         $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255', 
+            'nombre' => ['required','string','max:255', Rule::unique('events')->whereNull('deleted_at'),],
             'fecha' => 'required|date|after:today', 
             'descripcion' => 'required|string', 
             'shelters' => 'required|array', 
             'shelters.*' => 'exists:shelters,id', 
             'ubicacion' => 'required|string|max:255', 
-            'participantes' => 'required|integer|min:1',
+            'participantes' => 'required|integer|min:20',
         ]);
 
         // Crea el evento con el id_usuario_dueño del usuario autenticado
@@ -61,7 +66,7 @@ class EventController extends Controller
         // Verificar si el usuario tiene permiso para editar el evento
         $this->authorize('update', $event);
 
-        $shelters = Shelter::all();
+        $shelters = auth()->user()->shelters; // Refugios del usuario autenticado
         return view('events.edit', compact('event', 'shelters'));
     }
 
@@ -72,23 +77,29 @@ class EventController extends Controller
         
         // Validar los campos
         $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255', 
+            'nombre' => ['required','string','max:255',Rule::unique('events')->ignore($event->id)->whereNull('deleted_at'),],
             'fecha' => 'required|date|after:today', 
             'descripcion' => 'required|string', 
             'shelters' => 'required|array', 
             'shelters.*' => 'exists:shelters,id', 
             'ubicacion' => 'required|string|max:255', 
-            'participantes' => 'required|integer|min:1', 
+            'participantes' => 'required|integer|min:20', 
         ]);
 
         // Actualizar el evento
         $event->update($validatedData);
-
+        
         // Sincronizar refugios seleccionados
-        $event->shelters()->sync($request->shelters, [
-            'ubicacion' => $request->ubicacion,
-            'participantes' => $request->participantes,
-        ]);
+        $syncData = [];
+        foreach ($request->shelters as $shelterId) {
+            $syncData[$shelterId] = [
+                'ubicacion' => $request->ubicacion,
+                'participantes' => $request->participantes,
+                'updated_at' => Carbon::now(), // updated_at 
+            ];
+        }
+
+        $event->shelters()->sync($syncData);
 
         return redirect()->route('events.edit',$event)->with('success', '¡Evento actualizado con éxito!');
     }
@@ -105,7 +116,8 @@ class EventController extends Controller
     {
         // Verificar si el usuario tiene permiso para eliminar el evento
         $this->authorize('delete', $event);
-
+        // Eliminar los registros relacionados en la tabla pivote
+        $event->shelters()->detach();
         $event->delete();
         return redirect()->route('events.index')->with('success', 'Evento eliminado con éxito');
     }

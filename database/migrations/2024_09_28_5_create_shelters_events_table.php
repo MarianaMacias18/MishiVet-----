@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('id_evento')->constrained('events')->onDelete('cascade'); // FK a la tabla events
             
             // Campos adicionales para la tabla pivote
-            $table->string('ubicacion'); // Ubicación del evento
+            $table->string('ubicacion')->default('GDL'); // Ubicación del evento
             $table->integer('participantes'); // Número de participantes
             $table->timestamps(); // Campos de marca de tiempo
         });

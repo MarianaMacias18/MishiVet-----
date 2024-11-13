@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('telefono'); 
             $table->string('correo')->unique(); // Correo del refugio
             $table->text('descripcion')->nullable(); 
+            $table->string('foto')->nullable(); // Ruta de la foto
 
             $table->foreignId('id_usuario_dueño')->constrained('users')->onDelete('cascade'); // FK al ID tabla users
             

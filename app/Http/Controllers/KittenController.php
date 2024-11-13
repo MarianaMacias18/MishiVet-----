@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Kitten;
 use App\Models\Shelter;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+
 
 class KittenController extends Controller
 {
@@ -43,56 +46,32 @@ class KittenController extends Controller
      */
     public function store(Request $request)
     {
-     //return $request;
         $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255',
+            'nombre' => ['required','string','max:255', Rule::unique('kittens')->whereNull('deleted_at'),],
             'raza' => 'required|string|max:255',
             'edad' => 'required|integer',
-            'sexo' => 'required|in:macho,hembra',
+            'sexo' => 'required|in:Macho,Hembra',
             'color' => 'required|string|max:255',
-            'estado' => 'required|in:adoptado,apartado,libre', 
+            'estado' => 'required|in:Libre',
             'detalles' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'id_refugio' => 'required|exists:shelters,id',
         ]);
         
-        // Guardar la imagen
-        $path = null;
-        if ($request->hasFile('foto')) {
-            $path = $request->file('foto')->store('public/kittens');
-            $validatedData['foto'] = basename($path);
-        }
-    
-        $id_usuario_creador = auth()->id(); // Esto obtiene el ID del usuario autenticado
-
-        // Creacion del registro del Mishi
-        //$data=([
-        Kitten::create([
-            'nombre' => $request->nombre,
-            'raza' => $request->raza,
-            'edad' => $request->edad,
-            'sexo' => $request->sexo,
-            'color' => $request->color,
-            'estado' => $request->estado,
-            'detalles' => $request->detalles,
-            'foto' => $path, // Aquí se guarda la ruta de la imagen
-            'id_refugio' => is_array($request->id_refugio) ? $request->id_refugio[0] : $request->id_refugio, 
-            'id_usuario_creador' => $id_usuario_creador,
-        ]);
-
-        //dd($data); // Mostrar los datos que se intentan insertar
-        // Asociar los refugios
-        //$kitten->shelter()->attach($request->id_refugio);
-        // Crear el nuevo Kitten
-        //$kitten = Kitten::create($data);
+        // Añade el id del usuario autenticado al array de datos validados
+        $validatedData['id_usuario_creador'] = auth()->id();
         
-        // anadir 
-        // validaciones para que no pueda eligir mas de un refugio
-        // añadir en la show los refugio al al que pertenece el mishi
-        // viata editar mostrar o seleccionar al que pertenece el mishi.
-    
+        // Maneja la subida de la foto si existe
+        if ($request->hasFile('foto')) {
+            // Guarda la imagen y actualiza el path en $validatedData
+            $fotoPath = $request->file('foto')->store('kittens', 'public');
+            $validatedData['foto'] = basename($fotoPath); // Guarda solo el nombre del archivo
+        }
+
+        // Almacena al mishi utilizando asignación masiva
+        Kitten::create($validatedData);
+
         return redirect()->route('kittens.index')->with('success', 'Mishi creado exitosamente');
-    
     }
 
     /**
@@ -118,24 +97,23 @@ class KittenController extends Controller
      * Update the specified resource in storage.
      */
     
-    public function update(Request $request, Kitten $kitten)
+     public function update(Request $request, Kitten $kitten)
     {
-       
-        $this->authorize('update',$kitten);
-        
-        $validated = $request->validate([
-            'nombre' => 'required|string|max:255',
+        $validatedData = $request->validate([
+            'nombre' => ['required','string','max:255',Rule::unique('kittens')->ignore($kitten->id)->whereNull('deleted_at'),],
             'raza' => 'required|string|max:255',
             'edad' => 'required|integer',
-            'sexo' => 'required|in:macho,hembra',
+            'sexo' => 'required|in:Macho,Hembra',
             'color' => 'required|string|max:255',
-            'estado' => 'required|in:adoptado,apartado,libre',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'estado' => 'required|in:Libre,Apartado,Adoptado',
             'detalles' => 'nullable|string',
-            'id_refugio' => 'required|exists:shelters,id'
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'id_refugio' => 'required|exists:shelters,id',
         ]);
-       
-        //dd($validated);
+
+        // Añade el id del usuario autenticado al array de datos validados
+        $validatedData['id_usuario_creador'] = auth()->id();
+
         // Maneja la eliminación de la foto actual
         if ($request->has('delete_foto') && $request->delete_foto) {
             // Elimina la imagen actual si existe
@@ -144,36 +122,44 @@ class KittenController extends Controller
                 $kitten->foto = null;  // Eliminar referencia a la imagen en la base de datos
             }
         }
-
-        // Maneja la subida de una nueva imagen (foto)
+        // Maneja la subida de la foto si existe
         if ($request->hasFile('foto')) {
+            // Elimina la imagen anterior si existe y no es una URL externa
             if ($kitten->foto && !filter_var($kitten->foto, FILTER_VALIDATE_URL)) {
-                // Eliminar la imagen anterior si existe y no es una URL externa
                 Storage::delete('public/kittens/' . $kitten->foto);
             }
 
-            // Guardar la nueva imagen
+            // Guarda la nueva imagen y actualiza el path en $validatedData
             $fotoPath = $request->file('foto')->store('kittens', 'public');
-            $kitten->foto = basename($fotoPath); // Guardar solo el nombre del archivo
+            $validatedData['foto'] = basename($fotoPath); // Guarda solo el nombre del archivo
         }
-        
-      
-       
-         
-        $kitten->update($request->all());
-        
-    
-        //dd($validated);
-        return redirect()->route('kittens.index')->with('success', 'Mishi actualizado exitosamente');
+
+        // Actualiza el mishi utilizando asignación masiva
+        $kitten->update($validatedData);
+        return redirect()->route('kittens.edit',$kitten)->with('success', 'Mishi actualizado exitosamente');
     }
+
+     
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Kitten $kitten)
     {
-        $this->authorize('delete',$kitten);
-        $kitten->delete(); // Soft delete (si tienes softDeletes en la migración)
-    return redirect()->route('kittens.index')->with('success', 'Mishi eliminado exitosamente');
+        $this->authorize('delete', $kitten);
+
+        // Elimina la imagen del Kitten si existe
+        if ($kitten->foto) {
+            // Ruta completa al archivo en el disco 'public'
+            $fotoPath = 'kittens/' . $kitten->foto;
+
+            if (Storage::disk('public')->exists($fotoPath)) {
+                Storage::disk('public')->delete($fotoPath); // Elimina la imagen almacenada en public
+            }
+        }
+
+        $kitten->delete();
+
+        return redirect()->route('kittens.index')->with('success', 'Mishi eliminado exitosamente');
     }
 }

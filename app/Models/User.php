@@ -28,7 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'direccion',   
     ];
     */
-    protected $guarded = ['id', 'password', 'remember_token', 'github_id']; // Campos que no se pueden asignar masivamente (contrario a fileable) <-
+    protected $guarded = ['id', 'remember_token', 'github_id']; // Campos que no se pueden asignar masivamente (contrario a fileable) <-
 
     /**
      * The attributes that should be hidden for serialization.
@@ -73,7 +73,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     #---------------------------------------------------------------------------------
      // Relación polimórfica
-     public function notifications()
+     public function customNotifications()
      {
          return $this->morphMany(Notification::class, 'notificable');
      }
