@@ -29,6 +29,8 @@
 
     <!-- Botones -->
     <div class="mt-3 text-center">
+        <!-- Historial de adopciones -->
+        <a href="{{ route('shelter-adoption-history', ['refugio' => $shelter->id]) }}" class="btn btn-lg btn-outline-success w-50 mb-3">Consultar historial</a>
         <!-- Botón Volver -->
         <a href="{{ route('shelters.index') }}" class="btn btn-lg btn-outline-primary w-50 mb-3">Volver</a>
         <!-- Botón Editar -->

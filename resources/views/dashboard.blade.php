@@ -20,6 +20,7 @@
                 <p class="display-7 title shadow p-6">
                     <strong>Conoce a nuestros mishis disponibles para adopción en MishiVet</strong>
                 </p>
+
             </div>
 
             @if(Auth::check())

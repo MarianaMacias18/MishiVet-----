@@ -31,6 +31,7 @@ class Sidebar extends Component
             'dashboard.nosotros',
             'dashboard.admin.notificaciones',
             'dashboard.kittens.show',
+            'adoption-history', 
         ];
 
         $GuardianRoutes = [
@@ -48,11 +49,13 @@ class Sidebar extends Component
             'kittens.show',
             'dashboard.notificaciones',
             'donations.index',
+            'shelter-adoption-history'
         ];
 
         if (in_array($route, $UserRoutes)) {
             $this->sidebarOptions = [
                 ['label' => 'Adopciones', 'route' => 'dashboard.index', 'icon' => 'bx bxs-donate-heart'],
+                ['label' => 'Historial de Adopciones', 'route' => 'adoption-history', 'icon' => 'bx bx-history'], 
                 ['label' => 'Ser Guardian', 'route' => 'shelters.index', 'icon' => $this->userNotificationCount > 0 ? 'bx bxs-home-heart text-warning' : 'bx bxs-home-heart'],
                 ['label' => 'Notificaciones', 'route' => 'dashboard.admin.notificaciones', 'icon' => $this->guardianNotificationCount > 0 ? 'bx bx-notification text-danger' : 'bx bx-notification'], // Cambiar icono a rojo si hay notificaciones
                 ['label' => 'Perfil', 'route' => 'users.show', 'params' => [$this->userName], 'icon' => 'bx bx-user'],

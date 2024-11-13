@@ -41,6 +41,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::resource('/dashboard/admin/shelters', ShelterController::class);
     Route::resource('/dashboard/admin/events', EventController::class);
     Route::resource('/dashboard/admin/kittens', KittenController::class);
+  
     #----------------------------------------------------------------------------------------------------------
     // RUTAS NOTIFICACIONES <-
     Route::post('/dashboard/adoptar/{kitten}', [NotificationController::class, 'store'])->name('notifications.store'); # Notificacion de Adopcion pendiente <- (Usuario)
@@ -51,6 +52,17 @@ Route::middleware(['auth','verified'])->group(function () {
     # RUTAS DASHBOARD <-
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/dashboard/detalles/{kitten}', [DashboardController::class, 'kitten'])->name('dashboard.kittens.show');
+    
+    // RUTA HISTORIAL DE ADOPCIONES <-
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/dashboard/historial/adopciones', [App\Http\Controllers\AdoptionUserKittenController::class, 'indexAdoptador'])
+            ->name('adoption-history');
+    });
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/dashboard/historial/adopciones/refugios/{refugio}', [App\Http\Controllers\AdoptionUserKittenController::class, 'indexDueno'])
+            ->name('shelter-adoption-history');
+    });
+    
     // RUTA GENERAR PDF <-
     Route::get('/generar-pdf/{kitten}', [DashboardController::class, 'generarPDF'])->name('doc.pdf');
     // RUTA GENERAR PAGO/DONACION <-

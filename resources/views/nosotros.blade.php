@@ -3,7 +3,7 @@
 @section('title', 'Nosotros')
 
 @section('content')
-<div class="background-image" style="background-image: url('{{ asset('img/kittyWiggle.gif') }}');">
+<div class="background-image"  >
     <div class="container mt-5">
         <!-- Sección principal sobre nosotros -->
         <div class="row align-items-center mb-4">
@@ -26,7 +26,13 @@
             </div>
             <!-- Imagen de gatito -->
             <div class="col-md-6">
-                <img src="{{ asset('img/gift3.gif') }}" alt="Adopción de Gatitos" >
+                <img src="{{ asset('img/gift3.gif') }}"
+                    alt="Adopción de Gatitos"
+                    style="width: 800px; 
+                           height: auto;
+                           margin-top: -200px;"
+                    class="img-fluid">
+
             </div>
         </div>
 
