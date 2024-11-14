@@ -31,7 +31,13 @@
                 @if (session('success'))
                     <x-alert type="success" message="{{ session('success') }}" class="alert alert-success text-center shadow-lg" role="alert" />
                 @endif
+                @if($kittens->isEmpty())
+                    <div class="alert alert-info text-center shadow-sm">
+                        <strong>No hay mishis publicados que puedas adoptar en este momento.</strong>
+                    </div>
+                @else
 
+                
                 <!-- Carrusel de gatos disponibles para adopción -->
                 <div id="kittensCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
                     <div class="carousel-inner rounded shadow-lg">
@@ -81,6 +87,7 @@
                         <span class="visually-hidden">Siguiente</span>
                     </button>
                 </div>
+                @endif
             @else
                 <div class="text-center mt-5 semi-transparent-bg p-5 rounded-3">
                     <h2 class="text-secondary">Bienvenido, Invitado</h2>

@@ -23,6 +23,7 @@ class AdoptionUserKittenController extends Controller
 
     public function indexDueno($refugioId)
     {
+        # Parte en donde iria el Policie de AdoptionKittenController <----
         $shelter = Shelter::findOrFail($refugioId);
         
 

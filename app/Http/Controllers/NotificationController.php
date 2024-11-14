@@ -25,15 +25,6 @@ class NotificationController extends Controller
 
         $direccionRefugio = $kitten->shelter->direccion; // Relación con el modelo Kitten
 
-        // Crea un registro del Mishi Adoptado
-        AdoptionUserKitten::create([
-            'fecha_adopcion' => now(),
-            'ubicacion_refugio' => $direccionRefugio, 
-            'id_refugio' => $kitten->id_refugio, 
-            'id_usuario_adoptivo' => $request->user()->id, // ID del usuario que adopta
-            'id_gato' => $kitten->id, // ID del gato adoptado
-        ]);
-
         // Obtiene la notificación pendiente del usuario "dueño"
         $notificacion = Notification::where('id_gato', $kitten->id)
             ->where('estado_notificacion', 'pendiente')
@@ -47,6 +38,15 @@ class NotificationController extends Controller
             
             // Obtiene al usuario solicitante
             $solicitudUsuario = $notificacion->usuarioSolicitante; // Obtén el usuario de la relación
+
+            // Crea un registro del Mishi Adoptado
+            AdoptionUserKitten::create([
+                'fecha_adopcion' => now(),
+                'ubicacion_refugio' => $direccionRefugio, 
+                'id_refugio' => $kitten->id_refugio, 
+                'id_usuario_adoptivo' => $solicitudUsuario->id, // ID del usuario que adopta al mishi
+                'id_gato' => $kitten->id, // ID del gato adoptado
+            ]);
 
             //Elimina la notificación pendiente del usuario "dueño"
             $notificacion->delete();

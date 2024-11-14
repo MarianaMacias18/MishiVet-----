@@ -24,11 +24,11 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             //ShelterSeeder::class,
             //EventSeeder::class,
-            ShelterEventSeeder::class,
-            KittenSeeder::class,
-            NotificationSeeder::class,
+            //ShelterEventSeeder::class,
+            //KittenSeeder::class,
+            //NotificationSeeder::class,
             //AdoptionUserKittenSeeder::class,   
-            DonationSeeder::class,
+           // DonationSeeder::class,
         ]);
         
     }
