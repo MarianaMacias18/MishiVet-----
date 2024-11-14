@@ -21,18 +21,14 @@ class AdoptionUserKittenController extends Controller
         return view('Adoptions.adoption-history', compact('adoptions'));
     }
 
-    public function indexDueno($refugioId)
+    public function indexDueno(Shelter $shelter)
     {
-        # Parte en donde iria el Policie de AdoptionKittenController <----
-        $shelter = Shelter::findOrFail($refugioId);
-        
-
-        // Verificar que el usuario autenticado es dueño del refugio
-        if (auth()->user()->id == $shelter->user_id) {
-            abort(403);
+        // Verificar que el usuario autenticado es dueño del refugio, en caso de ser distintos denegar acceso <-
+        if (auth()->user()->id != $shelter->id_usuario_dueño) {
+            abort(404);
         }
 
-        $adoptions = AdoptionUserKitten::where('id_refugio', $refugioId)
+        $adoptions = AdoptionUserKitten::where('id_refugio', $shelter->id)
             ->whereNotNull('fecha_adopcion')
             ->with(['kitten', 'user'])
             ->get();

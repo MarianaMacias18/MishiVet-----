@@ -7,6 +7,7 @@ use App\Models\Shelter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Validation\Rule;
 
 class EventController extends Controller
@@ -27,7 +28,11 @@ class EventController extends Controller
     public function create()
     {
         // Verificar si el usuario tiene permiso para crear un evento
-        $this->authorize('create', Event::class);
+        try {
+            $this->authorize('create', Event::class);
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
 
         $shelters = auth()->user()->shelters; // Refugios del usuario autenticado
         return view('events.create', compact('shelters'));
@@ -64,7 +69,11 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         // Verificar si el usuario tiene permiso para editar el evento
-        $this->authorize('update', $event);
+        try {
+            $this->authorize('update', $event);
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
 
         $shelters = auth()->user()->shelters; // Refugios del usuario autenticado
         return view('events.edit', compact('event', 'shelters'));
@@ -73,7 +82,11 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         // Verificar si el usuario tiene permiso para actualizar el evento
-        $this->authorize('update', $event);
+        try {
+            $this->authorize('update', $event);
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
         
         // Validar los campos
         $validatedData = $request->validate([
@@ -107,7 +120,11 @@ class EventController extends Controller
     public function show(Event $event)
     {
         // Verificar si el usuario tiene permiso para ver el evento
-        $this->authorize('view', $event);
+        try {
+            $this->authorize('view', $event);
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
 
         return view('events.show', compact('event'));
     }
@@ -115,7 +132,11 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         // Verificar si el usuario tiene permiso para eliminar el evento
-        $this->authorize('delete', $event);
+        try {
+            $this->authorize('delete', $event);
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
         // Eliminar los registros relacionados en la tabla pivote
         $event->shelters()->detach();
         $event->delete();

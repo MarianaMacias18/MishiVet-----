@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use App\Models\Shelter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +18,12 @@ class ShelterController extends Controller
 
     public function create()
     {
-        $this->authorize('create', Shelter::class); // política para autorizar la creación
+        try {
+            $this->authorize('create', Shelter::class); // Política para autorizar la crecion
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
+
         return view('shelters.create');
     }
 
@@ -47,19 +53,32 @@ class ShelterController extends Controller
 
     public function show(Shelter $shelter)
     {
-        $this->authorize('view', $shelter); // política para autorizar la visualización
+        try {
+            $this->authorize('view', $shelter); // Política para autorizar la visualización
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
+
         return view('shelters.show', compact('shelter'));
     }
 
     public function edit(Shelter $shelter)
     {
-        $this->authorize('update', $shelter); // política para autorizar la edición
+        try {
+            $this->authorize('update', $shelter); // política para autorizar la edición
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
         return view('shelters.edit', compact('shelter'));
     }
 
     public function update(Request $request, Shelter $shelter)
     {
-        $this->authorize('update', $shelter); // Política para autorizar la actualización
+        try {
+            $this->authorize('update', $shelter); // Política para autorizar la actualización
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
 
         $validatedData = $request->validate([
             'nombre' => ['required','string','max:255',Rule::unique('shelters')->ignore($shelter->id)->whereNull('deleted_at'),],
@@ -95,7 +114,12 @@ class ShelterController extends Controller
     public function destroy(Shelter $shelter)
     {
         // Verificar si el usuario tiene permiso para eliminar el refugio
-        $this->authorize('delete', $shelter);
+        try {
+            $this->authorize('delete', $shelter);
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
+
         // Comprobar si el refugio está asociado a kittens
         if ($shelter->kittens()->exists()) {
             return redirect()->route('shelters.index')->with('error', 'No deben haber mishis en el refugio para poder eliminarlo.');

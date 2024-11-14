@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\AdoptionUserKittenController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request; 
 use App\Http\Controllers\UserController;
@@ -54,14 +54,10 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/dashboard/detalles/{kitten}', [DashboardController::class, 'kitten'])->name('dashboard.kittens.show');
     
     // RUTA HISTORIAL DE ADOPCIONES <-
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/dashboard/historial/adopciones', [App\Http\Controllers\AdoptionUserKittenController::class, 'indexAdoptador'])
+    Route::get('/dashboard/historial/adopciones', [AdoptionUserKittenController::class, 'indexAdoptador'])
             ->name('adoption-history');
-    });
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/dashboard/historial/adopciones/refugios/{refugio}', [App\Http\Controllers\AdoptionUserKittenController::class, 'indexDueno'])
+    Route::get('/dashboard/historial/adopciones/refugios/{shelter}', [AdoptionUserKittenController::class, 'indexDueno'])
             ->name('shelter-adoption-history');
-    });
     
     // RUTA GENERAR PDF <-
     Route::get('/generar-pdf/{kitten}', [DashboardController::class, 'generarPDF'])->name('doc.pdf');

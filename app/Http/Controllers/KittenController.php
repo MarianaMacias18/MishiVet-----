@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kitten;
 use App\Models\Shelter;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -36,7 +37,12 @@ class KittenController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',kitten::class);
+        try {
+            $this->authorize('create',kitten::class); 
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
+
         $shelters = auth()->user()->shelters;
         return view('kittens.create',compact('shelters'));
     }
@@ -79,7 +85,11 @@ class KittenController extends Controller
      */
     public function show(Kitten $kitten)
     {
-        $this->authorize('view',$kitten);
+        try {
+            $this->authorize('view',$kitten);
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
         return view('kittens.show', compact('kitten')); 
     }
 
@@ -88,7 +98,11 @@ class KittenController extends Controller
      */
     public function edit(Kitten $kitten)
     {
-        $this->authorize('update',$kitten);
+        try {
+            $this->authorize('update',$kitten);
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
         $shelters = auth()->user()->shelters;
         return view('kittens.edit', compact('kitten','shelters'));
     }
@@ -146,7 +160,11 @@ class KittenController extends Controller
      */
     public function destroy(Kitten $kitten)
     {
-        $this->authorize('delete', $kitten);
+        try {
+            $this->authorize('delete', $kitten);
+        } catch (AuthorizationException $e) {
+            abort(404); // Retornar 404 si la autorización falla
+        }
 
         // Elimina la imagen del Kitten si existe
         if ($kitten->foto) {

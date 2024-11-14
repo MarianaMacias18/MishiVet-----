@@ -9,18 +9,18 @@
     <div class="container mt-5 position-relative z-index-2">
         <!-- Modal de éxito -->
         @if (session('success'))
-            <div class="modal fade show" id="successModal" tabindex="-1" role="dialog" style="display: block; background-color: rgba(0, 0, 0, 0.5);">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">¡Mishi-éxito!</h5>
-                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="$('#successModal').modal('hide');"></button>
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content bg-success text-white rounded-4 shadow-lg border-0">
+                        <div class="modal-header border-0">
+                            <h5 class="modal-title fw-bold" id="successModalLabel">¡Mishi-éxito!</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>{{ session('success') }}</p>
+                            <p class="mb-0">{{ session('success') }}</p>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#successModal').modal('hide');">Cerrar</button>
+                        <div class="modal-footer border-0">
+                            <button type="button" class="btn btn-light rounded-pill shadow-sm" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,9 @@
                 <div class="carousel-item style="background-color: rgba(255, 255, 255, 0.75);"">
                         <div class="card-body">
                             @if($events->isEmpty())
-                                <p>No hay eventos asociados a este mishi o su refugio.</p>
+                                <div class="alert alert-info text-center shadow-sm">
+                                    <strong>No hay eventos en los que el refugio del mishi participe por el momento.</strong>
+                                </div>
                             @else
                                 @foreach($events as $event)
                                     <div class="mb-3 p-3 border rounded" style="background-color: rgba(255, 255, 255, 0.9);">
@@ -131,7 +133,6 @@
                                 @endforeach
                             @endif
                         </div>
-                  
                 </div>
             </div>
 
@@ -147,4 +148,13 @@
         </div>
     </div>
 </div>
+    <!-- Script para abrir el modal si hay un mensaje de éxito -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @if (session('success'))
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            @endif
+        });
+    </script>
 @endsection

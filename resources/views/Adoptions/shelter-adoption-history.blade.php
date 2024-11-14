@@ -22,22 +22,22 @@
         <!-- Si no hay adopciones -->
         @if($adoptions->isEmpty())
             <div class="alert alert-info text-center shadow-sm">
-                <strong>No hay adopciones registradas.</strong>
+                <strong>No hay adopciones registradas para el refugio actual.</strong>
             </div>
         @else
             <!-- Mostrar adopciones -->
             @foreach($adoptions as $adoption)
                 <div class="notification mb-4 p-4 border rounded shadow-lg" style="background-color: rgba(255, 255, 255, 0.75);">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="text-dark">
-                            <i class="fas fa-paw text-primary"></i>
-                            Historial de Adopción
+                        <h5 class="text-success">
+                            <i class="fas fa-paw text-dark"></i>
+                            <strong>Historial de Adopción</strong>
                         </h5>
                     </div>
 
                     <p><strong>Fecha de Adopción:</strong> {{ $adoption->fecha_adopcion }}</p>
-                    <p><strong>Gato:</strong> <span class="text-primary">{{ $adoption->kitten->nombre }}</span></p>
-                    <p><strong>Usuario Adoptador:</strong> {{ $adoption->user->name }}</p>
+                    <p><strong>Mishi:</strong> <span class="text-primary"><strong>{{ $adoption->kitten->nombre }}</strong></span></p>
+                    <p><strong>Usuario Adoptador: <span class="text-danger"> {{ $adoption->user->name }}</strong></p>
 
                     <!-- Mostrar detalles de refugio solo si el usuario es un refugio -->
                     @if($shelter)

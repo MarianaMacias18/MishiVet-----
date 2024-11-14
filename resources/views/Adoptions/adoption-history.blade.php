@@ -18,7 +18,7 @@
 
     @if($adoptions->isEmpty())
         <div class="alert alert-info text-center shadow-sm">
-            <strong>No hay notificaciones en este momento.</strong>
+            <strong>No has adoptado a ningun mishi por el momento.</strong>
         </div>
     @else
         @foreach($adoptions as $adoption)
@@ -26,12 +26,12 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="text-dark">
                         <i class="fas fa-paw text-primary"></i>
-                        Historial de Adopción
+                        Historial de Adopción de <strong><span class="text-danger"> {{ $adoption->user->name }}</strong>
                     </h5>
                 </div>
 
                 <p><strong>Fecha de Adopción:</strong> {{ $adoption->fecha_adopcion }}</p>
-                <p><strong>Gato:</strong> <span class="text-primary">{{ $adoption->kitten->nombre }}</span></p>
+                <p><strong>Mishi:<span class="text-primary"> {{ $adoption->kitten->nombre }}</strong> </span></p>
                 <p><strong>Nombre del Refugio:</strong> {{ $adoption->shelter->nombre}}</p>
                 <p><strong>Ubicación de Refugio:</strong> {{ $adoption->shelter->direccion ?? 'Ubicación no disponible' }}</p>
                 
