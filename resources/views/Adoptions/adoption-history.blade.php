@@ -29,7 +29,6 @@
                         Historial de Adopción de <strong><span class="text-danger"> {{ $adoption->user->name }}</strong>
                     </h5>
                 </div>
-
                 <p><strong>Fecha de Adopción:</strong> {{ $adoption->fecha_adopcion }}</p>
                 <p><strong>Mishi:<span class="text-primary"> {{ $adoption->kitten->nombre }}</strong> </span></p>
                 <p><strong>Nombre del Refugio:</strong> {{ $adoption->shelter->nombre}}</p>
