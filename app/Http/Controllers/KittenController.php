@@ -51,7 +51,7 @@ class KittenController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {  
         $validatedData = $request->validate([
             'nombre' => ['required','string','max:255', Rule::unique('kittens')->whereNull('deleted_at'),],
             'raza' => 'required|string|max:255',

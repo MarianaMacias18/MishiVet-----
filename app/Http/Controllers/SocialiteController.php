@@ -44,6 +44,6 @@ class SocialiteController extends Controller
             Auth::login($user);
             session(['first_login' => true]);
 
-            return redirect()->route('dashboard.index');
+            return redirect()->route('dashboard.index')->with('success', '¡Has iniciado sesión exitosamente!');
         }
 }

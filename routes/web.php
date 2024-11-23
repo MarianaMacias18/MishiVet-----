@@ -51,7 +51,7 @@ Route::middleware(['auth','verified'])->group(function () {
     # ------------------------------------------------------------------------------------------------------------------------------
     # RUTAS DASHBOARD <-
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::get('/dashboard/detalles/{kitten}', [DashboardController::class, 'kitten'])->name('dashboard.kittens.show');
+    Route::get('/dashboard/detalles/{kitten}', [DashboardController::class, 'kitten'])->name('dashboard.kittens.show')->middleware('redirect.dashboard');
     
     // RUTA HISTORIAL DE ADOPCIONES <-
     Route::get('/dashboard/historial/adopciones', [AdoptionUserKittenController::class, 'indexAdoptador'])
@@ -62,7 +62,7 @@ Route::middleware(['auth','verified'])->group(function () {
     // RUTA GENERAR PDF <-
     Route::get('/generar-pdf/{kitten}', [DashboardController::class, 'generarPDF'])->name('doc.pdf');
     // RUTA GENERAR PAGO/DONACION <-
-    Route::get('/payment/{kitten}', [DashboardController::class,'generarDONACION'])->name('dashboard.donate');
+    Route::get('/payment/{kitten}', [DashboardController::class,'generarDONACION'])->name('dashboard.donate')->middleware('redirect.dashboard');
     Route::post('/pay/{shelter}', [DashboardController::class, 'pay'])->name('dashboard.pay');
     Route::get('/dashboard/donations', [DashboardController::class, 'donations'])->name('donations.index');
 

@@ -38,7 +38,7 @@ class NotificationController extends Controller
             
             // Obtiene al usuario solicitante
             $solicitudUsuario = $notificacion->usuarioSolicitante; // Obtén el usuario de la relación
-
+            
             // Crea un registro del Mishi Adoptado
             AdoptionUserKitten::create([
                 'fecha_adopcion' => now(),
@@ -53,7 +53,7 @@ class NotificationController extends Controller
             
             // Envia una nueva notificación al usuario solicitante con status "aceptada"
             Notification::create([
-                'notificable_id' => $solicitudUsuario->id,
+                'notificable_id' => $kitten->shelter->id, // ID del Shelter
                 'notificable_type' => 'App\Models\Shelter', //Notificacion creada como dueño de un Shelter
                 'fecha' => now(),
                 'estado_notificacion' => 'aceptada', 
@@ -92,7 +92,7 @@ class NotificationController extends Controller
             
             // Envia una nueva notificación al usuario solicitante con el status "rechazada"
             Notification::create([
-                'notificable_id' => $solicitudUsuario->id,
+                'notificable_id' => $kitten->shelter->id,
                 'notificable_type' => 'App\Models\Shelter', //Notificacion creada como dueño de un Shelter
                 'fecha' => now(),
                 'estado_notificacion' => 'rechazada', 

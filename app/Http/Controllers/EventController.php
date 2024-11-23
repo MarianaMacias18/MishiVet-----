@@ -40,17 +40,17 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
+        
         // Validar los campos
         $validatedData = $request->validate([
             'nombre' => ['required','string','max:255', Rule::unique('events')->whereNull('deleted_at'),],
             'fecha' => 'required|date|after:today', 
             'descripcion' => 'required|string', 
             'shelters' => 'required|array', 
-            'shelters.*' => 'exists:shelters,id', 
+            'shelters.*' => ['required', Rule::exists('shelters', 'id')->whereNull('deleted_at')],
             'ubicacion' => 'required|string|max:255', 
             'participantes' => 'required|integer|min:20',
         ]);
-
         // Crea el evento con el id_usuario_dueño del usuario autenticado
         $event = Event::create(array_merge($validatedData, [
             'id_usuario_dueño' => Auth::id(), // Asigna el ID del usuario autenticado
@@ -94,7 +94,7 @@ class EventController extends Controller
             'fecha' => 'required|date|after:today', 
             'descripcion' => 'required|string', 
             'shelters' => 'required|array', 
-            'shelters.*' => 'exists:shelters,id', 
+            'shelters.*' => ['required', Rule::exists('shelters', 'id')->whereNull('deleted_at')],
             'ubicacion' => 'required|string|max:255', 
             'participantes' => 'required|integer|min:20', 
         ]);

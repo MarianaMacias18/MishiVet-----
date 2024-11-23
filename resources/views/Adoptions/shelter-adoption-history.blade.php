@@ -5,7 +5,7 @@
 @section('title', 'Historial de Adopciones')
 
 @section('content')
-<div class="background-image" style="background-image: url('{{ asset('img/his4.jpg') }}');">
+<div class="background-image" style="background-image: url('{{ asset('img/background4.jpg') }}');">
     <div class="container mt-1">
         <h2 class="text-center mb-5 text-uppercase text-warning">
             Historial de Adopciones @if($shelter) para {{ $shelter->nombre }} @endif
@@ -31,11 +31,9 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="text-success">
                             <i class="fas fa-paw text-dark"></i>
-                            <strong>Historial de Adopción</strong>
+                            <strong>Fecha de Adopción: <span class="text-danger"> {{ $adoption->fecha_adopcion }}</strong>
                         </h5>
                     </div>
-
-                    <p><strong>Fecha de Adopción:</strong> {{ $adoption->fecha_adopcion }}</p>
                     <p><strong>Mishi:</strong> <span class="text-primary"><strong>{{ $adoption->kitten->nombre }}</strong></span></p>
                     <p><strong>Usuario Adoptador: <span class="text-danger"> {{ $adoption->user->name }}</strong></p>
 
