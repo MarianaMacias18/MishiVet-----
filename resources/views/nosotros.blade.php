@@ -53,7 +53,7 @@
                     <div class="card-body">
                         <i class="bx bxs-clinic bx-lg text-success"></i>
                         <h4 class="card-title mt-3">Ser Guardian</h4>
-                        <p class="card-text">Ser guardian de michis.</p>
+                        <p class="card-text">Ser guardian de michis te permite dar a conocer a tus felinos en busca de un hogar.</p>
                     </div>
                 </div>
             </div>
@@ -66,14 +66,41 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <i class="bx bx-history bx-lg text-dark"></i>
+                        <h4 class="card-title mt-3">Historial de Adopciones</h4>
+                        <p class="card-text">Contamos con un historial de adopciones para tus felinos salvaguardados.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <i class="bx bxs-calendar-event bx-lg text-dark"></i>
+                        <h4 class="card-title mt-3">Eventos</h4>
+                        <p class="card-text">MishiVet cuenta con eventos donde participan diversos refugios de felinos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <i class="bx bxs-donate-heart bx-lg text-danger"></i>
+                        <h4 class="card-title mt-3">Donaciones</h4>
+                        <p class="card-text">Apoyar a un mejor cuidado de los felinos en adopción es nuestra prioridad.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Sección de contacto -->
         <div class="bg-light p-5 rounded mt-5">
             <h3 class="fw-bold">Contacto</h3>
-            <p><i class="bx bx-phone"></i> Teléfono: 33-22-11-44-55</p>
-            <p><i class="bx bx-envelope"></i> Correo de contacto: mishivet@gmail.com</p>
-            <p><i class="bx bx-map"></i> Dirección: Calle de los Michis 123, Ciudad Gatuna</p>
+            <p><i class="bx bx-phone"></i> Teléfono: <strong><span class="text-success"> 33-22-11-44-55</strong></p>
+            <p><i class="bx bx-envelope"></i> Correo de contacto: <strong><span class="text-success">mishivet@gmail.com</p></strong>
+            <p><i class="bx bx-map"></i> Dirección: <span class="text-dark"><strong>Calle de los Michis 123, Ciudad Gatuna<strong></p>
         </div>
     </div>
 </div>
