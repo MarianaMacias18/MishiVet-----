@@ -86,14 +86,12 @@ class Sidebar extends Component
     // Obtiene el conteo de notificaciones aceptadas o rechazadas de guardianes (Dueños de Shelters)
     private function getGuardianNotificationCount()
     {
-        if (Auth::check() && Auth::user()->shelters->isNotEmpty()) {
-            // Obtiene los IDs de los refugios que tiene el usuario autenticado
-            $shelterIds = Auth::user()->shelters->pluck('id'); 
-
-            return Notification::where('notificable_type', Shelter::class)
-                ->whereIn('notificable_id', $shelterIds) // Filtra solo por refugios del usuario autenticado
-                ->whereIn('estado_notificacion', ['aceptada', 'rechazada']) // Filtrar por estado
-                ->count();
+        if (Auth::check()) {
+            $userId = Auth::id(); // Obtiene el ID del usuario autenticado
+    
+            return Notification::where('id_usuario_solicitante', $userId) // Filtra por el usuario solicitante
+                ->whereIn('estado_notificacion', ['aceptada', 'rechazada']) // Filtra por estado de notificación
+                ->count(); // Cuenta las notificaciones por aceptadas y rechazadas
         }
         return 0; 
     }

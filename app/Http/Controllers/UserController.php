@@ -137,9 +137,13 @@ class UserController extends Controller
             // Maneja la eliminación del avatar o img
             if ($request->has('delete_avatar') && $request->delete_avatar) {
                 // Elimina la imagen actual si existe
+                
                 if ($user->avatar && !filter_var($user->avatar, FILTER_VALIDATE_URL)) {
                     Storage::delete('public/avatars/' . $user->avatar);
                     $user->avatar = null;  // Eliminar referencia a la imagen en la base de datos
+                }
+                else if ($user->avatar){
+                    $user->avatar = null;  
                 }
             }
 

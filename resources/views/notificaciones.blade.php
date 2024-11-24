@@ -20,10 +20,11 @@
         @else
             <div id="notificationsContainer">
                 @foreach($notifications as $notification)
-                    <div class="card mb-4 notification border-0 shadow-sm" style="background-color: rgba(255, 255, 255, 0.75);">
+                    <div class="card mb-4 notification border-0 shadow-sm" style="background-color: rgba(255, 255, 255, 0.75);"
+                         data-fecha="{{ \Carbon\Carbon::parse($notification->created_at)->format('Y-m-d') }}">
                         <div class="card-body text-center p-4">
                             <h5 class="card-title text-uppercase font-weight-bold text-dark mb-2">Solicitud de adopción para: 
-                                <span class="text-primary">{{ $notification->kitten->nombre }}</span>
+                                <span class="text-primary"><strong>{{ $notification->kitten->nombre }}</strong></span>
                             </h5>
                             <h6 class="card-subtitle text-success mb-3"><strong>Refugio: {{ $notification->kitten->shelter->nombre }}</strong></h6>
 
@@ -37,15 +38,16 @@
                             </div>
 
                             <p class="card-text">
-                                <strong>Usuario solicitante:</strong> {{ $notification->usuarioSolicitante->name }}<br>
+                                <strong>Usuario quién solicita adoptar:   <span class="text-danger"> {{ $notification->usuarioSolicitante->name }}</strong><br>
+                                <strong>Características del Mishi</strong> <br>
                                 <strong>Raza:</strong> {{ $notification->kitten->raza }}<br>
                                 <strong>Edad:</strong> {{ $notification->kitten->edad }} años<br>
                                 <strong>Color:</strong> {{ $notification->kitten->color }}<br>
                                 <strong>Sexo:</strong> {{ $notification->kitten->sexo }}<br>
-                                <strong>Detalles del Mishi:</strong> {{ $notification->kitten->detalles }}<br>
+                                <strong>Detalles especiales:</strong> {{ $notification->kitten->detalles ?? 'Sin detalles' }}<br>
                                 <strong>Fecha de Notificación:</strong> {{ \Carbon\Carbon::parse($notification->created_at)->translatedFormat('d \d\e F \d\e Y') }}<br>
                             </p>
-
+                            
                             <!-- Botones de acción -->
                             <div class="mt-3">
                                 <!-- Formulario para aceptar la adopción -->

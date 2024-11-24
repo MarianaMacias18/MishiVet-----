@@ -49,7 +49,7 @@
                     <!-- Refugios Asociados -->
                     <div class="form-group">
                         <label for="shelters" class="form-label fw-semibold text-white"><strong>Refugios Asociados</strong></label>
-                        <select multiple class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('shelters') is-invalid border-warning @enderror" 
+                        <select multiple class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('shelters.*') is-invalid border-warning @enderror" 
                                 name="shelters[]" id="shelters">
                             @foreach($shelters as $shelter)
                                 <option value="{{ $shelter->id }}" 
@@ -59,7 +59,7 @@
                             @endforeach
                         </select>
                         <small class="form-text text-white">Nota: Puedes seleccionar a más de un refugio para participar en el evento.</small>
-                        @error('shelters')
+                        @error('shelters.*')
                             <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                         @enderror
                     </div>

@@ -102,7 +102,7 @@
                 <!-- Dueño del refugio -->
                 <div class="form-group">
                     <label for="owner" class="form-label text-white"><strong>Dueño</strong></label>
-                    <input type="text" class="form-control bg-light text-dark" value="{{ auth()->user()->name }}" readonly style="background-color: #dcdcdc; color: #000; border: 1px solid #aaa;">
+                    <input type="text" id="owner" class="form-control bg-light text-dark" value="{{ auth()->user()->name }}" readonly style="background-color: #dcdcdc; color: #000; border: 1px solid #aaa;">
                 </div>
 
             </x-edit-component>

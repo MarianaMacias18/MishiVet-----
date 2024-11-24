@@ -27,7 +27,7 @@
             </div>
         @endif
 
-        <h2 class="text-center mb-4 text-dark"><strong>Detalles del mishi <span class="text-danger">{{ $kitten->nombre }}</strong></span></h2>
+        <h2 class="text-center mb-4 text-white"><strong>Detalles del mishi <span class="text-white">{{ $kitten->nombre }}</strong></span></h2>
 
         <!-- Carrusel -->
         <div id="kittenDetailsCarousel" class="carousel slide" data-bs-ride="carousel">

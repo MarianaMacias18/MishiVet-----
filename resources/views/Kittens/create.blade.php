@@ -128,10 +128,10 @@
 
                 <!-- Imagen -->
                 <div class="form-group mb-3">
-                    <label for="imagen" class="form-label fw-semibold text-white"><strong>Subir imagen del Mishi</strong></label>
-                    <input type="file" name="imagen" id="imagen" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('imagen') is-invalid border-warning @enderror" accept="image/*" onchange="previewImage(event)">
+                    <label for="foto" class="form-label fw-semibold text-white"><strong>Subir imagen del Mishi</strong></label>
+                    <input type="file" name="foto" id="foto" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold" onchange="previewImage(event)">
                     <small class="form-text text-white">Nota: Puedes subir una foto del mishi para después.</small>
-                    @error('imagen')
+                    @error('foto')
                         <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>
                     @enderror
                 </div>

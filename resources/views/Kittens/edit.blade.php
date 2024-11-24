@@ -142,8 +142,8 @@
 
             <!-- Campo para subir una nueva imagen del mishi -->
             <div class="mb-3">
-                <label for="imagen" class="form-label fw-semibold text-white"><strong>Subir imagen del Mishi</strong></label>
-                <input type="file" id="foto" name="foto" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('imagen') is-invalid border-warning @enderror" onchange="previewImage(event)">
+                <label for="foto" class="form-label fw-semibold text-white"><strong>Subir imagen del Mishi</strong></label>
+                <input type="file" id="foto" name="foto" class="form-control bg-white text-dark opacity-75 border-dark rounded-3 shadow-sm fw-bold @error('foto') is-invalid border-warning @enderror" onchange="previewImage(event)">
                 <small class="form-text text-white">Sube una imagen en formato JPG, JPEG o PNG. Tamaño máximo: 2MB.</small>
                 @error('foto')
                     <div class="invalid-feedback text-warning fw-bold">{{ $message }}</div>

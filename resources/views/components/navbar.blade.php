@@ -149,7 +149,7 @@
            @if (request()->routeIs('dashboard.notificaciones'))
                 <div class="ms-3 filter-container">
                     <label for="filterDate" class="filter-text mb-0">Filtrar por Fecha</label>
-                    <input type="date" id="filterDate" class="form-control" onchange="filterByDate()">
+                    <input type="date" id="filterDate" class="form-control" onchange="filtrarNotificaciones()">
                 </div>
             @endif
         </div>
@@ -259,17 +259,21 @@
     
     
     function filtrarNotificaciones() {
-        const fechaSeleccionada = document.getElementById('filterDate').value; // Obtiene la fecha seleccionada
-        const notificaciones = document.querySelectorAll('.notification-card'); // Cambia esto según la clase de tus tarjetas de notificación
-    
+        const fechaSeleccionada = document.getElementById('filterDate').value; // Captura la fecha seleccionada en formato AAAA-MM-DD
+        console.log('Fecha seleccionada:', fechaSeleccionada);
+        
+        const notificaciones = document.querySelectorAll('.notification'); // Selecciona todas las notificaciones
+        
         notificaciones.forEach(notificacion => {
-            const fechaNotificacion = notificacion.querySelector('.notification-date').getAttribute('data-fecha'); // Asegúrate de que esto coincida con el atributo que almacena la fecha
-    
-            if (fechaSeleccionada === '' || fechaNotificacion.startsWith(fechaSeleccionada)) {
-                notificacion.style.display = 'block'; // Muestra la notificación si coincide
+            const fechaNotificacion = notificacion.getAttribute('data-fecha'); // Obtiene la fecha del atributo data-fecha
+            console.log('Fecha notificacion:', fechaNotificacion);
+            // Muestra si la fecha coincide, si la fechaSeleccionada se "borra" muestra todas las notificaciones que hay <- 
+            if (fechaSeleccionada === fechaNotificacion || fechaSeleccionada === "") {
+                notificacion.style.display = 'block'; // Muestra la notificación
             } else {
-                notificacion.style.display = 'none'; // Oculta la notificación si no coincide
+                notificacion.style.display = 'none'; // Oculta la notificación
             }
         });
     }
+    
 </script>
