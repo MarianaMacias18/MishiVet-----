@@ -20,7 +20,8 @@
         @else
             <div id="notificationsContainer">
                 @foreach($notifications as $notification)
-                    <div class="card mb-4 notification border-0 shadow-sm" style="background-color: rgba(255, 255, 255, 0.75);">
+                    <div class="card mb-4 notification border-0 shadow-sm" style="background-color: rgba(255, 255, 255, 0.75);"
+                         data-fecha="{{ \Carbon\Carbon::parse($notification->created_at)->format('Y-m-d') }}">
                         <div class="card-body text-center p-4">
                             <h5 class="card-title text-uppercase font-weight-bold text-dark mb-2">Solicitud de adopción para: 
                                 <span class="text-primary"><strong>{{ $notification->kitten->nombre }}</strong></span>
@@ -46,7 +47,7 @@
                                 <strong>Detalles especiales:</strong> {{ $notification->kitten->detalles ?? 'Sin detalles' }}<br>
                                 <strong>Fecha de Notificación:</strong> {{ \Carbon\Carbon::parse($notification->created_at)->translatedFormat('d \d\e F \d\e Y') }}<br>
                             </p>
-
+                            
                             <!-- Botones de acción -->
                             <div class="mt-3">
                                 <!-- Formulario para aceptar la adopción -->

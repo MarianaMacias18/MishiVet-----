@@ -32,7 +32,7 @@
                 </div>
                 
                 <p><strong>Gato: <span class="text-primary">{{ $notificacion->kitten->nombre }}</span></p></strong> 
-                <p><strong>Fecha de adopción:</strong> {{ $notificacion->fecha->format('d/m/Y H:i') }}</p>
+                <p><strong>Fecha de notificación de Adopción:</strong> {{ $notificacion->fecha->format('d/m/Y H:i') }}</p>
                 <p><strong>Notificación recibida del Refugio:</strong> {{ $notificacion->kitten->shelter->nombre}}</p>
                 <p><strong>Ubicación:</strong> {{ $notificacion->kitten->shelter->direccion ?? 'Ubicación no disponible' }}</p>
                 <p><strong>Contacto:</strong> {{ $notificacion->kitten->shelter->telefono ?? 'Teléfono no disponible' }}</p>
