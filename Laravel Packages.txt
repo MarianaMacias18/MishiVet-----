@@ -1,0 +1,11 @@
+Proyect init:
+
+Composer install
+cp .env.example .env
+php artisan key.generate
+database name = mishivet <- on .env
+php artisan migrate
+
+PDF document <- composer require barryvdh/laravel-dompdf
+GitHub Log In <- composer require laravel/socialite
+Stripe & Donations <- composer require stripe/stripe-php
